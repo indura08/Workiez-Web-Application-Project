@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -54,7 +54,6 @@ public class UserController {
             existingUser.setPhone(user.getPhone());
             existingUser.setDistrict(user.getDistrict());
             existingUser.setProvince(user.getProvince());
-            existingUser.setNotifications(user.getNotifications());
 
             userRepository.save(existingUser);
             return ResponseEntity.status(HttpStatus.OK).body("user saved");

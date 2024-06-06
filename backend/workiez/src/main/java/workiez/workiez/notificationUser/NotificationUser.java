@@ -1,4 +1,4 @@
-package workiez.workiez.notification;
+package workiez.workiez.notificationUser;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,18 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import workiez.workiez.user.User;
-import workiez.workiez.worker.Worker;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Builder
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class Notification {
+public class NotificationUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

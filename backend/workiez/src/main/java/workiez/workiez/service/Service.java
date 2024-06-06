@@ -27,5 +27,6 @@ public class Service {
     private String priceRange;
 
     @ManyToMany(mappedBy = "services")
+    @Column(nullable = true)
     private List<Worker> workers;
 }

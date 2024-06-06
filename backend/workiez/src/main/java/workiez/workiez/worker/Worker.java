@@ -9,6 +9,7 @@ import workiez.workiez.service.Service;
 import workiez.workiez.user.District;
 import workiez.workiez.user.Gender;
 import workiez.workiez.user.Province;
+import workiez.workiez.user.Role;
 
 import java.util.List;
 
@@ -42,9 +43,6 @@ public class Worker {
 
     private String phone;
 
-    @Enumerated(EnumType.STRING)
-    private Rating rating;
-
     @ManyToMany    //this is the owner side , which means many to many relationship between worker and service is own by worker
     @JoinTable(
             name = "worker_service",
@@ -57,5 +55,7 @@ public class Worker {
 
     private String experienceDescription;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }

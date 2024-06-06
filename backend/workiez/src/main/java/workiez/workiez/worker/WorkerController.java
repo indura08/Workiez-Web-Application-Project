@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.service.Service;
+import workiez.workiez.service.ServiceRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,7 @@ public class WorkerController {
 
     @Autowired
     private WorkerRepository workerRepository;
+    private ServiceRepository serviceRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<Worker>> getAllWokers(){
@@ -36,9 +39,20 @@ public class WorkerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createNewWorker(@RequestBody Worker worker){
-        Worker worker1 = workerRepository.save(worker);
-        return ResponseEntity.status(HttpStatus.OK).body("worker saved");
+    public ResponseEntity<Worker> createNewWorker(@RequestBody Worker worker){
+        Worker savedworker = workerRepository.save(worker);
+
+        if(worker.getServices() != null){
+            for(Service service : worker.getServices()){
+                Optional<Service> currentService = serviceRepository.findById(service.getServiceId());
+                if(currentService.isPresent()){
+                    Service exisitingService = currentService.get();
+                    exisitingService.getWorkers().add(savedworker);
+                    serviceRepository.save(exisitingService);
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedworker);
     }
 
     @PutMapping("/update/{id}")
@@ -60,7 +74,6 @@ public class WorkerController {
             existingWorker.setServices(worker.getServices());
             existingWorker.setAvailability(worker.getAvailability());
             existingWorker.setExperienceDescription(worker.getExperienceDescription());
-            existingWorker.setRating(worker.getRating());
 
             workerRepository.save(existingWorker);
             return ResponseEntity.status(HttpStatus.OK).body("worker saved");
