@@ -22,13 +22,13 @@ public class ServiceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getServiceById(@PathVariable Long id){
+    public ResponseEntity<Service> getServiceById(@PathVariable Long id){
         Optional<Service> service = serviceRepository.findById(id);
         if(service.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(service.get().getDescription());
+            return ResponseEntity.status(HttpStatus.OK).body(service.get());
         }
         else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("service not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 

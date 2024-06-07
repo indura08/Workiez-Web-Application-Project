@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.job.Job;
+import workiez.workiez.job.JobRepository;
+import workiez.workiez.worker.Worker;
+import workiez.workiez.worker.WorkerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +17,30 @@ import java.util.Optional;
 public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
+    @Autowired
+    private WorkerRepository workerRepository;
+    @Autowired
+    private JobRepository jobRepository;
 
     @PostMapping("/create")
     public ResponseEntity<Application> createApplication(@RequestBody Application application){
-        Application application1 = applicationRepository.save(application);
-        return new ResponseEntity<>(application1, HttpStatus.CREATED);
+        Application newApplication = applicationRepository.save(application);
+
+        Optional<Worker> worker = workerRepository.findById(application.getWorker().getWorkerId());
+        if(worker.isPresent()){
+            Worker newWorker = worker.get();
+            newApplication.setWorker(newWorker);
+        }
+
+        Optional<Job> job = jobRepository.findById(application.getJob().getJobId());
+        if(job.isPresent()){
+            Job newJob = job.get();
+            newApplication.setJob(newJob);
+        }
+
+        applicationRepository.save(newApplication);
+
+        return new ResponseEntity<>(newApplication, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
@@ -29,8 +52,8 @@ public class ApplicationController {
             existingApplication.setApplicationName(application.getApplicationName());
             existingApplication.setApplicationStatus(application.getApplicationStatus());
             existingApplication.setApplicationDateAndTime(application.getApplicationDateAndTime());
-            existingApplication.setJobId(application.getJobId());
-            existingApplication.setWorkerId(application.getWorkerId());
+            existingApplication.setJob(application.getJob());
+            existingApplication.setWorker(application.getWorker());
 
             applicationRepository.save(existingApplication);
 

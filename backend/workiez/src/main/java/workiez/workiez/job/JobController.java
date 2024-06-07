@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.user.User;
+import workiez.workiez.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,8 @@ public class JobController {
 
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<Job>> getAllJobs(){
@@ -38,6 +42,13 @@ public class JobController {
     @PostMapping("/create")
     public ResponseEntity<String> createNewJob(@RequestBody Job job){
         Job job1 = jobRepository.save(job);
+
+        Optional<User> user = userRepository.findById(job.getUser().getUserId());
+        if(user.isPresent()){
+            User newUser = user.get();
+            job1.setUser(newUser);
+            jobRepository.save(job1);
+        }
         return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + job1);
     }
 

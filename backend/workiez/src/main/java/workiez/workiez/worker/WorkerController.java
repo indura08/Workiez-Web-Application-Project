@@ -19,6 +19,7 @@ public class WorkerController {
 
     @Autowired
     private WorkerRepository workerRepository;
+    @Autowired
     private ServiceRepository serviceRepository;
 
     @GetMapping("/all")

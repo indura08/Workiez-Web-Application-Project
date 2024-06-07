@@ -23,11 +23,11 @@ public class Application {
 
     @OneToOne
     @JoinColumn(name = "workerId")
-    private Worker workerId;
+    private Worker worker;
 
     @OneToOne
     @JoinColumn(name = "jobId")
-    private Job jobId;
+    private Job job;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
@@ -36,4 +36,4 @@ public class Application {
 
 }
 
-//meke idla ptn gnna controllers tika hdgnna
+

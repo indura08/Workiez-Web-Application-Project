@@ -1,9 +1,12 @@
 package workiez.workiez.notificationUser;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.user.User;
+import workiez.workiez.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +17,8 @@ public class NotificationController {
 
     @Autowired
     private NotificationRepository notificationRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<NotificationUser>> getAllNotifications(){
@@ -31,11 +36,26 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("notification not found");
         }
     }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<NotificationUser>> findNotificationByUser(@RequestBody User user){
+        Optional<User> user1 = userRepository.findById(user.getUserId());
+        if(user1.isPresent()){
+            return ResponseEntity.status(HttpStatus.FOUND).body(notificationRepository.findAllByUser(user1.get()));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createNewNotification(@RequestBody NotificationUser notification){
-        NotificationUser notification1 = notificationRepository.save(notification);
-        return ResponseEntity.status(HttpStatus.OK).body("Notification saved");
+    public ResponseEntity<NotificationUser> createNewNotification(@RequestBody NotificationUser notification){
+        NotificationUser newNotification = notificationRepository.save(notification);
+
+        Optional<User> user =  userRepository.findById(notification.getUser().getUserId());
+        if(user.isPresent()){
+            User newUser = user.get();
+            newNotification.setUser(newUser);
+            notificationRepository.save(newNotification);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(newNotification);
     }
 
     @PutMapping("/update/{id}")
