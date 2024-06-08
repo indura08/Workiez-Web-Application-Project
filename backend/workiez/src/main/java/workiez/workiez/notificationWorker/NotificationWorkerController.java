@@ -39,6 +39,18 @@ public class NotificationWorkerController {
 
     }
 
+    @GetMapping("/worker/{id}")
+    public ResponseEntity<List<NotificationWorker>> getNotificationsByWorker(@PathVariable Long id){
+        Optional<Worker> worker = workerRepository.findById(id);
+        if(worker.isPresent()){
+            List<NotificationWorker> workerNotification = notificationWorkerRepository.findAllByWorker(worker.get());
+            return ResponseEntity.status(HttpStatus.FOUND).body(workerNotification);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<String> createNewNotification(@RequestBody NotificationWorker notificationWorker){
         NotificationWorker newNotification = notificationWorkerRepository.save(notificationWorker);
@@ -55,13 +67,13 @@ public class NotificationWorkerController {
 
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateNotification(@RequestBody NotificationWorker notification, @PathVariable Long id){
         Optional<NotificationWorker> exsistingNotification = notificationWorkerRepository.findById(id);
         if(exsistingNotification.isPresent()){
             NotificationWorker updatedNotification = exsistingNotification.get();
 
-            updatedNotification.setDesccription(notification.getDesccription());
+            updatedNotification.setDescription(notification.getDescription());
             updatedNotification.setDate(notification.getDate());
             updatedNotification.setTime(notification.getTime());
 

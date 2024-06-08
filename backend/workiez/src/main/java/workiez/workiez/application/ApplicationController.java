@@ -1,5 +1,6 @@
 package workiez.workiez.application;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,6 +100,20 @@ public class ApplicationController {
 
         //me uda if else ekam mehm krnnath puluwan
         //return foundApplication.map(application -> ResponseEntity.status(HttpStatus.FOUND).body("application: " + application)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("application not found with id : " + id));
+
+    }
+
+    @GetMapping("/worker/{id}")
+    public ResponseEntity<List<Application>> getApplicationByWorker(@PathVariable Long id){
+        Optional<Worker> existingWorker = workerRepository.findById(id);
+        if(existingWorker.isPresent()){
+            Worker worker = existingWorker.get();
+            List<Application> workerApplications = applicationRepository.findAllByWorker(worker);
+            return ResponseEntity.status(HttpStatus.FOUND).body(workerApplications);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
     }
 }

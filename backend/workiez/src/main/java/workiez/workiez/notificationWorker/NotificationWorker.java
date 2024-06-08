@@ -1,10 +1,7 @@
 package workiez.workiez.notificationWorker;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import workiez.workiez.worker.Worker;
 
 import java.time.LocalDate;
@@ -21,10 +18,11 @@ public class NotificationWorker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notificationWorkerId;
 
-    private String desccription;
+    private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)  //added this to avoid circular outputs on postman, test those things after the project
     @JoinColumn(name = "workerId" , nullable = false)
+    @ToString.Exclude
     private Worker worker;
 
     private LocalDate date;

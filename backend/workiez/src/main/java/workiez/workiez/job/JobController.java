@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.user.District;
 import workiez.workiez.user.User;
 import workiez.workiez.user.UserRepository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +52,29 @@ public class JobController {
             jobRepository.save(job1);
         }
         return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + job1);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Job>> getJobsByUser(@PathVariable Long id){
+        Optional<User> existingUser = userRepository.findById(id);
+        if(existingUser.isPresent()){
+            List<Job> userJobs = jobRepository.findAllByUser(existingUser.get());
+            return ResponseEntity.status(HttpStatus.FOUND).body(userJobs);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/location/{district}")
+    public ResponseEntity<List<Job>> findAllByDistrict(@PathVariable District district){
+        List<Job> jobsBydistrict = jobRepository.findAllByLocationDistrict(district);
+        if(!jobsBydistrict.isEmpty()){
+            return ResponseEntity.status(HttpStatus.FOUND).body(jobsBydistrict);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PutMapping("/update/{id}")

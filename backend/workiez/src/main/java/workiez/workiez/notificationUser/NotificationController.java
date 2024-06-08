@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/notification")
+@RequestMapping("/api/notificationUser")
 public class NotificationController {
 
     @Autowired
@@ -37,8 +37,8 @@ public class NotificationController {
         }
     }
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<NotificationUser>> findNotificationByUser(@RequestBody User user){
-        Optional<User> user1 = userRepository.findById(user.getUserId());
+    public ResponseEntity<List<NotificationUser>> findNotificationByUser(@PathVariable Long id){
+        Optional<User> user1 = userRepository.findById(id);
         if(user1.isPresent()){
             return ResponseEntity.status(HttpStatus.FOUND).body(notificationRepository.findAllByUser(user1.get()));
         }
