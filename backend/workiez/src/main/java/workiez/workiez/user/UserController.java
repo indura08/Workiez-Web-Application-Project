@@ -32,11 +32,11 @@ public class UserController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createNewuser(@RequestBody User user){
-        User user1 = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.OK).body("user saved");
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<String> createNewuser(@RequestBody User user){
+//        User user1 = userRepository.save(user);
+//        return ResponseEntity.status(HttpStatus.OK).body("user saved");
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@RequestBody User user, @PathVariable Long id){

@@ -1,10 +1,7 @@
 package workiez.workiez.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +26,7 @@ public class User implements UserDetails {
     private String username;
 
     private String email;
+    @Getter
     private String password;
 
     @Enumerated(EnumType.STRING) //note: The EnumType.STRING argument indicates that the enum value should be stored as a string in the database.
@@ -50,10 +48,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    public String getPassword(){
-        return password;
     }
 
     public String getUsername() {

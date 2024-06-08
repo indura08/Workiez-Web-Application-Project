@@ -39,22 +39,22 @@ public class WorkerController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Worker> createNewWorker(@RequestBody Worker worker){
-        Worker savedworker = workerRepository.save(worker);
-
-        if(worker.getServices() != null){
-            for(Service service : worker.getServices()){
-                Optional<Service> currentService = serviceRepository.findById(service.getServiceId());
-                if(currentService.isPresent()){
-                    Service exisitingService = currentService.get();
-                    exisitingService.getWorkers().add(savedworker);
-                    serviceRepository.save(exisitingService);
-                }
-            }
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedworker);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<Worker> createNewWorker(@RequestBody Worker worker){
+//        Worker savedworker = workerRepository.save(worker);
+//
+//        if(worker.getServices() != null){
+//            for(Service service : worker.getServices()){
+//                Optional<Service> currentService = serviceRepository.findById(service.getServiceId());
+//                if(currentService.isPresent()){
+//                    Service exisitingService = currentService.get();
+//                    exisitingService.getWorkers().add(savedworker);
+//                    serviceRepository.save(exisitingService);
+//                }
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.CREATED).body(savedworker);
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateWorker(@RequestBody Worker worker, @PathVariable Long id){
