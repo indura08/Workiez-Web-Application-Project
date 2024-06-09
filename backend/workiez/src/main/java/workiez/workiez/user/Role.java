@@ -1,5 +1,5 @@
 package workiez.workiez.user;
 
 public enum Role {
-    USER, ADMIN, WORKER
+    ROLE_USER, ROLE_ADMIN, ROLE_WORKER
 }

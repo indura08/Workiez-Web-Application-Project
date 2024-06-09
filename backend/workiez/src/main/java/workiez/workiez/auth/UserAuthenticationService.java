@@ -23,9 +23,9 @@ public class UserAuthenticationService {
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail())
-                .password(user.getPassword())
-                .username(passwordEncoder.encode(user.getUsername()))
-                .role(Role.USER)
+                .password(passwordEncoder.encode(user.getPassword()))
+                .username(user.getUsername())
+                .role(Role.ROLE_USER)
                 .gender(user.getGender())
                 .phone(user.getPhone())
                 .district(user.getDistrict())
@@ -44,6 +44,7 @@ public class UserAuthenticationService {
         );
 
         var authenticatedUser = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+
         var jwtToken = jwtService.generateToken(authenticatedUser);
 
         return AuthenticationResponse.builder().token(jwtToken).build();

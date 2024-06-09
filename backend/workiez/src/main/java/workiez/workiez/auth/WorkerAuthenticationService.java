@@ -32,7 +32,7 @@ public class WorkerAuthenticationService {
                 .username(worker.getUsername())
                 .email(worker.getEmail())
                 .password(passwordEncoder.encode(worker.getPassword()))
-                .role(Role.WORKER)
+                .role(Role.ROLE_WORKER)
                 .baseDistrict(worker.getBaseDistrict())
                 .baseProvince(worker.getBaseProvince())
                 .baseCity(worker.getBaseCity())

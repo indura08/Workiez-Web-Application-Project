@@ -23,15 +23,14 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/users/**" , "/api/job/**").hasRole("USER")
                                 .requestMatchers("/api/worker/**" , "/api/application/**" , "/api/job/**").hasRole("WORKER")
                                 .requestMatchers("/api/service/**").hasRole("ADMIN")
-                                .requestMatchers("/api/auth/**").permitAll()
-                                .anyRequest()
-                                .authenticated()
+                                .anyRequest().authenticated()
                 )
-                .sessionManagement(sessionMangement ->
-                        sessionMangement
+                .sessionManagement(sessionManagement ->
+                        sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider)
