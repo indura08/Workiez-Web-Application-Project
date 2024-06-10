@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,9 +25,14 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/users/**" , "/api/job/**").hasRole("USER")
-                                .requestMatchers("/api/worker/**" , "/api/application/**" , "/api/job/**").hasRole("WORKER")
-                                .requestMatchers("/api/service/**").hasRole("ADMIN")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/users/**")).hasRole("USER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/job/**")).hasRole("USER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/notificationUser/**")).hasRole("USER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/worker/**")).hasRole("WORKER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/notificationWorker/**")).hasRole("WORKER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/application/**")).hasRole("WORKER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/job/**")).hasRole("WORKER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/service/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
