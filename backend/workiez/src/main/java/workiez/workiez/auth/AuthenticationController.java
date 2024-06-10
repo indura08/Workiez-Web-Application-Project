@@ -43,7 +43,7 @@ public class AuthenticationController {
 
     @PostMapping("/login/worker")
     public ResponseEntity<AuthenticationResponse> workerLogin(@RequestBody LoginRequest loginRequest){
-        AuthenticationResponse token = workerAuthenticationService.wokerAuthenticate(loginRequest);
+        AuthenticationResponse token = workerAuthenticationService.workerAuthenticate(loginRequest);
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
