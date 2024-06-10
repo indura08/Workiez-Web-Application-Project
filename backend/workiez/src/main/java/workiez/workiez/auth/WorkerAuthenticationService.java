@@ -1,6 +1,7 @@
 package workiez.workiez.auth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
+@Slf4j
 public class WorkerAuthenticationService {
     @Autowired
     private WorkerRepository workerRepository;
@@ -59,16 +61,21 @@ public class WorkerAuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
-    public AuthenticationResponse wokerAuthenticate(LoginRequest loginRequest){
-        authenitcationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )
-        );
+    public AuthenticationResponse workerAuthenticate(LoginRequest loginRequest){
+        try {
+            authenitcationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getEmail(),
+                            loginRequest.getPassword()
+                    )
+            );
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            throw new RuntimeException("Authentication failed speaking the worker auth class");
+        }
         var authenticatedWorker = workerRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(authenticatedWorker);
-
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 

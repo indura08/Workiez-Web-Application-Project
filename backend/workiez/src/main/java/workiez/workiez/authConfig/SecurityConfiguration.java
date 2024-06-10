@@ -26,14 +26,15 @@ public class SecurityConfiguration {
                         authorizeRequests
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/users/**")).hasRole("USER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/job/**")).hasRole("USER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/notificationUser/**")).hasRole("USER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/job/**")).hasRole("USER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/notificationUser/**")).hasRole("USER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/worker/**")).hasRole("WORKER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/notificationWorker/**")).hasRole("WORKER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("api/application/**")).hasRole("WORKER")
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/application/**")).hasRole("WORKER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/job/**")).hasRole("WORKER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api/service/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
+                        //methna wena krla blnna learning coide eke widiyt
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement

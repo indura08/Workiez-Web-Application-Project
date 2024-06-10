@@ -12,17 +12,32 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import workiez.workiez.user.UserRepository;
+import workiez.workiez.worker.WorkerRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final WorkerRepository workerRepository;
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> repository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(("User not found please try again!")));
+        return username -> {
+            var foundUser = userRepository.findByEmail(username);
+            if(foundUser.isPresent()){
+                return foundUser.get();
+            }
+            else {
+                var foundWorker = workerRepository.findByEmail(username);
+                if(foundWorker.isPresent()){
+                    return foundWorker.get();
+                }
+                return null;
+            }
+        };
+//        return username -> userRepository.findByEmail(username)
+//                .orElseThrow(() -> new UsernameNotFoundException(("User not found please try again!")));
     }
 
     @Bean
