@@ -21,11 +21,11 @@ public class NotificationWorkerController {
     @Autowired
     private WorkerRepository workerRepository;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<NotificationWorker>> getAllNotifications(){
-        List<NotificationWorker> notifications = notificationWorkerRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(notifications);
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<List<NotificationWorker>> getAllNotifications(){
+//        List<NotificationWorker> notifications = notificationWorkerRepository.findAll();
+//        return ResponseEntity.status(HttpStatus.OK).body(notifications);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<NotificationWorker> getNotificationById(@PathVariable Long id){
