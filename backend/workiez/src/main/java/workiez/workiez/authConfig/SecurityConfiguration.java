@@ -25,16 +25,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/users/**")).hasRole("USER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/job/**")).hasRole("USER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/notificationUser/**")).hasRole("USER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/worker/**")).hasRole("WORKER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/notificationWorker/**")).hasRole("WORKER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/application/**")).hasRole("WORKER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/job/**")).hasRole("WORKER")
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api/service/**")).hasRole("ADMIN")
+                                .requestMatchers("/api/worker/**" , "/api/notificationWorker/**" , "/api/application/**").hasRole("WORKER")
+                                .requestMatchers("/api/users/**", "/api/notificationUser/**").hasRole("USER")
+                                .requestMatchers("/api/service/**" , "/api/admin/**" ).hasRole("ADMIN")
                                 .anyRequest().authenticated()
-                        //methna wena krla blnna learning coide eke widiyt
+                        //Reminder - .requestMatchers(AntPathRequestMatcher.anyMatcher("/url/path")).hasRole("user") mehemath yanna puluwan , namuth ehma giyam role based uraccess kiyna concept eka hariyt unenha e ai kiyla project eka iwar wela blnna ethkot habai url godak eka paara denna bha eain eka denna one
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement

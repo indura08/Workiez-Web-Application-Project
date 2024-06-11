@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import workiez.workiez.admin.AdminRepository;
 import workiez.workiez.user.UserRepository;
 import workiez.workiez.worker.WorkerRepository;
 
@@ -20,21 +21,36 @@ public class ApplicationConfig {
 
     private final UserRepository userRepository;
     private final WorkerRepository workerRepository;
+    private final AdminRepository adminRepository;
 
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
             var foundUser = userRepository.findByEmail(username);
-            if(foundUser.isPresent()){
+            var foundWorker = workerRepository.findByEmail(username);
+            var foundAdmin = adminRepository.findByEmail(username);
+            if(foundUser.isPresent() && foundWorker.isEmpty() && foundAdmin.isEmpty()){
                 return foundUser.get();
             }
+            else if (foundWorker.isPresent() && foundUser.isEmpty() && foundAdmin.isEmpty()){
+                return foundWorker.get();
+            }
+            else if(foundAdmin.isPresent() && foundUser.isEmpty() && foundWorker.isEmpty()) {
+                return foundAdmin.get();
+            }
             else {
-                var foundWorker = workerRepository.findByEmail(username);
-                if(foundWorker.isPresent()){
-                    return foundWorker.get();
-                }
                 return null;
             }
+//            if(foundUser.isPresent()){
+//                return foundUser.get();
+//            }
+//            else {
+//                var foundWorker = workerRepository.findByEmail(username);
+//                if(foundWorker.isPresent()){
+//                    return foundWorker.get();
+//                }
+//                return null;
+//            }
         };
 //        return username -> userRepository.findByEmail(username)
 //                .orElseThrow(() -> new UsernameNotFoundException(("User not found please try again!")));

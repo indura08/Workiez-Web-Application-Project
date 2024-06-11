@@ -12,18 +12,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/notificationUser")
-public class NotificationController {
+public class NotificationUserController {
 
     @Autowired
     private NotificationUserRepository notificationRepository;
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<NotificationUser>> getAllNotifications(){
-        List<NotificationUser> notifications = notificationRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(notifications);
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<List<NotificationUser>> getAllNotifications(){
+//        List<NotificationUser> notifications = notificationRepository.findAll();
+//        return ResponseEntity.status(HttpStatus.OK).body(notifications);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getNotificationById(@PathVariable Long id){
