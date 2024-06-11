@@ -1,6 +1,5 @@
 package workiez.workiez.notificationUser;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class NotificationController {
 
     @Autowired
-    private NotificationRepository notificationRepository;
+    private NotificationUserRepository notificationRepository;
     @Autowired
     private UserRepository userRepository;
 

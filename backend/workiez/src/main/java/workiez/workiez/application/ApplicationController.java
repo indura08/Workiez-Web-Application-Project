@@ -77,16 +77,16 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<String> getAllApplications(){
-        List<Application> applications = applicationRepository.findAll();
-        if(!applications.isEmpty()){
-         return ResponseEntity.status(HttpStatus.FOUND).body("all applications : " + applications);
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.OK).body("There is no applications currently available on database.");
-        }
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<String> getAllApplications(){
+//        List<Application> applications = applicationRepository.findAll();
+//        if(!applications.isEmpty()){
+//         return ResponseEntity.status(HttpStatus.FOUND).body("all applications : " + applications);
+//        }
+//        else {
+//            return ResponseEntity.status(HttpStatus.OK).body("There is no applications currently available on database.");
+//        }
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getApplicationById(@PathVariable Long id){
