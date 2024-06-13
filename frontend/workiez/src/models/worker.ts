@@ -5,6 +5,7 @@ import { Role } from "./Enums/RoleEnum";
 import { Service } from "./service";
 
 export interface Worker{
+    
     workerId: number,
     firstname:string,
     lastname:string,
@@ -16,10 +17,9 @@ export interface Worker{
     baseCity: string,
     gender: Gender,
     phone : string,
-    services: Service[]
+    services: Service[],
     availability: boolean,
     experienceDescription:string,
     role:Role,
-    
-    
+
 }
