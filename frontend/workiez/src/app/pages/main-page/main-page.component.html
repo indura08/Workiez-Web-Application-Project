@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <style>
     .div-border-control{
         word-wrap: break-word;
@@ -38,6 +40,30 @@
       background-color: #49ac49; 
       margin-right:30px;
       margin-left: 30px; 
+    }
+
+    .Register-today-btn{
+        border-width: 2px;
+    }
+
+    .Register-today-btn:hover{
+        border-width: 2px;
+        background-color: white ;
+        color: #49ac49;
+        transition: 0.2s ease-in-out;
+    }
+
+    .image-margin{
+        margin-left: 130px;
+    }
+
+    .vertical-line{
+        border-left-width: 2px;
+        border-left-color: #49ac49;
+    }
+
+    .h4-margin{
+        margin-left:460px;
     }
 
 /* 
@@ -141,23 +167,94 @@
 
 </div>
 
-<div class="d-flex bg-image container-fluid border border-2 border-dark mt-3">
-    <div class="border border-2 border-dark w-50 my-auto mx-2 mt-3">
-        <h1 class="mx-4 mt-5 mb-5">Why Workiez?</h1>
+<div class="d-flex bg-image container-fluid mt-3">
+    <div class="w-50 my-auto mx-2 mt-5">
+        <h1 class="mx-4 mt-5"><span class="text-warning">Why</span> Workiez?</h1>
+        <img src="assets/ureg5.jpg" class="image-fluid w-25 position image-margin">
     </div>
 
-    <div class="border border-2 border-dark w-50 my-auto mx-2 mt-3">
-        <ul>
-            <li>Our Platform covers any type of service.</li>
-            <li>Navigate through our features with ease, thanks to our intuitive and user-friendly design.</li>
-            <li>Our team of experts is always ready to assist you, ensuring you make the most out of our services.</li>
-            <li>Join a thriving community of like-minded professionals who share insights, resources, and opportunities.</li>
-
-            <div>
-                <button class="btn btn-primary">Get started Today!</button>
+    <div class="w-50 my-auto mx-2 mt-5 py-3 px-3">
+            <div class="d-flex my-auto mb-3">
+                <span class="material-symbols-outlined mx-2">verified</span>
+                <span>Platform covers any type of service.</span><br>
             </div>
-        </ul>
+
+            <div class="d-flex my-auto mb-3">
+                <span class="material-symbols-outlined mx-2">verified</span>
+                <span>Navigate through our features with ease, thanks to our intuitive and user-friendly design.</span><br>
+            </div>
+
+            <div class="d-flex my-auto mb-3">
+                <span class="material-symbols-outlined mx-2">verified</span>
+                <span>Our team of experts is always ready to assist you, ensuring you make the most out of our services.</span><br>
+            </div>
+
+            <div class="d-flex my-auto mb-3">
+                <span class="material-symbols-outlined mx-2">verified</span>
+                <span>Join a thriving community of like-minded professionals who share insights, resources, and opportunities.</span><br>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center mb-3 mt-3">
+                <button class="btn btn-success Register-today-btn">Register Today</button>
+            </div>
+        
+    </div> 
+</div>
+
+<div class="container-fluid border-2 border-dark mt-4 ">
+    <div class="h4-margin">
+        <h4>Frequently asked questions</h4>
     </div>
+
+    <div class="mx-5">
+        <div class="accordion accordion-flush" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  How to publish a work in workiez?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  You need to create a user account to post a job. Create a user account and click <strong> create a job </strong> button. then you can create a job and find workers and hire the worker you like , you are the one to pick the worker for your work
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  How to find work to earn money? 
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can create a worker account and then you can explore all the jobs currently avaible in our platform. then you can apply for any of that jobs via a application. then the particular user who owns the work will approve you or eiher approve anyone else who applied for the job. so i the second case your application will be reject but according to first case your application will be approved and you can do the work to earn money.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Can i add any service i want?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  No you can not. But you can do this , you can email us that you want to add a specific service where you gonna work on jobs related to that service , our team will contact you and add that service for you
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
 
     
+</div>
+
+<div>
+    <newsletter></newsletter>
+</div>
+
+<div>
+    footer
 </div>
