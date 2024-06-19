@@ -2,14 +2,10 @@ package workiez.workiez.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import workiez.workiez.admin.Admin;
 import workiez.workiez.user.User;
 import workiez.workiez.worker.Worker;
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -25,6 +21,7 @@ public class AuthenticationController {
     }
 
     //user
+
     @PostMapping("/register/user")
     public ResponseEntity<AuthenticationResponse> userRegistration (@RequestBody User user){
         AuthenticationResponse token = userAuthenticationService.userRegister(user);
