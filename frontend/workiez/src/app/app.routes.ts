@@ -10,10 +10,10 @@ import { JobPageComponent } from './pages/job-page/job-page.component';
 export const routes: Routes = [
     {'path': "" , component: MainPageComponent},
     {'path': "login", component:LoginUserComponentComponent},
-    {'path': "user/register" , component: UserRegisterComponent},
-    {'path': "worker/register", component: LoginWorkerComponent},
+    {'path': "user/register" , component: UserRegisterComponent},   //done
+    {'path': "worker/register", component: LoginWorkerComponent},   //done
     {'path': "profile/user", component: UserProfileComponent},
     {'path': "profile/worker", component: WorkerProfileComponent},
-    {'path': "jobs", component:JobPageComponent},
+    {'path': "jobs", component:JobPageComponent},                   //ongoing
     
 ];

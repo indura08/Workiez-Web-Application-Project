@@ -157,33 +157,10 @@ export class UserRegisterComponent implements OnInit {
 
       (error: HttpErrorResponse)=> {
         alert(error.message);
+        console.log(addForm.value)
       }
     )
   }
 
-  public updateUser(user:User):void{
-    this.userService.updateUser(user, user.userId).subscribe(
-      (response:string) => {
-        console.log(response);
-      },
-
-      (error:HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
-  }
-
-  public deleteUser(userId :number):void{
-    this.userService.deleteUser(userId).subscribe(
-      (response: string) => {
-        console.log(response)
-      },
-
-      (error:HttpErrorResponse) => {
-        alert(error.message);
-      }
-
-    )
-  }
 
 }
