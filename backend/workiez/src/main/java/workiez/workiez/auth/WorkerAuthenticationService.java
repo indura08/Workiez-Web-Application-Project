@@ -40,7 +40,9 @@ public class WorkerAuthenticationService {
                 .baseCity(worker.getBaseCity())
                 .phone(worker.getPhone())
                 .gender(worker.getGender())
-                .availability(worker.getAvailability())
+                .services(worker.getServices())
+                .services(worker.getServices())
+                .availability(true)
                 .experienceDescription(worker.getExperienceDescription())
                 .build();
 
