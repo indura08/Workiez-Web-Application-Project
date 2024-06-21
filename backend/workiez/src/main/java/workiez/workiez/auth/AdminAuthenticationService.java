@@ -1,10 +1,8 @@
 package workiez.workiez.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import workiez.workiez.admin.Admin;
@@ -21,7 +19,7 @@ public class AdminAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse adminRegister(Admin admin){
+    public UserAuthenticationResponse adminRegister(Admin admin){
         var newAdmin = Admin.builder()
                 .name(admin.getName())
                 .email(admin.getEmail())
@@ -32,10 +30,10 @@ public class AdminAuthenticationService {
                 .build();
         adminRepository.save(newAdmin);
         var jwtToken = jwtService.generateToken(newAdmin);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return UserAuthenticationResponse.builder().token(jwtToken).build();
     }
 
-    public AuthenticationResponse authenticateAdmin(LoginRequest loginRequest){
+    public UserAuthenticationResponse authenticateAdmin(LoginRequest loginRequest){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
@@ -43,7 +41,7 @@ public class AdminAuthenticationService {
         var authenticatedAdmin = adminRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(authenticatedAdmin);
 
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return UserAuthenticationResponse.builder().token(jwtToken).build();
 
     }
 }

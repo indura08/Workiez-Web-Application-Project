@@ -27,7 +27,7 @@ public class WorkerAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenitcationManager;
 
-    public AuthenticationResponse workerRegister(Worker worker){
+    public UserAuthenticationResponse workerRegister(Worker worker){
         var newWorker = Worker.builder()
                 .firstname(worker.getFirstname())
                 .lastname(worker.getLastname())
@@ -60,10 +60,10 @@ public class WorkerAuthenticationService {
         workerRepository.save(newWorker);
 
         var jwtToken = jwtService.generateToken(newWorker);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return UserAuthenticationResponse.builder().token(jwtToken).build();
     }
 
-    public AuthenticationResponse workerAuthenticate(LoginRequest loginRequest){
+    public WorkerAuthenticationResponse workerAuthenticate(LoginRequest loginRequest){
         try {
             authenitcationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -78,7 +78,7 @@ public class WorkerAuthenticationService {
         }
         var authenticatedWorker = workerRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(authenticatedWorker);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return WorkerAuthenticationResponse.builder().token(jwtToken).worker(authenticatedWorker).build();
     }
 
 

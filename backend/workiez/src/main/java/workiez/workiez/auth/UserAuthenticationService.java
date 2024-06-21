@@ -18,7 +18,7 @@ public class UserAuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse userRegister(User user){
+    public UserAuthenticationResponse userRegister(User user){
         var newUser = User.builder()
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
@@ -35,10 +35,10 @@ public class UserAuthenticationService {
         userRepository.save(newUser);
 
         var jwtToken = jwtService.generateToken(newUser);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return UserAuthenticationResponse.builder().token(jwtToken).build();
     }
 
-    public AuthenticationResponse userAuthenticate(LoginRequest loginRequest){
+    public UserAuthenticationResponse userAuthenticate(LoginRequest loginRequest){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
@@ -47,6 +47,6 @@ public class UserAuthenticationService {
 
         var jwtToken = jwtService.generateToken(authenticatedUser);
 
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return UserAuthenticationResponse.builder().token(jwtToken).user(authenticatedUser).build();
     }
 }
