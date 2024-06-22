@@ -5,7 +5,7 @@ import { User } from "./user"
 
 export interface Job {
     jobId: number,
-    jobName: string,
+    JobName: string,
     description: string
     user : User,
     locationDistrict: District,

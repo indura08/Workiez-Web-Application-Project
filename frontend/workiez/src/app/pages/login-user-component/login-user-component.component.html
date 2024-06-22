@@ -64,25 +64,25 @@
     </div>
 
     <div class="col-6 mt-3 border border-dark border-2 px-5 py-3 div-margin" style="border-radius: 10px;">
-        <h1 class="mb-5 text-center">Welcome again👋</h1>
-        <div class="col g-3 align-items-center">
+        <h1 class="mb-5 text-center">User, Welcome again👋</h1>
+        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
             <div class="col-auto">
                 <div class="d-flex">
                     <span class="material-symbols-outlined d-inline img-size">person</span>
-                    <input type="email" class="form-control mb-4 border border-dark border-1" style="border-radius: 10px;" placeholder="User Email:">
+                    <input type="email" ngModel class="form-control mb-4 border border-dark border-1" style="border-radius: 10px;" name="email" placeholder="User Email:">
                 </div>
 
                 <div class="d-flex">
                     <span class="material-symbols-outlined img-size">lock</span>
-                    <input type="password" name="password" class="form-control margins border border-dark border-1" style="border-radius: 10px;" placeholder=" User Password:">  
-            
+                    <input type="password" ngModel name="password" class="form-control margins border border-dark border-1" style="border-radius: 10px;" placeholder=" User Password:">  
                 </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-dark mt-4 w-100 mb-3 py-2 button">Login</button>
+            <button type="submit" class="btn btn-dark mt-4 w-100 mb-3 py-2 button">Login</button>
+        </form>
 
         <p class="text-dark text-success text-center pharagraph">Forgot password? <a href="" class="text-link">Click here</a></p>
+        <p class="text-success fs-7" style="font-weight:500;"><a href="worker/login">Login as worker</a></p>
         <p class="text-success fs-7" style="font-weight:500;">new to workiez?</p>
         <div class="d-flex">
             <button type="submit" class="btn btn-success mb-3 py-2 flex-grow-1 mx-1 regitser-button">Sign up as user</button>

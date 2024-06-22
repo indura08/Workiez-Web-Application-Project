@@ -5,13 +5,13 @@ import { NgForm } from '@angular/forms';
 import { Province } from '../../../models/Enums/ProvinceEnum';
 import { District } from '../../../models/Enums/DistrictEnum';
 import { Gender } from '../../../models/Enums/GenderEnum';
-import { response } from 'express';
 import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Service } from '../../../models/service';
 import { ServiceName } from '../../../models/Enums/ServicenameEnum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-worker',
@@ -22,7 +22,7 @@ import { ServiceName } from '../../../models/Enums/ServicenameEnum';
 })
 export class LoginWorkerComponent implements OnInit {
   ngOnInit(): void {}
-  constructor(private workerService : WorkerService){}
+  constructor(private workerService : WorkerService, private router:Router){}
 
   province:Province = Province.WESTERN;
   district: District = District.COLOMBO;
@@ -153,6 +153,7 @@ export class LoginWorkerComponent implements OnInit {
     this.workerService.addWorker(addForm.value).subscribe(
       (response:string)=>{
         console.log(response)
+        this.router.navigate(['/profile/worker'])
         addForm.resetForm();
         console.log(this.services);  //this was added for debugging purposes
       },
@@ -234,4 +235,3 @@ export class LoginWorkerComponent implements OnInit {
 
 
 }
-//tharani@gmail.com tharani123

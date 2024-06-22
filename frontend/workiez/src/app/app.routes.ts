@@ -6,9 +6,11 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { WorkerProfileComponent } from './pages/worker-profile/worker-profile.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
+import { WorkerLoginComponent } from './pages/worker-login/worker-login.component';
 
 export const routes: Routes = [
     {'path': "" , component: MainPageComponent},
+    {'path': "worker/login" , component:WorkerLoginComponent},
     {'path': "login", component:LoginUserComponentComponent},
     {'path': "user/register" , component: UserRegisterComponent},   //done
     {'path': "worker/register", component: LoginWorkerComponent},   //done
