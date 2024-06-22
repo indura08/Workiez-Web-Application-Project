@@ -1,5 +1,6 @@
 package workiez.workiez.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,6 +47,7 @@ public class User implements UserDetails {
     private String city;
 
     @Override
+    @JsonDeserialize(contentAs = SimpleGrantedAuthority.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }

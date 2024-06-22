@@ -12,5 +12,5 @@ import workiez.workiez.worker.Worker;
 @NoArgsConstructor
 public class WorkerAuthenticationResponse {
     private String token;
-    private Worker worker;
+    //private Worker worker;
 }
