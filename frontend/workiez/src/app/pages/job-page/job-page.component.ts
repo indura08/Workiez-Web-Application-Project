@@ -18,6 +18,9 @@ import { JobStatus } from '../../../models/Enums/JobstatusEnum';
 import { ApplicationService } from '../../services/application.service';
 import { Application } from '../../../models/application';
 import { error } from 'console';
+import { UserDTO } from '../../../models/UserDTO';
+import { Role } from '../../../models/Enums/RoleEnum';
+import { Gender } from '../../../models/Enums/GenderEnum';
 
 @Component({
   selector: 'app-job-page',
@@ -34,7 +37,8 @@ export class JobPageComponent implements OnInit {
 
   constructor(private jobservice: JobService , private loginService: LoginService ,private tokenService: TokenService, private applicationService: ApplicationService){}
 
-  public jobUser:User = this.loginService.user
+  public jobUser:UserDTO = this.loginService.getglobalJobUser()
+  
   public dateTime = new Date();
 
   public worker:string = "indura";
@@ -159,12 +163,14 @@ export class JobPageComponent implements OnInit {
     this.jobservice.getJobs().subscribe(
       (response:Job[]) => {
         this.jobs = response;
-        console.log()
+        console.log(this.loginService.getuser())
+        console.log('Jobs updated:', this.jobs)
       },
 
       (error:HttpErrorResponse) => {
         console.log(error.message + "err");
         console.log("is the token");
+        console.log(this.loginService.user)
       }
     )
   }
@@ -173,11 +179,15 @@ export class JobPageComponent implements OnInit {
     this.jobservice.createJob(jobForm.value).subscribe(
       (response:string) => {
         console.log(response)
+        console.log(jobForm.value)
         this.getJobs();
+        console.log(this.jobUser)
       },
 
       (error:HttpErrorResponse) => {
-        console.log(error.message)
+        alert(error.message)
+        console.log(jobForm.value)
+        console.log(this.jobUser)
       }
     )
   }
@@ -193,5 +203,6 @@ export class JobPageComponent implements OnInit {
       }
     )
   }
+  
 
 }
