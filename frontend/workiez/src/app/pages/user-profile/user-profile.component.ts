@@ -9,6 +9,8 @@ import { Province } from '../../../models/Enums/ProvinceEnum';
 import { JobService } from '../../services/job.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { JobStatus } from '../../../models/Enums/JobstatusEnum';
+import { Job } from '../../../models/job';
+import { error } from 'console';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,9 +27,13 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private loginService: LoginService , private jobService:JobService){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getJobs()
+  }
 
-  public user:User = this.loginService.user;
+  public jobs:Job[] = [];
+
+  public user:User = this.loginService.getuser();
   public dateTime = new Date();
 
   public handleDistrictValue(value:any){
@@ -146,6 +152,18 @@ export class UserProfileComponent implements OnInit {
       (error:HttpErrorResponse) => {
         console.log(error.message +" this method was executed")
         console.log(jobForm.value)
+      }
+    )
+  }
+
+  public getJobs():void{
+    this.jobService.getJobs().subscribe(
+      (response:Job[]) => {
+        this.jobs = response
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message)
       }
     )
   }

@@ -31,6 +31,16 @@
         height: 400px;
     }
 
+    .margin-for-job-div{
+        margin-bottom: 0px;
+
+    }
+
+    /* .div-width{
+        width: 300px;
+    } */
+
+
 </style>
 
 <div class="container-fluid">
@@ -90,7 +100,21 @@
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
                     <h3 class="text-center">Popular jobs</h3>
-                    <button class="btn btn-primary mt-1 mx-2" data-bs-toggle="modal" data-bs-target="#jobCreatePost">Post a Job</button>
+                    <button class="btn btn-dark mt-1 mx-2 mb-2" data-bs-toggle="modal" data-bs-target="#jobCreatePost">Post a Job</button>
+                </div>
+
+                <div class="container">
+                    <div class="row" >
+                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
+                                <h4>{{job.description}}</h4>
+                                <span>{{job.user.username}}</span><br>
+                                <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
+                                <span>{{job.creationDateTime}}</span><br>
+                                <span>phone: {{job.user.phone}}</span><br>
+                                <button class="btn btn-success mt-2 mb-2">View more</button>
+
+                            </div>
+                    </div>
                 </div>
 
                 <div>

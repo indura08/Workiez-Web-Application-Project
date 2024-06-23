@@ -31,8 +31,9 @@ export class LoginUserComponentComponent {
         this.tokenService.setUserToken(response.user.userId , `Bearer ${response.token}`)
         this.loginService.setUser(response.user)
         
-        console.log(response.token)               //these code lines are for debuggin purposes
-        console.log(loginForm.value)        //these code lines are for debuggin purposes
+        console.log(response.token + "new token")               //these code lines are for debuggin purposes
+        console.log(loginForm.value)
+        console.log(this.loginService.getuser())        //these code lines are for debuggin purposes
       
         this.route.navigate(['/profile/user'])
       },

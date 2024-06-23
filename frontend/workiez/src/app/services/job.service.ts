@@ -15,19 +15,26 @@ export class JobService {
   constructor(private http: HttpClient , private tokenService: TokenService , private loginService: LoginService){}
 
   public getJobs():Observable<Job[]>{
-    //const workerToken = this.tokenService.getWorkerToken();
-    const userToken = this.tokenService.getUserToken(this.loginService.user.userId);
-    var headers;
-    if(userToken){
-      headers = new HttpHeaders({'Authorization':  userToken})
+  
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser()?.userId);
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId);
+
+    if(userToken && !workerToken){
+      const headers = new HttpHeaders({'Authorization':  userToken})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
     }
+    else if(!userToken && workerToken){
+      const headers = new HttpHeaders({'Authorization':  workerToken})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
+    }
+    //i havent established to check the logged one is use ror worker so still didint established  the secenario where worker and user both tokens are available
     console.log(userToken + "this is job service speaking?")
-    return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
-    
+    return this.http.get<Job[]>(`${this.apiUrl}/job/all`)
+
   }
 
   public createJob(job: Job):Observable<string>{
-    const userToken = this.tokenService.getUserToken(this.loginService.user.userId)
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
     var headers;
     if(userToken){
       headers = new HttpHeaders({"Authorization": userToken})
@@ -36,10 +43,10 @@ export class JobService {
     return this.http.post<string>(`${this.apiUrl}/job/create` , job , {headers:headers})
   }
 
-  public getJobById(jobId: number):Observable<string>{
-    const headers = new HttpHeaders({"Authorization": ""})
-    return this.http.get<string>(`${this.apiUrl}/job/${jobId}`)
-  }
+  // public getJobById(jobId: number):Observable<string>{
+  //   const headers = new HttpHeaders({"Authorization": ""})
+  //   return this.http.get<string>(`${this.apiUrl}/job/${jobId}`)
+  // } no need yet
 
   public deletJob(jobId:number):Observable<string>{
     const headers = new HttpHeaders({"Authorization": ""})

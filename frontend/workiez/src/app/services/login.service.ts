@@ -13,6 +13,7 @@ import { WorkerAuthenticationresponse } from '../../models/authenticationRespons
 import { Worker } from '../../models/worker';
 import { AsyncLocalStorage } from 'async_hooks';
 import { stringify } from 'querystring';
+import { UserDTO } from '../../models/UserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -69,18 +70,87 @@ export class LoginService {
   //   return this.worker;
   // }
 
-  setUser(user:User):void{
-    localStorage.setItem(`userobj_${user.userId}` , JSON.stringify(user))
+  public jobUserDTO:UserDTO = {
+    userdId:0,
+    firstname:"",
+    lastname:"",
+    email:"",
+    username: "",
+    phone:"",
+    role:Role.ROLE_USER,
+    district:District.COLOMBO,
+    province:Province.WESTERN,
+    gender:Gender.MALE,
+    city:"",
   }
 
-  getuser(userId:number):User | null{
-    const userJson = localStorage.getItem(`userobj_${userId}`)
-    if(userJson){
-      this.user = JSON.parse(userJson);
-      return this.user;
-    }
-    return null
+  setGlboalUser():void{
+    localStorage.setItem(`globalUser` , JSON.stringify(this.user));
   }
+
+  setUser(user:User):void{
+    localStorage.setItem(`globalUser` , JSON.stringify(user))
+  }
+
+  getuser():User{
+    const userJson = localStorage.getItem(`globalUser`)
+    if(userJson){
+      return JSON.parse(userJson)
+    }
+    return this.user
+  }
+
+  setGlobalWorker():void{
+    localStorage.setItem(`globalWorker` , JSON.stringify(this.worker))
+  }
+
+  setWorker(worker:Worker):void{
+    localStorage.setItem(`globalWorker` , JSON.stringify(worker))
+  }
+
+  getWorker():Worker{
+    const currentWorker = localStorage.getItem(`globalWorker`)
+    if(currentWorker){
+      return JSON.parse(currentWorker)
+    }else {
+      return this.worker
+    }
+    
+  }
+
+  setGlobalUserDTO():void{
+    const stringUser = localStorage.getItem(`globalUser`)
+
+    if(stringUser){
+      const jsonUser:User = JSON.parse(stringUser)
+
+      this.jobUserDTO.userdId = jsonUser.userId
+      this.jobUserDTO.username = jsonUser.username
+      this.jobUserDTO.firstname = jsonUser.firstname;
+      this.jobUserDTO.lastname = jsonUser.lastname;
+      this.jobUserDTO.email = jsonUser.email;
+      this.jobUserDTO.gender = jsonUser.gender;
+      this.jobUserDTO.role = jsonUser.role;
+      this.jobUserDTO.district = jsonUser.district;
+      this.jobUserDTO.province = jsonUser.province;
+      this.jobUserDTO.city = jsonUser.city;
+
+      localStorage.setItem(`globalJobUser` , JSON.stringify(this.jobUserDTO))
+    }
+    
+  }
+
+  getglobalJobUser():UserDTO{
+    const stringJobUser = localStorage.getItem(`globalJobUser`)
+    if(stringJobUser){
+      return JSON.parse(stringJobUser)
+    }
+    else{
+      return this.jobUserDTO;
+    }
+  }
+
+
 
   constructor(private http: HttpClient){}
 
