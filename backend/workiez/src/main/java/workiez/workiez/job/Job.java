@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import workiez.workiez.user.District;
 import workiez.workiez.user.Province;
 import workiez.workiez.user.User;
+import workiez.workiez.user.UserDTO;
 
 import java.time.LocalDateTime;
 
@@ -25,9 +26,9 @@ public class Job {
 
     private String description;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserDTO userDTO;
 
     @Enumerated(EnumType.STRING)
     private District locationDistrict;

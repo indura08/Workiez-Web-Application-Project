@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import workiez.workiez.user.District;
-import workiez.workiez.user.User;
-import workiez.workiez.user.UserRepository;
+import workiez.workiez.user.*;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -43,28 +41,21 @@ public class JobController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createNewJob(@RequestBody Job job){
-        Job job1 = jobRepository.save(job);
-
-        Optional<User> user = userRepository.findById(job.getUser().getUserId());
-        if(user.isPresent()){
-            User newUser = user.get();
-            job1.setUser(newUser);
-            jobRepository.save(job1);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + job1);
+        Job savedJOb = jobRepository.save(job);
+        return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + savedJOb);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<Job>> getJobsByUser(@PathVariable Long id){
-        Optional<User> existingUser = userRepository.findById(id);
-        if(existingUser.isPresent()){
-            List<Job> userJobs = jobRepository.findAllByUser(existingUser.get());
-            return ResponseEntity.status(HttpStatus.FOUND).body(userJobs);
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<List<Job>> getJobsByUser(@PathVariable Long id){
+//        Optional<User> existingUser = userRepository.findById(id);
+//        if(existingUser.isPresent()){
+//            List<Job> userJobs = jobRepository.findAllByUser(existingUser.get());
+//            return ResponseEntity.status(HttpStatus.FOUND).body(userJobs);
+//        }
+//        else{
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//    }
 
     @GetMapping("/location/{district}")
     public ResponseEntity<List<Job>> findAllByDistrict(@PathVariable District district){
@@ -85,7 +76,7 @@ public class JobController {
 
             newJob.setJobName(job.getJobName());
             newJob.setDescription(job.getDescription());
-            newJob.setUser(job.getUser());
+            newJob.setUserDTO(job.getUserDTO());
             newJob.setLocationDistrict(job.getLocationDistrict());
             newJob.setLocationProvince(job.getLocationProvince());
             newJob.setCity(job.getCity());
