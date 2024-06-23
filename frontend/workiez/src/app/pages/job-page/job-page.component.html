@@ -93,8 +93,7 @@
 </div>
 
 <div class="container-fluid">
-    <div class="col-12">
-
+    <div class="d-flex">
         <div class="border border-2 border-dark w-25 mx-2" *ngFor="let job of jobs">
             <div class="d-flex justify-content-between">
                 <div class="mx-2 mt-3">
@@ -198,24 +197,24 @@
     <<div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Add a Job!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form class="" #jobPostForm="ngForm" (ngSubmit)="createJob(jobPostForm)">
                 <div class="mb-2">
-                  <label for="JobName" class="form-label">Job name</label>
+                  Job name
                   <input type="text" class="form-control" id="exampleInputEmail1" ngModel name="JobName">
                 </div>
                 <div class="mb-2">
-                  <label for="description" class="form-label">Description</label>
+                  Description
                   <input type="text" class="form-control" ngModel name="description">
                 </div>
                 <div class="mb-3">
                     <input type="hidden" class="form-control" [(ngModel)]="jobUser" ngModel name="user" id="exampleInputPassword1">
                 </div>
                 <div class="mb-3">
-                    <label for="input1" class="form-label">locationDistrict</label>
+                   locationDistrict
                     <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="district" (ngModelChange)="handleDistrictValue($event)">
                         <option selected>Select District</option>
                         <option value="1">AMPARA</option>
@@ -248,7 +247,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Location Province</label>
+                    Location Province
                     <select class="form-select input-type-custom col" name="input2" [(ngModel)]="province" ngModel (ngModelChange)="handleProvinceValue($event)">
                         <option selected>Select District</option>
                         <option value="1">CENTRAL</option>
@@ -265,7 +264,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Location City</label>
+                    Location City
                     <input type="text" class="form-control" ngModel name="city" id="exampleInputPassword1">
                   </div>
 
