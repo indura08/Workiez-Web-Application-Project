@@ -27,9 +27,12 @@ export class JobService {
       const headers = new HttpHeaders({'Authorization':  workerToken})
       return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
     }
-    //i havent established to check the logged one is use ror worker so still didint established  the secenario where worker and user both tokens are available
-    console.log(userToken + "this is job service speaking?")
-    return this.http.get<Job[]>(`${this.apiUrl}/job/all`)
+    //i havent established to check the logged one is user or worker so still didint established  the secenario where worker and user both tokens are available
+    else{
+      console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
+      const headers = new HttpHeaders({'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbmR1cmFwZXJlcmEzQGdtYWlsLmNvbSIsImlhdCI6MTcxOTUwOTk2MSwiZXhwIjoxNzE5NTExNDAxfQ.O1ksyopgFRMsHwUjyPOgWzfWNg_uY0fg-0nbZgzGlfg'})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
+    }
 
   }
 

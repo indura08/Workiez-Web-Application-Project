@@ -37,7 +37,7 @@
     <div class="d-flex border-bottom border-dark border-2">
         <div class="div-word-wrap my-auto w-25 my-auto">
             <h3 class="text-success">Welcome👋</h3>
-            indura08        
+            {{worker.firstname}}        
         </div>
 
         <div class="text-center w-50 div-word-wrap my-auto header-div-margin">
@@ -74,30 +74,29 @@
             
             <div class="fixed-size-scrollable w-50 mx-2 col divs-height">
                 <div class="">
-                    <h3 class="text-center">indura08</h3>
+                    <h3 class="text-center">{{worker.username}}</h3>
                 </div>
 
                 <div class="">
-                    first name + last name<br>
-                    email<br>
-                    district<br>
-                    province<br>
-                    city<br>
-                    phone<br>
-                    services he provides<br>
-                    experience description<br>
+                    name: {{worker.firstname}} {{worker.lastname}}<br>
+                    email: {{worker.email}}<br>
+                    District: {{worker.baseDistrict}}<br>
+                    Province: {{worker.baseProvince}}<br>
+                    City: {{worker.baseCity}}<br>
+                    Phone: {{worker.phone}}<br>
+                    Services {{worker.services}}<br>
+                    experience description: {{worker.experienceDescription}}<br>
                 </div>
             </div>
                 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
                     <h3 class="text-center">Popular jobs</h3>
-                </div>
-
-                <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nihil quia eligendi laboriosam, voluptates illo voluptatibus dolor? In itaque maxime hic, vero explicabo obcaecati adipisci ut quaerat. Dignissimos, quisquam eum!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, quasi natus saepe laboriosam repellat blanditiis eveniet non quod pariatur corporis, perspiciatis quos eos nihil voluptates iusto praesentium tempore harum porro.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa a quos quia dignissimos! Maxime tempore, tempora expedita cupiditate omnis unde fuga quidem, quae repudiandae adipisci animi vitae eaque impedit tenetur.
+                    <div class="row">
+                        <div class="" *ngFor="let job of jobs">
+                            {{job.description}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

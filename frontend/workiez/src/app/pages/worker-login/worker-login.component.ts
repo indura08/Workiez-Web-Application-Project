@@ -21,12 +21,14 @@ export class WorkerLoginComponent {
   public loginWorker(loginForm:NgForm){
     this.loginService.loginWorker(loginForm.value).subscribe(
       (response:WorkerAuthenticationresponse) => {
+        this.tokenService.setWorkerToken(response.worker.workerId , `Bearer ${response.token}`);
+        this.loginService.setWorker(response.worker);
         this.route.navigate(['/profile/worker'])
-        console.log(response)
+        console.log(this.loginService.getWorker())
       },
       (error: HttpErrorResponse) => {
        alert(error.message + " meki awla")
-        console.log()
+        console.log("error happend")
         console.log(loginForm.value)
       }
     )

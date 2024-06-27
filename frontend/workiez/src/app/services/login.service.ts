@@ -11,7 +11,6 @@ import { District } from '../../models/Enums/DistrictEnum';
 import { Province } from '../../models/Enums/ProvinceEnum';
 import { WorkerAuthenticationresponse } from '../../models/authenticationResponseWorker';
 import { Worker } from '../../models/worker';
-import { AsyncLocalStorage } from 'async_hooks';
 import { stringify } from 'querystring';
 import { UserDTO } from '../../models/UserDTO';
 
@@ -89,7 +88,7 @@ export class LoginService {
   }
 
   setUser(user:User):void{
-    localStorage.setItem(`globalUser` , JSON.stringify(user))
+    localStorage.setItem(`globalUser` , JSON.stringify(user));
   }
 
   getuser():User{
@@ -118,36 +117,37 @@ export class LoginService {
     
   }
 
-  setGlobalUserDTO():void{
-    const stringUser = localStorage.getItem(`globalUser`)
-
-    if(stringUser){
-      const jsonUser:User = JSON.parse(stringUser)
-
-      this.jobUserDTO.userdId = jsonUser.userId
-      this.jobUserDTO.username = jsonUser.username
-      this.jobUserDTO.firstname = jsonUser.firstname;
-      this.jobUserDTO.lastname = jsonUser.lastname;
-      this.jobUserDTO.email = jsonUser.email;
-      this.jobUserDTO.gender = jsonUser.gender;
-      this.jobUserDTO.role = jsonUser.role;
-      this.jobUserDTO.district = jsonUser.district;
-      this.jobUserDTO.province = jsonUser.province;
-      this.jobUserDTO.city = jsonUser.city;
-
-      localStorage.setItem(`globalJobUser` , JSON.stringify(this.jobUserDTO))
-    }
-    
+  setGlobalJobUser(){
+    localStorage.setItem(`globalJobUser` , JSON.stringify(this.jobUserDTO))
   }
 
-  getglobalJobUser():UserDTO{
+  setJobUserDTO(user:User):void{
+
+    this.jobUserDTO = {
+      userdId: user.userId,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email:user.email,
+      phone: user.phone,
+      role:user.role,
+      district:user.district,
+      province:user.province,
+      gender:user.gender,
+      city:user.city
+    }
+
+    localStorage.setItem(`globalJobUser` , JSON.stringify(this.jobUserDTO));
+
+  }
+    
+
+  getJobUserDTO():UserDTO{
     const stringJobUser = localStorage.getItem(`globalJobUser`)
     if(stringJobUser){
       return JSON.parse(stringJobUser)
     }
-    else{
-      return this.jobUserDTO;
-    }
+    return this.jobUserDTO;
   }
 
 
