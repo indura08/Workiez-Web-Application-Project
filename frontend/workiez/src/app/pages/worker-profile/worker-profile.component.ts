@@ -6,21 +6,63 @@ import { JobService } from '../../services/job.service';
 import { response } from 'express';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ApplicationService } from '../../services/application.service';
+import { Application } from '../../../models/application';
+import { District } from '../../../models/Enums/DistrictEnum';
+import { Province } from '../../../models/Enums/ProvinceEnum';
+import { JobStatus } from '../../../models/Enums/JobstatusEnum';
+import { Gender } from '../../../models/Enums/GenderEnum';
+import { Role } from '../../../models/Enums/RoleEnum';
+import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
 
 @Component({
   selector: 'app-worker-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './worker-profile.component.html',
   styleUrl: './worker-profile.component.css'
 })
 export class WorkerProfileComponent implements OnInit {
 
-  constructor(private loginService: LoginService , private jobService: JobService){}
+  public currentJob:Job = {
+    jobId: 0,
+    JobName: '',
+    description: '',
+    user: {
+      userId: 0,
+      firstname: '',
+      lastname: '',
+      username: '',
+      email: '',
+      password: '',
+      role: Role.ROLE_USER,
+      gender: Gender.MALE,
+      phone: '',
+      district: District.COLOMBO,
+      province: Province.WESTERN,
+      city: ''
+    },
+    locationDistrict: District.COLOMBO,
+    locationProvince: Province.WESTERN,
+    city: '',
+    jobStatus: JobStatus.PENDING,
+    creationDateTime: ''
+  }
+
+  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService){}
 
   ngOnInit(): void {
     this.getJobs();
   }
+
+  public setCurrentJob(job:Job):void{
+    this.currentJob = job;
+  }
+
+  public date = new Date();
+
+  public status = ApplicationStatus.PENDING;
 
   public jobs:Job[] = [];
 
@@ -35,6 +77,17 @@ export class WorkerProfileComponent implements OnInit {
         alert(error.message);
       }
     )
+  }
 
+  public createApplication(applicationForm:NgForm){
+    this.applicationService.createApplication(applicationForm.value).subscribe(
+      (response:Application) => {
+        alert("Application submitted succesfully")
+        console.log("application created successfully " + response);
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
   }
 }

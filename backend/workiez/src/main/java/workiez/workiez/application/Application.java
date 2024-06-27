@@ -1,5 +1,6 @@
 package workiez.workiez.application;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Application {
 
     @OneToOne
     @JoinColumn(name = "workerId")
+    @JsonManagedReference
     private Worker worker;
 
     @OneToOne

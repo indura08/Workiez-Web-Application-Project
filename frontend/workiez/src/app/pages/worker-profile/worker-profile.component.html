@@ -84,7 +84,7 @@
                     Province: {{worker.baseProvince}}<br>
                     City: {{worker.baseCity}}<br>
                     Phone: {{worker.phone}}<br>
-                    Services {{worker.services}}<br>
+                    Services {{worker.services[0].serviceName}}, {{worker.services[1].serviceName}}, {{worker.services[2].serviceName}} , {{worker.services[3].serviceName}}<br>
                     experience description: {{worker.experienceDescription}}<br>
                 </div>
             </div>
@@ -92,12 +92,22 @@
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
                     <h3 class="text-center">Popular jobs</h3>
-                    <div class="row">
-                        <div class="" *ngFor="let job of jobs">
-                            {{job.description}}
-                        </div>
+                </div>
+
+                <div class="container">
+                    <div class="row" >
+                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
+                                <h4>{{job.description}}</h4>
+                                <span>{{job.user.username}}</span><br>
+                                <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
+                                <span>{{job.creationDateTime}}</span><br>
+                                <span>phone: {{job.user.phone}}</span><br>
+                                <button class="btn btn-success mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#addApplication" (click)="setCurrentJob(job)">Apply</button>
+
+                            </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -105,20 +115,12 @@
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
                     <h3 class="text-center">notifications</h3>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti error tempore deserunt quaerat modi! Vel, reiciendis consequuntur repellat aut minima autem dignissimos dolores, sed quaerat delectus pariatur eveniet. Aperiam, nam.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum cum quidem maiores laborum fugit facilis reprehenderit labore? Mollitia autem dignissimos iste omnis. Architecto sunt ex quam autem provident recusandae earum?
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam explicabo est, eos odit ipsa ullam tempore voluptate voluptatum pariatur tenetur quis iusto cupiditate nemo animi incidunt fugiat? Eum, minima.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis ratione magni explicabo error consectetur. Id expedita eveniet nulla quis deserunt, enim blanditiis doloribus. Sapiente perferendis quia obcaecati placeat eaque deleniti!
                 </div>
             </div>
 
 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <h3 class="text-center">completed jobs</h3>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique porro sunt illum natus quae, provident accusamus explicabo quam consequuntur aliquam voluptas ad facere error nam ab nemo deserunt velit suscipit?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem sapiente odit ex neque sint placeat aut est repellat aspernatur ea, voluptatem tempore rerum nesciunt dicta quaerat dolor ipsum rem laudantium.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius facere asperiores velit repellendus excepturi dolorem vitae. Nam voluptate dolores numquam sit placeat commodi consequatur tempore, voluptates perferendis, voluptatibus accusantium earum.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid nemo optio praesentium voluptates deleniti iusto esse numquam recusandae quia alias doloremque velit, saepe reprehenderit commodi necessitatibus cum dolore aspernatur pariatur.
             </div>
         </div>
     </div>
@@ -128,3 +130,49 @@
     <div>about eka</div>
 
 </div>
+
+<!--application model-->
+<div class="modal" tabindex="-1" id="addApplication">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Apply for this job</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="" #applicationForm="ngForm" (ngSubmit)="createApplication(applicationForm)">
+                <div class="mb-2">
+                  <label for="JobName" class="form-label">Application Name (include your name and telephone as application name)</label>
+                  <input type="text" class="form-control" ngModel name="applicationName">
+                </div>
+                <div class="mb-2">
+                  <label for="description" class="form-label">Worker</label>
+                  <input type="text" class="form-control" ngModel name="worker" [(ngModel)]="worker">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Job</label>
+                    <input type="text" class="form-control" ngModel name="job" [(ngModel)]="currentJob">
+                </div>
+                <div class="mb-3">
+                    <!-- <label for="input1" class="form-label">Application Status</label> -->
+                    <input type="hidden" class="form-control" ngModel name="applicationStatus" [(ngModel)]="status">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Applications Date and Time </label>
+                    <input type="text" class="form-control" ngModel name="applicationDateAndTime" [(ngModel)]="date">
+                </div>
+
+                <!-- <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div> -->
+                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

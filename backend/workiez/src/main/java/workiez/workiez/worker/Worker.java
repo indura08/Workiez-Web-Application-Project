@@ -1,6 +1,7 @@
 package workiez.workiez.worker;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,10 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import workiez.workiez.service.Service;
-import workiez.workiez.user.District;
-import workiez.workiez.user.Gender;
-import workiez.workiez.user.Province;
-import workiez.workiez.user.Role;
+import workiez.workiez.user.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -65,6 +63,7 @@ public class Worker implements UserDetails {
     private Role role;
 
     @Override
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
