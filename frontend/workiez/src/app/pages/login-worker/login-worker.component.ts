@@ -177,56 +177,56 @@ export class LoginWorkerComponent implements OnInit {
       this.services.push(rooferService);
     }
 
-    else if(event.target.checked && event.target.value === "electrician" && !this.services.some(service => service.serviceId == 4)){
-      const electricianService: Service = {serviceId:4, serviceName:ServiceName.ELECTRICIAN , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "electrician" && !this.services.some(service => service.serviceId == 3)){
+      const electricianService: Service = {serviceId:3, serviceName:ServiceName.ELECTRICIAN , description:"" , priceRange:"", workers:[] }
       this.services.push(electricianService);
     }
-    else if(event.target.checked && event.target.value === "plumber" && !this.services.some(service => service.serviceId == 5)){
-      const plumberService: Service = {serviceId:5, serviceName:ServiceName.PLUMBER , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "plumber" && !this.services.some(service => service.serviceId == 4)){
+      const plumberService: Service = {serviceId:4, serviceName:ServiceName.PLUMBER , description:"" , priceRange:"", workers:[] }
       this.services.push(plumberService);
     }
-    else if(event.target.checked && event.target.value === "hvac" && !this.services.some(service => service.serviceId == 6)){
-      const hvacService: Service = {serviceId:6, serviceName:ServiceName.HVAC , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "hvac" && !this.services.some(service => service.serviceId == 5)){
+      const hvacService: Service = {serviceId:5, serviceName:ServiceName.HVAC , description:"" , priceRange:"", workers:[] }
       this.services.push(hvacService);
     }
-    else if(event.target.checked && event.target.value === "computer" && !this.services.some(service => service.serviceId == 7)){
-      const computerService: Service = {serviceId:7, serviceName:ServiceName.COMPUTER_REPAIR , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "computer" && !this.services.some(service => service.serviceId == 6)){
+      const computerService: Service = {serviceId:6, serviceName:ServiceName.COMPUTER_REPAIR , description:"" , priceRange:"", workers:[] }
       this.services.push(computerService);
     }
-    else if(event.target.checked && event.target.value === "furniture" && !this.services.some(service => service.serviceId == 8)){
-      const furnitureService: Service = {serviceId:8, serviceName:ServiceName.FURNITURE_REPAIR , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "furniture" && !this.services.some(service => service.serviceId == 7)){
+      const furnitureService: Service = {serviceId:7, serviceName:ServiceName.FURNITURE_REPAIR , description:"" , priceRange:"", workers:[] }
       this.services.push(furnitureService);
     }
-    else if(event.target.checked && event.target.value === "tilesetting" && !this.services.some(service => service.serviceId == 9)){
-      const tilesettingService: Service = {serviceId:9, serviceName:ServiceName.TILE_SETTING , description:"" , priceRange:"", workers:[]}
+    else if(event.target.checked && event.target.value === "tilesetting" && !this.services.some(service => service.serviceId == 8)){
+      const tilesettingService: Service = {serviceId:8, serviceName:ServiceName.TILE_SETTING , description:"" , priceRange:"", workers:[]}
       this.services.push(tilesettingService);
     }
-    else if(event.target.checked && event.target.value === "plastering" && !this.services.some(service => service.serviceId == 10)){
-      const plasterService: Service = {serviceId:10, serviceName:ServiceName.PLASTERING , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "plastering" && !this.services.some(service => service.serviceId == 9)){
+      const plasterService: Service = {serviceId:9, serviceName:ServiceName.PLASTERING , description:"" , priceRange:"", workers:[] }
       this.services.push(plasterService);
     }
-    else if(event.target.checked && event.target.value === "cleaning" && !this.services.some(service => service.serviceId == 11)){
-      const cleaningService: Service = {serviceId:11, serviceName:ServiceName.CLEANING , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "cleaning" && !this.services.some(service => service.serviceId == 10)){
+      const cleaningService: Service = {serviceId:10, serviceName:ServiceName.CLEANING , description:"" , priceRange:"", workers:[] }
       this.services.push(cleaningService);
     }
-    else if(event.target.checked && event.target.value === "transport" && !this.services.some(service => service.serviceId == 12)){
-      const transportService: Service = {serviceId:12, serviceName:ServiceName.TRANSPORT , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "transport" && !this.services.some(service => service.serviceId == 11)){
+      const transportService: Service = {serviceId:11, serviceName:ServiceName.TRANSPORT , description:"" , priceRange:"", workers:[] }
       this.services.push(transportService);
     }
-    else if(event.target.checked && event.target.value === "painting" && !this.services.some(service => service.serviceId == 13)){
-      const paintingService: Service = {serviceId:13, serviceName:ServiceName.PAINTING , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "painting" && !this.services.some(service => service.serviceId == 12)){
+      const paintingService: Service = {serviceId:12, serviceName:ServiceName.PAINTING , description:"" , priceRange:"", workers:[] }
       this.services.push(paintingService);
     }
-    else if(event.target.checked && event.target.value === "waste" && !this.services.some(service => service.serviceId == 14)){
-      const wasteService: Service = {serviceId:14, serviceName:ServiceName.WASTE_AND_ENVIRONMENTAL_SERVICES , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "waste" && !this.services.some(service => service.serviceId == 13)){
+      const wasteService: Service = {serviceId:13, serviceName:ServiceName.WASTE_AND_ENVIRONMENTAL_SERVICES , description:"" , priceRange:"", workers:[] }
       this.services.push(wasteService);
     }
-    else if(event.target.checked && event.target.value === "pest" && !this.services.some(service => service.serviceId == 15)){
-      const pestcontrolService: Service = {serviceId:15, serviceName:ServiceName.PEST_CONTROL , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "pest" && !this.services.some(service => service.serviceId == 14)){
+      const pestcontrolService: Service = {serviceId:14, serviceName:ServiceName.PEST_CONTROL , description:"" , priceRange:"", workers:[] }
       this.services.push(pestcontrolService);
     }
-    else if(event.target.checked && event.target.value === "carpenter" && !this.services.some(service => service.serviceId == 16)){
-      const carpenterService: Service = {serviceId:16, serviceName:ServiceName.CARPENTERS , description:"" , priceRange:"", workers:[] }
+    else if(event.target.checked && event.target.value === "carpenter" && !this.services.some(service => service.serviceId == 15)){
+      const carpenterService: Service = {serviceId:15, serviceName:ServiceName.CARPENTERS , description:"" , priceRange:"", workers:[] }
       this.services.push(carpenterService);
     }
 

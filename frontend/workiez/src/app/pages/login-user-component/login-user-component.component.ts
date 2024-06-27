@@ -32,9 +32,8 @@ export class LoginUserComponentComponent {
         this.loginService.setUser(response.user)
         
         console.log(response.token + "new token")               //these code lines are for debuggin purposes
-        console.log(loginForm.value)
+        //console.log(loginForm.value)
         console.log(this.loginService.getuser())        //these code lines are for debuggin purposes
-      
         this.route.navigate(['/profile/user'])
       },
       (error:HttpErrorResponse) => {

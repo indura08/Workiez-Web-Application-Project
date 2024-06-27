@@ -37,7 +37,7 @@ export class JobPageComponent implements OnInit {
 
   constructor(private jobservice: JobService , private loginService: LoginService ,private tokenService: TokenService, private applicationService: ApplicationService){}
 
-  public jobUser:UserDTO = this.loginService.getglobalJobUser()
+  public jobUser:User = this.loginService.getuser()
   
   public dateTime = new Date();
 
@@ -170,7 +170,7 @@ export class JobPageComponent implements OnInit {
       (error:HttpErrorResponse) => {
         console.log(error.message + "err");
         console.log("is the token");
-        console.log(this.loginService.user)
+        console.log(this.loginService.getuser())
       }
     )
   }
@@ -188,6 +188,7 @@ export class JobPageComponent implements OnInit {
         alert(error.message)
         console.log(jobForm.value)
         console.log(this.jobUser)
+        this.getJobs();
       }
     )
   }
