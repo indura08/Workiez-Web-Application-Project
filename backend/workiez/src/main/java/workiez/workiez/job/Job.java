@@ -28,7 +28,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserDTO userDTO;
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private District locationDistrict;
@@ -41,6 +41,6 @@ public class Job {
     @Enumerated(EnumType.STRING)
     private JobStatus jobStatus;
 
-    private LocalDateTime creationDateTime;
+    private String creationDateTime; //methna string kala dan dtabase ek del krla aaye run krla blnna
 
 }

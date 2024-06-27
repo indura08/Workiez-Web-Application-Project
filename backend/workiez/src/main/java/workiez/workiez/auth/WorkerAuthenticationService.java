@@ -78,7 +78,7 @@ public class WorkerAuthenticationService {
         }
         var authenticatedWorker = workerRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(authenticatedWorker);
-        return WorkerAuthenticationResponse.builder().token(jwtToken).build();
+        return WorkerAuthenticationResponse.builder().token(jwtToken).worker(authenticatedWorker).build();
     }
 
 
