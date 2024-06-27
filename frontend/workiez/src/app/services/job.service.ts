@@ -30,7 +30,7 @@ export class JobService {
     //i havent established to check the logged one is user or worker so still didint established  the secenario where worker and user both tokens are available
     else{
       console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
-      const headers = new HttpHeaders({'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbmR1cmFwZXJlcmEzQGdtYWlsLmNvbSIsImlhdCI6MTcxOTUwOTk2MSwiZXhwIjoxNzE5NTExNDAxfQ.O1ksyopgFRMsHwUjyPOgWzfWNg_uY0fg-0nbZgzGlfg'})
+      const headers = new HttpHeaders({'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZXJveTEwQGdtYWlsLmNvbSIsImlhdCI6MTcxOTUyMDM3OSwiZXhwIjoxNzE5NTIxODE5fQ.EsWcpgnenKYpb8YQUHwvKXG5bRIhESJzoilXPcRnlD4'})
       return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
     }
 

@@ -8,7 +8,7 @@ export interface Job {
     jobId: number,
     JobName: string,
     description: string
-    user : UserDTO,
+    user : User,
     locationDistrict: District,
     locationProvince:Province,
     city:string,
