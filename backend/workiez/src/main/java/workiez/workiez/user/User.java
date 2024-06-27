@@ -1,5 +1,6 @@
 package workiez.workiez.user;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,10 +24,13 @@ public class User implements UserDetails {
     private Long userId;
 
     private String firstname;
+
     private String lastname;
+
     private String username;
 
     private String email;
+
     @Getter
     private String password;
 
@@ -47,6 +51,7 @@ public class User implements UserDetails {
     private String city;
 
     @Override
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }

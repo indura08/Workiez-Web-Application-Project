@@ -1,5 +1,6 @@
 package workiez.workiez.job;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,17 @@ public class JobController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createNewJob(@RequestBody Job job){
-        Job savedJOb = jobRepository.save(job);
-        return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + savedJOb);
+        Optional<User> jobUser = userRepository.findById(job.getUser().getUserId());
+        if(jobUser.isPresent()){
+            job.setUser(jobUser.get());
+            jobRepository.save(job);
+            return ResponseEntity.status(HttpStatus.OK).body("Job saved succesfully : " + job.toString());
+        }
+
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ërror occured creating job");
+        }
+
     }
 
 //    @GetMapping("/user/{id}")
@@ -76,7 +86,7 @@ public class JobController {
 
             newJob.setJobName(job.getJobName());
             newJob.setDescription(job.getDescription());
-            newJob.setUserDTO(job.getUserDTO());
+            newJob.setUser(job.getUser());
             newJob.setLocationDistrict(job.getLocationDistrict());
             newJob.setLocationProvince(job.getLocationProvince());
             newJob.setCity(job.getCity());
