@@ -29,6 +29,6 @@ public class Service {
 
     @ManyToMany(mappedBy = "services")
     @Column(nullable = true)
-    @JsonBackReference      //is used on the child side (in this case, the Service entity) to indicate that it is the back part of the reference. This prevents the back reference from being serialized.
+    //@JsonBackReference      //is used on the child side (in this case, the Service entity) to indicate that it is the back part of the reference. This prevents the back reference from being serialized.
     private List<Worker> workers;
 }

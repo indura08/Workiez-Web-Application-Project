@@ -5,6 +5,4 @@ export interface NotificationUser {
     description: string,
     user:User,
     date:string
-    time:string
-
 }

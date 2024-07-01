@@ -24,4 +24,27 @@ export class ApplicationService {
     return this.http.post<Application>(`${this.apiUrl}/application/create` , application)
   }
 
+  public getApplicationByJobId(jobId:number):Observable<Application[]>{
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId)
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
+
+    if(workerToken && !userToken){
+      const headers = new HttpHeaders({'Authorization': workerToken})
+      return this.http.get<Application[]>(`${this.apiUrl}/application/job/${jobId}`, {headers:headers})
+    }
+    else if(userToken && !workerToken){
+      const headers = new HttpHeaders({'Authorization': userToken})
+      return this.http.get<Application[]>(`${this.apiUrl}/application/job/${jobId}`, {headers:headers})
+    }
+    else if(userToken && workerToken) {
+      const headers = new HttpHeaders({'Authorization': userToken})
+      return this.http.get<Application[]>(`${this.apiUrl}/application/job/${jobId}`, {headers:headers})
+    }
+    else {
+      const headers = new HttpHeaders({'Authorization': 'Bearer '})
+      return this.http.get<Application[]>(`${this.apiUrl}/application/job/${jobId}`, {headers:headers})
+
+    }
+  }
+
 }

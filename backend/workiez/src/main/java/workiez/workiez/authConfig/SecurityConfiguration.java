@@ -24,9 +24,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/worker/**" , "/api/notificationWorker/**" , "/api/application/**").hasRole("WORKER")
-                                .requestMatchers("/api/users/**", "/api/notificationUser/**").hasRole("USER")
+                                .requestMatchers("/api/auth/**" , "/api/notificationUser/create").permitAll()
+                                .requestMatchers("/api/worker/**" , "/api/notificationWorker/**", "/api/application/create").hasRole("WORKER")
+                                .requestMatchers("/api/users/**", "/api/notificationUser/user/{id}", "/api/notificationUser/{id}","/api/notificationUser/update/{id}", "/api/notificationUser/delete/{id}" ).hasRole("USER")
                                 .requestMatchers("/api/service/**" , "/api/admin/**" ).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                         //Reminder - .requestMatchers(AntPathRequestMatcher.anyMatcher("/url/path")).hasRole("user") mehemath yanna puluwan , namuth ehma giyam role based uraccess kiyna concept eka hariyt unenha e ai kiyla project eka iwar wela blnna ethkot habai url godak eka paara denna bha eain eka denna one

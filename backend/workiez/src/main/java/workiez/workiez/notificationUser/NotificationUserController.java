@@ -66,7 +66,6 @@ public class NotificationUserController {
             existingNotification.setDescription(notification.getDescription());
             existingNotification.setUser(notification.getUser());
             existingNotification.setDate(notification.getDate());
-            existingNotification.setTime(notification.getTime());
 
             notificationRepository.save(existingNotification);
             return ResponseEntity.status(HttpStatus.OK).body("notification saved");

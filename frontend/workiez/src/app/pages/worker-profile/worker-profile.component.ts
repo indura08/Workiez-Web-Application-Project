@@ -15,6 +15,8 @@ import { JobStatus } from '../../../models/Enums/JobstatusEnum';
 import { Gender } from '../../../models/Enums/GenderEnum';
 import { Role } from '../../../models/Enums/RoleEnum';
 import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
+import { UserNotificationService } from '../../services/user-notification.service';
+import { NotificationUser } from '../../../models/notificationUser';
 
 @Component({
   selector: 'app-worker-profile',
@@ -50,7 +52,7 @@ export class WorkerProfileComponent implements OnInit {
     creationDateTime: ''
   }
 
-  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService){}
+  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -58,6 +60,7 @@ export class WorkerProfileComponent implements OnInit {
 
   public setCurrentJob(job:Job):void{
     this.currentJob = job;
+    this.applicationNotification.user = job.user;
   }
 
   public date = new Date();
@@ -67,6 +70,13 @@ export class WorkerProfileComponent implements OnInit {
   public jobs:Job[] = [];
 
   public worker:Worker = this.loginService.getWorker();
+
+  public applicationNotification: NotificationUser = {
+    notificationId: 0,
+    description: "You have a new application for you job",
+    user: this.currentJob.user,
+    date:this.date.toString()
+  }
 
   public getJobs():void {
     this.jobService.getJobs().subscribe(
@@ -83,11 +93,27 @@ export class WorkerProfileComponent implements OnInit {
     this.applicationService.createApplication(applicationForm.value).subscribe(
       (response:Application) => {
         alert("Application submitted succesfully")
-        console.log("application created successfully " + response);
+        this.createNotification(this.applicationNotification);
+        console.log("application created successfully " + response );
+        console.log("currentJOb is " + this.currentJob.user.userId)
       },
       (error:HttpErrorResponse) => {
         alert(error.message);
       }
     )
   }
+
+  public createNotification(notification:NotificationUser){
+    this.notificationUser.createNotification(notification).subscribe(
+      (response:NotificationUser) => {
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+        console.log(this.applicationNotification.user)
+      }
+    )
+  }
+
+
 }

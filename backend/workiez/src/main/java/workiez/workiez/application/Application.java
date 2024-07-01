@@ -1,11 +1,9 @@
 package workiez.workiez.application;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import workiez.workiez.job.Job;
 import workiez.workiez.worker.Worker;
 
@@ -22,13 +20,14 @@ public class Application {
 
     private String applicationName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "workerId")
-    @JsonManagedReference
     private Worker worker;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "jobId")
+    //@Column(unique = false)
+    @JsonBackReference
     private Job job;
 
     @Enumerated(EnumType.STRING)

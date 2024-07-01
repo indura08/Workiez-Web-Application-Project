@@ -99,7 +99,7 @@
                 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
-                    <h3 class="text-center">Popular jobs</h3>
+                    <h3 class="text-center">Jobs Posted by You</h3>
                     <button class="btn btn-dark mt-1 mx-2 mb-2" data-bs-toggle="modal" data-bs-target="#jobCreatePost">Post a Job</button>
                 </div>
 
@@ -111,7 +111,7 @@
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
                                 <span>{{job.creationDateTime}}</span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2">View more</button>
+                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentJobId(job.jobId); getApplicationsByUserId(jobId)">See Applications</button>
 
                             </div>
                     </div>
@@ -127,13 +127,38 @@
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
                     <h3 class="text-center">notifications</h3>
-                   
                 </div>
+
+                <div class="container">
+                    <div class="row" >
+                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let notification of notifications">
+                                <h4>{{notification.description}}</h4>
+                                <span>{{notification.date}}</span><br>
+                                <button class="btn btn-success mt-2 mb-2">delete</button>
+
+                            </div>
+                    </div>
+                </div>
+
             </div>
 
 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
-                <h3 class="text-center">Some other function</h3>
+                <h3 class="text-center">Applications for your job current selected job</h3>
+
+                <div class="container">
+                    <div class="row" >
+                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let application of applicationList">
+                                <h4>{{application.applicationName}}</h4>
+                                <span>{{application.worker.firstname}} {{application.worker.lastname}}</span><br>
+                                <span>{{application.worker.baseCity}}</span><br>
+                                <span>{{application.worker.email}}</span><br>
+                                <span>phone: {{application.worker.phone}}</span><br>
+                                <button class="btn btn-success mt-2 mb-2">Approve</button>
+
+                            </div>
+                    </div>
+                </div>
                 
             </div>
         </div>

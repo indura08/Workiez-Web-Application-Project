@@ -10,6 +10,7 @@ import workiez.workiez.job.JobRepository;
 import workiez.workiez.worker.Worker;
 import workiez.workiez.worker.WorkerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,5 +116,17 @@ public class ApplicationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
+    }
+
+    @GetMapping("/job/{id}")
+    public ResponseEntity<List<Application>> getApplicationBYJobId(@PathVariable Long id){
+        Optional<Job> currentJob = jobRepository.findById(id);
+        if(currentJob.isPresent()){
+            List<Application> applications = applicationRepository.findAllByJob_JobId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(applications);
+        }
+
+        List<Application> notfoundlist = new ArrayList<>();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notfoundlist);
     }
 }

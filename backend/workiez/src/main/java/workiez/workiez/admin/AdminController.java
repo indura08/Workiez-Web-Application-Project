@@ -140,7 +140,6 @@ public class AdminController {
             existingNotification.setDescription(notification.getDescription());
             existingNotification.setUser(notification.getUser());
             existingNotification.setDate(notification.getDate());
-            existingNotification.setTime(notification.getTime());
 
             notificationUserRepository.save(existingNotification);
             return ResponseEntity.status(HttpStatus.OK).body("notification saved");

@@ -11,6 +11,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { JobStatus } from '../../../models/Enums/JobstatusEnum';
 import { Job } from '../../../models/job';
 import { error } from 'console';
+import { ApplicationService } from '../../services/application.service';
+import { Application } from '../../../models/application';
+import { UserNotificationService } from '../../services/user-notification.service';
+import { NotificationUser } from '../../../models/notificationUser';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,16 +29,27 @@ export class UserProfileComponent implements OnInit {
   public province:Province = Province.WESTERN
   public jobStatus: JobStatus = JobStatus.PENDING;
 
-  constructor(private loginService: LoginService , private jobService:JobService){}
+  constructor(private notificationUser:UserNotificationService , private loginService: LoginService , private jobService:JobService , private applicationService:ApplicationService){}
 
   ngOnInit(): void {
-    this.getJobs()
+    this.getJobs();
+    this.getAllNotification();
   }
 
   public jobs:Job[] = [];
 
   public user:User = this.loginService.getuser();
   public dateTime = new Date();
+
+  public jobId:number = 0;
+
+  public applicationList :Application[] = [];
+
+  public notifications : NotificationUser[] = [];
+
+  public setCurrentJobId(jobId:number){
+    this.jobId = jobId;
+  }
 
   public handleDistrictValue(value:any){
     if(value==1){
@@ -164,6 +179,33 @@ export class UserProfileComponent implements OnInit {
       },
       (error:HttpErrorResponse) => {
         alert(error.message)
+      }
+    )
+  }
+
+  public getApplicationsByUserId(jobId:number){
+    this.applicationService.getApplicationByJobId(jobId).subscribe(
+      (response:Application[]) => {
+        this.applicationList = response;
+        //alert("ÿou are now viewing all the applications for your job")
+        console.log(this.applicationList);
+      },
+      (error:HttpErrorResponse) => {
+        alert("error occured " + error.message);
+        console.log(jobId);
+      }
+    )
+  }
+
+  public getAllNotification():void{
+    this.notificationUser.getNotificationByUserId(this.user.userId).subscribe(
+      (response:NotificationUser[]) => {
+        this.notifications = response;
+        console.log("notification extrcated successfully!")
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+        console.log(error.message)
       }
     )
   }

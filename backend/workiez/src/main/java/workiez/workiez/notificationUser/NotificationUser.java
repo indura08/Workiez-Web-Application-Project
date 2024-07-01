@@ -31,8 +31,6 @@ public class NotificationUser {
 //    @JoinColumn(name = "workerId" , nullable = true)
 //    private Worker worker;
 
-    private LocalDate date;
-
-    private LocalTime time;
+    private String date;
 
 }

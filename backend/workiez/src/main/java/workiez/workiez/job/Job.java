@@ -1,16 +1,18 @@
 package workiez.workiez.job;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import workiez.workiez.Application;
 import workiez.workiez.user.District;
 import workiez.workiez.user.Province;
 import workiez.workiez.user.User;
-import workiez.workiez.user.UserDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
