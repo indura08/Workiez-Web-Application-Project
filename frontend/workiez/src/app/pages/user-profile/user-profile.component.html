@@ -111,7 +111,7 @@
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
                                 <span>{{job.creationDateTime}}</span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentJobId(job.jobId); getApplicationsByUserId(jobId)">See Applications</button>
+                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentJobId(job.jobId); getApplicationsByJobId(jobId)">See Applications</button>
 
                             </div>
                     </div>
@@ -154,7 +154,7 @@
                                 <span>{{application.worker.baseCity}}</span><br>
                                 <span>{{application.worker.email}}</span><br>
                                 <span>phone: {{application.worker.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2">Approve</button>
+                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentApplication(application)">Approve</button>
 
                             </div>
                     </div>

@@ -15,6 +15,8 @@ import { ApplicationService } from '../../services/application.service';
 import { Application } from '../../../models/application';
 import { UserNotificationService } from '../../services/user-notification.service';
 import { NotificationUser } from '../../../models/notificationUser';
+import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
+import { response } from 'express';
 
 @Component({
   selector: 'app-user-profile',
@@ -45,7 +47,33 @@ export class UserProfileComponent implements OnInit {
 
   public applicationList :Application[] = [];
 
+  public currentapplication:Application = {
+    applicationId: 0,
+    applicationName: "name",
+    worker: this.loginService.getWorker(),
+    job: this.jobs[0],                        //temorarily assigining
+    applicationStatus: ApplicationStatus.ACCEPTED,
+    applicationDateAndTime:this.dateTime.toString()
+  }
+
   public notifications : NotificationUser[] = [];
+
+  public setCurrentApplication(application:Application):void{
+    this.currentapplication = application;
+    this.currentapplication.applicationStatus = ApplicationStatus.ACCEPTED;
+    this.currentapplication.job = application.job;
+    
+    this.applicationService.updateApplication(this.currentapplication.applicationId , this.currentapplication).subscribe(
+      (response:string) => {
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )   //dan application eka approve wenwa anik application delete krla daanai thiynne heta krddi
+
+    console.log(this.currentapplication);
+  }
 
   public setCurrentJobId(jobId:number){
     this.jobId = jobId;
@@ -183,7 +211,7 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  public getApplicationsByUserId(jobId:number){
+  public getApplicationsByJobId(jobId:number){
     this.applicationService.getApplicationByJobId(jobId).subscribe(
       (response:Application[]) => {
         this.applicationList = response;
@@ -206,6 +234,7 @@ export class UserProfileComponent implements OnInit {
       (error:HttpErrorResponse) => {
         alert(error.message);
         console.log(error.message)
+        console.log(this.notifications)
       }
     )
   }

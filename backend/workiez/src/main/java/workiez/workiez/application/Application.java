@@ -27,7 +27,6 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "jobId")
     //@Column(unique = false)
-    @JsonBackReference
     private Job job;
 
     @Enumerated(EnumType.STRING)

@@ -23,11 +23,10 @@ export class UserNotificationService {
 
   public getNotificationByUserId(userId:number):Observable<NotificationUser[]>{
     const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId);
-    var headers = new HttpHeaders()
+    var headers;
     if(userToken){
-      headers = headers.set("Authorization", userToken);
+      headers = new HttpHeaders({"Authorization": userToken});
     }
-
     return this.http.get<NotificationUser[]>(`${this.apiUrl}/notificationUser/user/${userId}`, {headers:headers});
   }
 

@@ -40,8 +40,9 @@ public class NotificationUserController {
         Optional<User> user1 = userRepository.findById(id);
         if(user1.isPresent()){
             return ResponseEntity.status(HttpStatus.FOUND).body(notificationRepository.findAllByUser(user1.get()));
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @PostMapping("/create")

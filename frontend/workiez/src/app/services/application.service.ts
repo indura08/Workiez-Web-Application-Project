@@ -47,4 +47,14 @@ export class ApplicationService {
     }
   }
 
+  public updateApplication(applicationId:number , application: Application):Observable<string>{
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId);
+    var headers = new HttpHeaders()
+    if(userToken){
+      headers = headers.set("Authorization" , userToken);
+    }
+
+    return this.http.put<string>(`${this.apiUrl}/application/update/${applicationId}` , application, {headers:headers})
+  }
+
 }

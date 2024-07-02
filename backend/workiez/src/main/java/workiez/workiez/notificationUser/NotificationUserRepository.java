@@ -6,6 +6,7 @@ import workiez.workiez.user.User;
 import java.util.List;
 
 public interface NotificationUserRepository extends JpaRepository<NotificationUser, Long> {
-    List<NotificationUser>findAllByUser(User user);
+
+    List<NotificationUser> findAllByUser(User user);
 
 }
