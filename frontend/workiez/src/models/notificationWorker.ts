@@ -1,6 +1,6 @@
 export interface NotificationWorker{
 
-    notificationWorkerIdd: number,
+    notificationWorkerId: number,
     description:string,
     worker:Worker;
     date:string,

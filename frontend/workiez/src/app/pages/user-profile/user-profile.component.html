@@ -144,7 +144,7 @@
 
 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
-                <h3 class="text-center">Applications for your job current selected job</h3>
+                <h3 class="text-center">Applications for your current selected job</h3>
 
                 <div class="container">
                     <div class="row" >
@@ -154,7 +154,18 @@
                                 <span>{{application.worker.baseCity}}</span><br>
                                 <span>{{application.worker.email}}</span><br>
                                 <span>phone: {{application.worker.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentApplication(application)">Approve</button>
+
+                                <span *ngIf="application.applicationStatus == 'PENDING'">
+                                    <button class="btn btn-success mt-2 mb-2" (click)="setCurrentApplication(application)">Approve</button>
+                                </span>
+
+                                <span *ngIf="application.applicationStatus == 'ACCEPTED'">
+                                    <button class="btn btn-success mt-2 mb-2" (click)="endingJobfunction(application)">End Job</button>
+                                </span>
+
+                                <span *ngIf="application.applicationStatus == 'FINISHED'">
+                                    <span class="btn btn-success mt-2 mb-2">Job finished</span>
+                                </span>
 
                             </div>
                     </div>

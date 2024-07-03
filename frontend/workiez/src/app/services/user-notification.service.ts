@@ -19,8 +19,6 @@ export class UserNotificationService {
     return this.http.post<NotificationUser>(`${this.apiUrl}/notificationUser/create` , notification);
   }
 
-
-
   public getNotificationByUserId(userId:number):Observable<NotificationUser[]>{
     const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId);
     var headers;

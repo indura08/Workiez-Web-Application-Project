@@ -58,6 +58,21 @@ export class UserProfileComponent implements OnInit {
 
   public notifications : NotificationUser[] = [];
 
+  public endingJobfunction(application: Application):void{
+    application.applicationStatus = ApplicationStatus.FINISHED
+    this.applicationService.updateApplication(application.applicationId , application).subscribe(
+      (response:string) => {
+        alert("job finished suceesfully")
+        console.log(response);
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  //worker ge notification hdnna meke
+
   public setCurrentApplication(application:Application):void{
     this.currentapplication = application;
     this.currentapplication.applicationStatus = ApplicationStatus.ACCEPTED;
@@ -71,6 +86,24 @@ export class UserProfileComponent implements OnInit {
         alert(error.message);
       }
     )   //dan application eka approve wenwa anik application delete krla daanai thiynne heta krddi
+
+
+
+
+    this.applicationList.map(application => {
+
+      if(application.applicationId !== this.currentapplication.applicationId){
+        this.applicationService.deleteApplication(application.applicationId).subscribe(
+          (response:string) => {
+            alert("all other applications for your job has been deleted")
+            console.log(response)
+          },
+          (error:HttpErrorResponse) => {
+            console.log(error.message);
+          }
+        )
+      }
+    } )
 
     console.log(this.currentapplication);
   }

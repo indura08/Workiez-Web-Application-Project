@@ -57,4 +57,14 @@ export class ApplicationService {
     return this.http.put<string>(`${this.apiUrl}/application/update/${applicationId}` , application, {headers:headers})
   }
 
+  public deleteApplication(applicationId:number ):Observable<string>{
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
+    var headers = new HttpHeaders()
+    if(userToken){
+      headers = headers.set("Authorization" , userToken);
+    }
+
+    return this.http.delete<string>(`${this.apiUrl}/application/delete/${applicationId}` , {headers:headers})
+  }
+
 }
