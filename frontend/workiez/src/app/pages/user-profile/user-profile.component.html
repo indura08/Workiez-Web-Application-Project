@@ -131,13 +131,15 @@
 
                 <div class="container">
                     <div class="row" >
-                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let notification of notifications">
-                                <h4>{{notification.description}}</h4>
-                                <span>{{notification.date}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2">delete</button>
-
+                            <div class="d-flex border border-1 border-dark col-6 mb-2 margin-for-job-div w-100 py-2" *ngFor="let notification of notifications">
+                                <div class="w-75">
+                                    <span class="fw-bolder ">{{notification.description}}</span>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-danger" style="width: 100px;" (click)="deleteNotification(notification.notificationId)"><span class="material-symbols-outlined image-size">delete</span></button>
+                                </div>
                             </div>
-                    </div>
+                    </div>    
                 </div>
 
             </div>

@@ -37,6 +37,6 @@ export class UserNotificationService {
       headers = headers.set("Authorization", userToken);
     }
 
-    return this.http.get<string>(`${this.apiUrl}/notificationUser/user/${notifId}`, {headers:headers});
+    return this.http.delete<string>(`${this.apiUrl}/notificationUser/delete/${notifId}`, {headers:headers, responseType: 'text' as 'json'});
   }
 }

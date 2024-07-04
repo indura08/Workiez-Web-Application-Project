@@ -164,7 +164,6 @@ public class AdminController {
 
             updatedNotification.setDescription(notification.getDescription());
             updatedNotification.setDate(notification.getDate());
-            updatedNotification.setTime(notification.getTime());
 
             Optional<Worker> worker = workerRepository.findById(notification.getWorker().getWorkerId());
             if(worker.isPresent()){

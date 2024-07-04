@@ -17,6 +17,9 @@ import { Role } from '../../../models/Enums/RoleEnum';
 import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
 import { UserNotificationService } from '../../services/user-notification.service';
 import { NotificationUser } from '../../../models/notificationUser';
+import { WorkerNotificationService } from '../../services/worker-notification.service';
+import { NotificationWorker } from '../../../models/notificationWorker';
+import { error } from 'console';
 
 @Component({
   selector: 'app-worker-profile',
@@ -26,6 +29,8 @@ import { NotificationUser } from '../../../models/notificationUser';
   styleUrl: './worker-profile.component.css'
 })
 export class WorkerProfileComponent implements OnInit {
+
+  public date = new Date();
 
   public currentJob:Job = {
     jobId: 0,
@@ -52,31 +57,33 @@ export class WorkerProfileComponent implements OnInit {
     creationDateTime: ''
   }
 
-  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService){}
+  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService , private notificationWorkerService:WorkerNotificationService){}
 
   ngOnInit(): void {
     this.getJobs();
+    this.getAllNotification(this.worker.workerId);
+  }
+
+  public applicationNotification: NotificationUser = {
+    notificationId: 0,
+    description:  '',
+    user: this.currentJob.user,
+    date:this.date.toString()
   }
 
   public setCurrentJob(job:Job):void{
     this.currentJob = job;
     this.applicationNotification.user = job.user;
+    this.applicationNotification.description = `You have a new application for your job - "${job.description}"`
   }
-
-  public date = new Date();
 
   public status = ApplicationStatus.PENDING;
 
   public jobs:Job[] = [];
 
-  public worker:Worker = this.loginService.getWorker();
+  public workerNotificationList:NotificationWorker[] = [];
 
-  public applicationNotification: NotificationUser = {
-    notificationId: 0,
-    description: "You have a new application for you job",
-    user: this.currentJob.user,
-    date:this.date.toString()
-  }
+  public worker:Worker = this.loginService.getWorker();
 
   public getJobs():void {
     this.jobService.getJobs().subscribe(
@@ -111,6 +118,18 @@ export class WorkerProfileComponent implements OnInit {
       (error:HttpErrorResponse) => {
         alert(error.message);
         console.log(this.applicationNotification.user)
+      }
+    )
+  }
+
+  public getAllNotification(workerId:number):void{
+    this.notificationWorkerService.getAllNotificationBYworker(workerId).subscribe(
+      (response:NotificationWorker[]) => {
+        this.workerNotificationList = response;
+        console.log(this.workerNotificationList);
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message)
       }
     )
   }

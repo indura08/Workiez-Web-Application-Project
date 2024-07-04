@@ -44,7 +44,7 @@ public class NotificationWorkerController {
         Optional<Worker> worker = workerRepository.findById(id);
         if(worker.isPresent()){
             List<NotificationWorker> workerNotification = notificationWorkerRepository.findAllByWorker(worker.get());
-            return ResponseEntity.status(HttpStatus.FOUND).body(workerNotification);
+            return ResponseEntity.status(HttpStatus.OK).body(workerNotification);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -75,7 +75,6 @@ public class NotificationWorkerController {
 
             updatedNotification.setDescription(notification.getDescription());
             updatedNotification.setDate(notification.getDate());
-            updatedNotification.setTime(notification.getTime());
 
             Optional<Worker> worker = workerRepository.findById(notification.getWorker().getWorkerId());
             if(worker.isPresent()){

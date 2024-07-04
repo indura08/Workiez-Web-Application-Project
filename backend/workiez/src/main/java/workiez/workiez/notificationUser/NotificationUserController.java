@@ -39,7 +39,7 @@ public class NotificationUserController {
     public ResponseEntity<List<NotificationUser>> findNotificationByUser(@PathVariable Long id){
         Optional<User> user1 = userRepository.findById(id);
         if(user1.isPresent()){
-            return ResponseEntity.status(HttpStatus.FOUND).body(notificationRepository.findAllByUser(user1.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(notificationRepository.findAllByUser(user1.get()));
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

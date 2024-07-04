@@ -17,6 +17,8 @@ import { UserNotificationService } from '../../services/user-notification.servic
 import { NotificationUser } from '../../../models/notificationUser';
 import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
 import { response } from 'express';
+import { NotificationWorker } from '../../../models/notificationWorker';
+import { WorkerNotificationService } from '../../services/worker-notification.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,10 +30,10 @@ import { response } from 'express';
 export class UserProfileComponent implements OnInit {
 
   public district:District = District.COLOMBO
-  public province:Province = Province.WESTERN
+  public province:Province = Province.WESTERN;
   public jobStatus: JobStatus = JobStatus.PENDING;
 
-  constructor(private notificationUser:UserNotificationService , private loginService: LoginService , private jobService:JobService , private applicationService:ApplicationService){}
+  constructor(private notificationUser:UserNotificationService , private loginService: LoginService , private jobService:JobService , private applicationService:ApplicationService , private workerNotificationService: WorkerNotificationService){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -71,12 +73,22 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  //worker ge notification hdnna meke
+  public workerNotification: NotificationWorker = {
+
+    notificationWorkerId: 0,
+    description: `Your application for job ${this.currentapplication.applicationName} has been approved , now you can visit to do the job`,
+    worker:this.currentapplication.worker,
+    date: this.dateTime.toString(),
+  
+  }
+
 
   public setCurrentApplication(application:Application):void{
     this.currentapplication = application;
     this.currentapplication.applicationStatus = ApplicationStatus.ACCEPTED;
     this.currentapplication.job = application.job;
+    
+    this.workerNotification.worker = application.worker;
     
     this.applicationService.updateApplication(this.currentapplication.applicationId , this.currentapplication).subscribe(
       (response:string) => {
@@ -87,8 +99,16 @@ export class UserProfileComponent implements OnInit {
       }
     )   //dan application eka approve wenwa anik application delete krla daanai thiynne heta krddi
 
+    this.workerNotificationService.createtWorkerNotification(this.workerNotification).subscribe(
+      (response:string) => {
+        console.log(response)
+      },
 
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
 
+    )
 
     this.applicationList.map(application => {
 
@@ -272,7 +292,15 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  
-
-
+  public deleteNotification(notificationId:number):void{
+    this.notificationUser.deleteNotification(notificationId).subscribe(
+      (response:string) => {
+        console.log(response)
+        this.getAllNotification()
+      },
+      (error:HttpErrorResponse) =>{
+        alert(error.message)
+      }
+    )
+  }
 }

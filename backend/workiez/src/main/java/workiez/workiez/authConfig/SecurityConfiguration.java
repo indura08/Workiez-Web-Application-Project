@@ -24,7 +24,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/**" , "/api/notificationUser/create", "/api/notificationWorker/update/{id}").permitAll()
+                                .requestMatchers("/api/auth/**" , "/api/notificationUser/create", "/api/notificationWorker/create").permitAll()
                                 .requestMatchers("/api/worker/**" , "/api/notificationWorker/**", "/api/application/create").hasRole("WORKER")
                                 .requestMatchers("/api/users/**", "/api/notificationUser/user/{id}", "/api/notificationUser/{id}","/api/notificationUser/update/{id}", "/api/notificationUser/delete/{id}" ).hasRole("USER")
                                 .requestMatchers("/api/service/**" , "/api/admin/**" ).hasRole("ADMIN")

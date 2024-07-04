@@ -25,7 +25,5 @@ public class NotificationWorker {
     @ToString.Exclude
     private Worker worker;
 
-    private LocalDate date;
-
-    private LocalTime time;
+    private String date;
 }
