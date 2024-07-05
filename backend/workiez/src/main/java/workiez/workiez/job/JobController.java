@@ -106,7 +106,7 @@ public class JobController {
     public ResponseEntity<String> deleteJob(@PathVariable Long id){
         Optional<Job> job = jobRepository.findById(id);
         if(job.isPresent()){
-            jobRepository.deleteById(id);
+            jobRepository.deleteByJobId(id);
             return ResponseEntity.status(HttpStatus.OK).body("Job deleted successfully");
         }
         else {

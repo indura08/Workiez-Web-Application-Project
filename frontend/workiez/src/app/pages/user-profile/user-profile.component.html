@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <style>
     .div-word-wrap{
         word-wrap: break-word;
@@ -111,7 +115,12 @@
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
                                 <span>{{job.creationDateTime}}</span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2" (click)="setCurrentJobId(job.jobId); getApplicationsByJobId(jobId)">See Applications</button>
+                                
+                                <span>
+                                    <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); getApplicationsByJobId(jobId)"><span class="material-symbols-outlined" style="font-size: 25px;">list</span></button>
+                                    <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); "><span class="material-symbols-outlined" style="font-size: 25px;">edit</span></button>
+                                    <button class="btn btn-danger mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); deleteJob(job.jobId)"><span class="material-symbols-outlined" style="font-size: 25px;">delete</span></button>
+                                </span>
 
                             </div>
                     </div>
@@ -185,14 +194,14 @@
 
 <!--job creation model-->
 <div class="modal fade" tabindex="-1" id="jobCreatePost">
-    <<div class="modal-dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Create A new job</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="" #jobPostForm="ngForm" (ngSubmit)="createJob(jobPostForm)"ng serve>
+            <form class="" #jobPostForm="ngForm" (ngSubmit)="createJob(jobPostForm)">
                 <div class="mb-2">
                   <label for="JobName" class="form-label">Job name</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" ngModel name="JobName">

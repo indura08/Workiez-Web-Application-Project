@@ -117,6 +117,7 @@ export class UserProfileComponent implements OnInit {
           (response:string) => {
             alert("all other applications for your job has been deleted")
             console.log(response)
+            this.getApplicationsByJobId(application.job.jobId)
           },
           (error:HttpErrorResponse) => {
             console.log(error.message);
@@ -244,6 +245,9 @@ export class UserProfileComponent implements OnInit {
     this.jobService.createJob(jobForm.value).subscribe(
       (response:string) => {
         console.log(response)
+        alert("job created successfully")
+        jobForm.reset();
+        this.getJobs()
       },
       (error:HttpErrorResponse) => {
         console.log(error.message +" this method was executed")
@@ -299,6 +303,18 @@ export class UserProfileComponent implements OnInit {
         this.getAllNotification()
       },
       (error:HttpErrorResponse) =>{
+        alert(error.message)
+      }
+    )
+  }
+
+  public deleteJob(jobId:number):void{
+    this.jobService.deletJob(jobId).subscribe(
+      (response:string) => {
+        alert("job deleted successfully")
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
         alert(error.message)
       }
     )

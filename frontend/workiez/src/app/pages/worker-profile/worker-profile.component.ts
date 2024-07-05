@@ -61,7 +61,7 @@ export class WorkerProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getJobs();
-    this.getAllNotification(this.worker.workerId);
+    this.getAllNotification();
   }
 
   public applicationNotification: NotificationUser = {
@@ -122,13 +122,26 @@ export class WorkerProfileComponent implements OnInit {
     )
   }
 
-  public getAllNotification(workerId:number):void{
-    this.notificationWorkerService.getAllNotificationBYworker(workerId).subscribe(
+  public getAllNotification():void{
+    this.notificationWorkerService.getAllNotificationBYworker(this.worker.workerId).subscribe(
       (response:NotificationWorker[]) => {
         this.workerNotificationList = response;
         console.log(this.workerNotificationList);
       },
       (error:HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public deleteNotification(notificationId:number):void{
+    this.notificationWorkerService.deleteNotificationById(notificationId).subscribe(
+      (response:string) => {
+        alert("notification deleted succesully")
+        console.log(response)
+        this.getAllNotification()
+      },
+      (error:HttpErrorResponse) =>{
         alert(error.message)
       }
     )

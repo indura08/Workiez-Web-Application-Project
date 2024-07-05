@@ -58,7 +58,11 @@ export class JobService {
   // } no need yet
 
   public deletJob(jobId:number):Observable<string>{
-    const headers = new HttpHeaders({"Authorization": ""})
-    return this.http.delete<string>(`${this.apiUrl}/job/delete/${jobId}`)
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
+    var headers;
+    if(userToken){
+      headers = new HttpHeaders({"Authorization": userToken})
+    }
+    return this.http.delete<string>(`${this.apiUrl}/job/delete/${jobId}`, { headers:headers , responseType: 'text' as 'json'})
   }
 }

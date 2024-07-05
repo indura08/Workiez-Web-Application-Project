@@ -54,7 +54,7 @@ export class ApplicationService {
       headers = headers.set("Authorization" , userToken);
     }
 
-    return this.http.put<string>(`${this.apiUrl}/application/update/${applicationId}` , application, {headers:headers})
+    return this.http.put<string>(`${this.apiUrl}/application/update/${applicationId}` , application, {headers:headers , responseType: 'text' as 'json'})
   }
 
   public deleteApplication(applicationId:number ):Observable<string>{
@@ -64,7 +64,7 @@ export class ApplicationService {
       headers = headers.set("Authorization" , userToken);
     }
 
-    return this.http.delete<string>(`${this.apiUrl}/application/delete/${applicationId}` , {headers:headers})
+    return this.http.delete<string>(`${this.apiUrl}/application/delete/${applicationId}` , {headers:headers , responseType: 'text' as 'json'})
   }
 
 }

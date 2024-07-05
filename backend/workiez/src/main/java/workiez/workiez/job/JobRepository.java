@@ -1,5 +1,6 @@
 package workiez.workiez.job;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import workiez.workiez.user.District;
 import workiez.workiez.user.User;
@@ -11,4 +12,6 @@ public interface JobRepository extends JpaRepository<Job,Long> {
 
     //List<Job> findAllByUser(User user);
     List<Job> findAllByLocationDistrict(District district);
+    @Transactional
+    void deleteByJobId(Long jobId);
 }

@@ -15,7 +15,7 @@ export class WorkerNotificationService {
   private apiUrl = environment.apiBaseUrl;
 
   public createtWorkerNotification(notificationWorker:NotificationWorker):Observable<string>{
-    return this.http.post<string>(`${this.apiUrl}/notificationWorker/create` , notificationWorker)
+    return this.http.post<string>(`${this.apiUrl}/notificationWorker/create` , notificationWorker, {responseType: 'text' as 'json'})
   }
 
   public getAllNotificationBYworker(workerId:number):Observable<NotificationWorker[]>{
@@ -26,5 +26,14 @@ export class WorkerNotificationService {
     }
 
     return this.http.get<NotificationWorker[]>(`${this.apiUrl}/notificationWorker/worker/${workerId}` , {headers:headers})
+  }
+
+  public deleteNotificationById(notifiId:number):Observable<string>{
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId)
+    var headers = new HttpHeaders()
+    if(workerToken){
+      headers = headers.set("Authorization" , workerToken)
+    }
+    return this.http.delete<string>(`${this.apiUrl}/notificationWorker/delete/${notifiId}` , {headers:headers , responseType: 'text' as 'json'})
   }
 }
