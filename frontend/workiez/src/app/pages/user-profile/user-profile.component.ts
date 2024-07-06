@@ -47,7 +47,35 @@ export class UserProfileComponent implements OnInit {
 
   public jobId:number = 0;
 
+  public selectedJob:Job = {
+    jobId: 0,
+    JobName: "",
+    description: "test",
+    user : this.loginService.getuser(),
+    locationDistrict: District.COLOMBO,
+    locationProvince:Province.WESTERN,
+    city:"",
+    jobStatus:JobStatus.PENDING,
+    creationDateTime:""
+  }
+
+  public setCurrentJob(job:Job):void{
+    this.selectedJob = job;
+  }
+
   public applicationList :Application[] = [];
+
+  public editJob(jobform:NgForm):void{
+    this.jobService.UpdateJob(jobform.value).subscribe(
+      (response:string) => {
+        alert("job updated successfully")
+        console.log(response);
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
 
   public currentapplication:Application = {
     applicationId: 0,
@@ -82,11 +110,26 @@ export class UserProfileComponent implements OnInit {
   
   }
 
+  public applicationJob: Job = {
+    jobId: 0,
+    JobName: "",
+    description: "test",
+    user : this.loginService.getuser(),
+    locationDistrict: District.COLOMBO,
+    locationProvince:Province.WESTERN,
+    city:"",
+    jobStatus:JobStatus.IN_PROGRESS,
+    creationDateTime:""
+  }
 
   public setCurrentApplication(application:Application):void{
     this.currentapplication = application;
     this.currentapplication.applicationStatus = ApplicationStatus.ACCEPTED;
     this.currentapplication.job = application.job;
+    this.applicationJob = application.job;
+
+    this.applicationJob.jobStatus = JobStatus.IN_PROGRESS;
+    
     
     this.workerNotification.worker = application.worker;
     
@@ -108,6 +151,17 @@ export class UserProfileComponent implements OnInit {
         alert(error.message);
       }
 
+    )
+
+    this.jobService.UpdateJob(this.applicationJob).subscribe(
+      (response:string) => {
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+        console.log(error.message)
+        console.log(this.applicationJob)
+      }
     )
 
     this.applicationList.map(application => {

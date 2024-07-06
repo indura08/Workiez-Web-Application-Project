@@ -114,11 +114,12 @@
                                 <span>{{job.user.username}}</span><br>
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
                                 <span>{{job.creationDateTime}}</span><br>
+                                Job Status: <span class="fw-bold">{{job.jobStatus}}</span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
                                 
                                 <span>
                                     <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); getApplicationsByJobId(jobId)"><span class="material-symbols-outlined" style="font-size: 25px;">list</span></button>
-                                    <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); "><span class="material-symbols-outlined" style="font-size: 25px;">edit</span></button>
+                                    <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" data-bs-toggle="modal" data-bs-target="#editJob" (click)="setCurrentJob(job); "><span class="material-symbols-outlined" style="font-size: 25px;">edit</span></button>
                                     <button class="btn btn-danger mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); deleteJob(job.jobId)"><span class="material-symbols-outlined" style="font-size: 25px;">delete</span></button>
                                 </span>
 
@@ -142,7 +143,8 @@
                     <div class="row" >
                             <div class="d-flex border border-1 border-dark col-6 mb-2 margin-for-job-div w-100 py-2" *ngFor="let notification of notifications">
                                 <div class="w-75">
-                                    <span class="fw-bolder ">{{notification.description}}</span>
+                                    <span class="fw-bolder ">{{notification.description}}</span><br>
+                                    <span class="fw-lighter">{{notification.date}}</span>
                                 </div>
                                 <div class="w-25 d-flex justify-content-center align-items-center">
                                     <button class="btn btn-danger" style="width: 100px;" (click)="deleteNotification(notification.notificationId)"><span class="material-symbols-outlined image-size">delete</span></button>
@@ -186,10 +188,6 @@
         </div>
     </div>
 
-    <div>pending jobs</div>
-    <div>explore jobs , jobs completion history eka gana podi div eka</div>
-    <div>about eka</div>
-
 </div>
 
 <!--job creation model-->
@@ -203,8 +201,8 @@
           <div class="modal-body">
             <form class="" #jobPostForm="ngForm" (ngSubmit)="createJob(jobPostForm)">
                 <div class="mb-2">
-                  <label for="JobName" class="form-label">Job name</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" ngModel name="JobName">
+                  <label class="form-label">Job name</label>
+                  <input type="text" class="form-control" ngModel name="JobName">
                 </div>
                 <div class="mb-2">
                   <label for="description" class="form-label">Description</label>
@@ -274,6 +272,105 @@
 
                   <div class="mb-3">
                     <input type="hidden" class="form-control" [(ngModel)]="dateTime" ngModel name="creationDateTime" id="exampleInputPassword1">
+                  </div>
+
+                <!-- <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div> -->
+                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- edit job model -->
+
+  <div class="modal fade" tabindex="-1" id="editJob">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Your Job details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="" #editJobform="ngForm" (ngSubmit)="editJob(editJobform)">
+                <div class="mb-2">
+                  <label for="JobName" class="form-label">Job name</label>
+                  <input type="text" class="form-control" ngModel="{{selectedJob.JobName}}" name="JobName">
+                </div>
+                <div class="mb-2">
+                  <label for="description" class="form-label">Description</label>
+                  <input type="text" class="form-control" ngModel="{{selectedJob.description}}" name="description">
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" ngModel="{{selectedJob.user}}" ngModel name="user" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="input1" class="form-label">locationDistrict</label>
+                    <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="district" (ngModelChange)="handleDistrictValue($event)">
+                        <option selected>Select District</option>
+                        <option value="1">AMPARA</option>
+                        <option value="2">ANURADHAPURA</option>
+                        <option value="3">BADULAA</option>
+                        <option value="4">BATTICALOA</option>
+                        <option value="5">COLOMBO</option>
+                        <option value="6">GALLE</option>
+                        <option value="7">GAMPAHA</option>
+                        <option value="8">HAMBANTHOTA</option>
+                        <option value="9">JAFFNA</option>
+                        <option value="10">KALUTHARA</option>
+                        <option value="11">KANDY</option>
+                        <option value="12">KEGALLE</option>
+                        <option value="13">KILINOCHCHI</option>
+                        <option value="14">KURUNEGALA</option>
+                        <option value="15">MANNER</option>
+                        <option value="16">MATALE</option>
+                        <option value="17">MATARA</option>
+                        <option value="18">MONARAGALA</option>
+                        <option value="19">MULLAITIVU</option>
+                        <option value="20">NUWARA_ELIYA</option>
+                        <option value="21">POLLANNARUWA</option>
+                        <option value="22">PUTTALAM</option>
+                        <option value="23">RATHNAPURA</option>
+                        <option value="24">TRINCOMALEE</option>
+                        <option value="25">VAVUNIYA</option>
+                    </select>
+                    <input type="hidden" class="form-control" ngModel="{{selectedJob.locationDistrict}}"  name="locationDistrict" id="exampleInputPassword1">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Location Province</label>
+                    <select class="form-select input-type-custom col" name="input2" [(ngModel)]="province" ngModel (ngModelChange)="handleProvinceValue($event)">
+                        <option selected>Select District</option>
+                        <option value="1">CENTRAL</option>
+                        <option value="2">EASTERN</option>
+                        <option value="3">NORTH_CENTRAL</option>
+                        <option value="4">NORTHERN</option>
+                        <option value="5">NORTH_WESTERN</option>
+                        <option value="6">SABARAGAMUWA</option>
+                        <option value="7">SOUTHERN</option>
+                        <option value="8">UVA</option>
+                        <option value="9">WESTERN</option>
+                    </select>
+                        <input type="hidden" class="form-control" ngModel="{{selectedJob.locationProvince}}" name="locationProvince" id="exampleInputPassword1">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Location City</label>
+                    <input type="text" class="form-control" ngModel="{{selectedJob.city}}" name="city" id="exampleInputPassword1">
+                  </div>
+
+                  <div class="mb-3">
+                    <input type="hidden" class="form-control" ngModel="{{selectedJob.jobStatus}}" ngModel name="jobStatus" id="exampleInputPassword1">
+                  </div>
+
+                  <div class="mb-3">
+                    <input type="hidden" class="form-control"  ngModel="{{selectedJob.creationDateTime}}" name="creationDateTime" id="exampleInputPassword1">
                   </div>
 
                 <!-- <div class="mb-3 form-check">
