@@ -90,6 +90,8 @@ export class UserProfileComponent implements OnInit {
 
   public endingJobfunction(application: Application):void{
     application.applicationStatus = ApplicationStatus.FINISHED
+    application.job.jobStatus = JobStatus.COMPLETED
+
     this.applicationService.updateApplication(application.applicationId , application).subscribe(
       (response:string) => {
         alert("job finished suceesfully")
@@ -97,6 +99,16 @@ export class UserProfileComponent implements OnInit {
       },
       (error:HttpErrorResponse) => {
         alert(error.message);
+      }
+    )
+
+    this.jobService.UpdateJob(application.job).subscribe(
+      (response:string) => {
+        console.log(response)
+        alert("JOb has been finished successfully, feel free to give us a feedback or complaints if available")
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message)
       }
     )
   }
@@ -129,6 +141,7 @@ export class UserProfileComponent implements OnInit {
     this.applicationJob = application.job;
 
     this.applicationJob.jobStatus = JobStatus.IN_PROGRESS;
+    this.applicationJob.JobName = "name1"
     
     
     this.workerNotification.worker = application.worker;
@@ -299,12 +312,12 @@ export class UserProfileComponent implements OnInit {
     this.jobService.createJob(jobForm.value).subscribe(
       (response:string) => {
         console.log(response)
+        this.getJobs()
         alert("job created successfully")
         jobForm.reset();
-        this.getJobs()
       },
       (error:HttpErrorResponse) => {
-        console.log(error.message +" this method was executed")
+        alert(error.message +" this method was executed")
         console.log(jobForm.value)
       }
     )
@@ -367,6 +380,7 @@ export class UserProfileComponent implements OnInit {
       (response:string) => {
         alert("job deleted successfully")
         console.log(response)
+        this.getJobs();
       },
       (error:HttpErrorResponse) => {
         alert(error.message)

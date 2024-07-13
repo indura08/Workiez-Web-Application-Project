@@ -30,7 +30,7 @@ export class JobService {
     //i havent established to check the logged one is user or worker so still didint established  the secenario where worker and user both tokens are available
     else if(userToken && workerToken){
       console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
-      const headers = new HttpHeaders({'Authorization' : workerToken})
+      const headers = new HttpHeaders({'Authorization' : userToken})
       return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
     }
 
@@ -49,7 +49,7 @@ export class JobService {
       headers = new HttpHeaders({"Authorization": userToken})
     }
     
-    return this.http.post<string>(`${this.apiUrl}/job/create` , job , {headers:headers})
+    return this.http.post<string>(`${this.apiUrl}/job/create` , job , {headers:headers, responseType: 'text' as 'json'})
   }
 
   // public getJobById(jobId: number):Observable<string>{
@@ -73,6 +73,6 @@ export class JobService {
       headers = new HttpHeaders({"Authorization": userToken})
     }
     
-    return this.http.put<string>(`${this.apiUrl}/job/update/${job.jobId}`, {headers:headers , responseType: 'text' as 'json'})
+    return this.http.put<string>(`${this.apiUrl}/job/update/${job.jobId}`, job, {headers:headers , responseType: 'text' as 'json'})
   }
 }
