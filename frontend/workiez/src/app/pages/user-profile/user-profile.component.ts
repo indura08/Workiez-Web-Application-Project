@@ -105,7 +105,7 @@ export class UserProfileComponent implements OnInit {
     this.jobService.UpdateJob(application.job).subscribe(
       (response:string) => {
         console.log(response)
-        alert("JOb has been finished successfully, feel free to give us a feedback or complaints if available")
+        alert("Job has been finished successfully, feel free to give us a feedback or complaints if available")
       },
       (error:HttpErrorResponse) => {
         alert(error.message)

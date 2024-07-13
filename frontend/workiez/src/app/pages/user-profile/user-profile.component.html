@@ -73,7 +73,7 @@
                         </span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</button></a></li>
                       <li><a class="dropdown-item" href="#">Delete Account</a></li>
                       <li><a class="dropdown-item" href="#">Report somthing</a></li>
                     </ul>
@@ -289,7 +289,6 @@
   </div>
 
   <!-- edit job model -->
-
   <div class="modal fade" tabindex="-1" id="editJob">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -386,3 +385,69 @@
         </div>
       </div>
   </div>
+
+<!-- edit user profile -->
+<div class="modal" tabindex="-1" id="editProfile">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit user Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                  First Name
+                  <input type="text" [(ngModel)]="user.firstname" name="firstname" class="form-control">  <!--meke me name eka noda ngmodel ek input tag eke value ekt user ge username ek bind une nha eka hodat mthk thiygnna ngmodel danwa nm name ekk thiynnama one-->
+                </div>
+
+                <div class="mb-3">
+                  Last Name
+                  <input type="text" class="form-control" [(ngModel)]="user.lastname" name="lastname">
+                </div>
+
+                <div class="mb-3">
+                    Email
+                    <input type="email" class="form-control" [(ngModel)]="user.email" name="email"> 
+                </div>
+
+                <div class="mb-3">
+                    Gender
+                    <select class="form-select input-type-custom col" aria-label="Default select example" ngModel name="genderinput" [(ngModel)]="user.gender">
+                        <option selected>Select Gender</option>
+                        <option value="1">MALE</option>
+                        <option value="2">FEMALE</option>
+                    </select>
+
+                    <input type="hidden" [(ngModel)]="user.gender" class="form-control input-type-custom col mx-1" ngModel name="gender">
+                </div>
+
+                <div class="mb-3">
+                    Phone
+                    <input type="text" class="form-control" [(ngModel)]="user.phone" name="phone">
+                </div>
+
+                <div class="mb-3">
+                    District
+                    <input type="text" class="form-control" [(ngModel)]="user.district" name="district">
+                </div>
+
+                <div class="mb-3">
+                    Province
+                    <input type="text" class="form-control" [(ngModel)]="user.province" name="province">
+                </div>
+
+                <div class="mb-3">
+                    City
+                    <input type="text" class="form-control" [(ngModel)]="user.city" name="city">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+              </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
