@@ -19,6 +19,8 @@ import { ApplicationStatus } from '../../../models/Enums/ApplicationStatusEnum';
 import { response } from 'express';
 import { NotificationWorker } from '../../../models/notificationWorker';
 import { WorkerNotificationService } from '../../services/worker-notification.service';
+import { Gender } from '../../../models/Enums/GenderEnum';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,7 +35,9 @@ export class UserProfileComponent implements OnInit {
   public province:Province = Province.WESTERN;
   public jobStatus: JobStatus = JobStatus.PENDING;
 
-  constructor(private notificationUser:UserNotificationService , private loginService: LoginService , private jobService:JobService , private applicationService:ApplicationService , private workerNotificationService: WorkerNotificationService){}
+  constructor(private notificationUser:UserNotificationService , private loginService: LoginService , 
+              private jobService:JobService , private applicationService:ApplicationService , 
+              private workerNotificationService: WorkerNotificationService, private userService: UserService){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -202,109 +206,109 @@ export class UserProfileComponent implements OnInit {
 
   public handleDistrictValue(value:any){
     if(value==1){
-      this.district = District.AMPARA
+      this.userdistrict = District.AMPARA
     }
     else if(value==2){
-      this.district = District.ANURADHAPURA
+      this.userdistrict = District.ANURADHAPURA
     }
     else if(value==3){
-      this.district = District.BADULAA
+      this.userdistrict = District.BADULAA
     }
     else if(value==4){
-      this.district = District.BATTICALOA
+      this.userdistrict = District.BATTICALOA
     }
     else if(value==5){
-      this.district = District.COLOMBO
+      this.userdistrict = District.COLOMBO
     }
     else if(value==6){
-      this.district = District.GALLE
+      this.userdistrict = District.GALLE
     }
     else if(value==7){
-      this.district = District.GAMPAHA
+      this.userdistrict = District.GAMPAHA
     }
     else if(value==8){
-      this.district = District.HAMBANTHOTA
+      this.userdistrict = District.HAMBANTHOTA
     }
     else if(value==9){
-      this.district = District.JAFFNA
+      this.userdistrict = District.JAFFNA
     }
     else if(value==10){
-      this.district = District.KALUTHARA
+      this.userdistrict = District.KALUTHARA
     }
     else if(value==11){
-      this.district = District.KANDY
+      this.userdistrict = District.KANDY
     }
     else if(value==12){
-      this.district = District.KEGALLE
+      this.userdistrict = District.KEGALLE
     }
     else if(value==13){
-      this.district = District.KILINOCHCHI
+      this.userdistrict = District.KILINOCHCHI
     }
     else if(value==14){
-      this.district = District.KURUNEGALA
+      this.userdistrict = District.KURUNEGALA
     }
     else if(value==15){
-      this.district = District.MANNER
+      this.userdistrict = District.MANNER
     }
     else if(value==16){
-      this.district = District.MATALE
+      this.userdistrict = District.MATALE
     }
     else if(value==17){
-      this.district = District.MATARA
+      this.userdistrict = District.MATARA
     }
     else if(value==18){
-      this.district = District.MONARAGALA
+      this.userdistrict = District.MONARAGALA
     }
     else if(value==19){
-      this.district = District.MULLAITIVU
+      this.userdistrict = District.MULLAITIVU
     }
     else if(value==20){
-      this.district = District.NUWARA_ELIYA
+      this.userdistrict = District.NUWARA_ELIYA
     }
     else if(value==21){
-      this.district = District.POLLANNARUWA
+      this.userdistrict = District.POLLANNARUWA
     }
     else if(value==22){
-      this.district = District.PUTTALAM
+      this.userdistrict = District.PUTTALAM
     }
     else if(value==23){
-      this.district = District.RATHNAPURA
+      this.userdistrict = District.RATHNAPURA
     }
     else if(value==24){
-      this.district = District.TRINCOMALEE
+      this.userdistrict = District.TRINCOMALEE
     }
     else if(value==25){
-      this.district = District.VAVUNIYA
+      this.userdistrict = District.VAVUNIYA
     }
   }
 
   public handleProvinceValue(value:any){
     if(value==1){
-      this.province = Province.CENTRAL
+      this.userprovince = Province.CENTRAL
     }
     else if(value==2){
-      this.province = Province.EASTERN
+      this.userprovince = Province.EASTERN
     }
     else if(value==3){
-      this.province = Province.NORTH_CENTRAL
+      this.userprovince = Province.NORTH_CENTRAL
     }
     else if(value==4){
-      this.province = Province.NORTHERN
+      this.userprovince = Province.NORTHERN
     }
     else if(value==5){
-      this.province = Province.NORTH_WESTERN
+      this.userprovince = Province.NORTH_WESTERN
     }
     else if(value==6){
-      this.province = Province.SABARAGAMUWA
+      this.userprovince = Province.SABARAGAMUWA
     }
     else if(value==7){
-      this.province = Province.SOUTHERN
+      this.userprovince = Province.SOUTHERN
     }
     else if(value==8){
-      this.province = Province.UVA
+      this.userprovince = Province.UVA
     }
     else if(value==9){
-      this.province = Province.WESTERN
+      this.userprovince = Province.WESTERN
     }
   }
   
@@ -387,4 +391,32 @@ export class UserProfileComponent implements OnInit {
       }
     )
   }
+
+  //functions and properties for edit user profile
+  public gender:Gender = this.user.gender;
+  public userdistrict: District = this.user.district;
+  public userprovince: Province = Province.WESTERN;
+
+  public handleGenderValue(value:any){
+    if(value == 1){
+      this.gender = Gender.MALE;
+    }
+    else if(value==2){
+      this.gender = Gender.FEMALE;
+    }
+  }
+
+  public editUserProfile(userForm:NgForm):void{
+    this.userService.updateUser(userForm.value).subscribe(
+      (response:string) => {
+        console.log(response)
+        userForm.reset();
+      },
+      (error:HttpErrorResponse) => {
+        alert("error occured the error: " + error.message)
+      }
+    )
+  }
+
+  
 }
