@@ -70,13 +70,15 @@ export class UserProfileComponent implements OnInit {
   public applicationList :Application[] = [];
 
   public editJob(jobform:NgForm):void{
-    this.jobService.UpdateJob(jobform.value).subscribe(
+    this.selectedJob = jobform.value;
+    this.jobService.UpdateJob(this.selectedJob).subscribe(
       (response:string) => {
         alert("job updated successfully")
         console.log(response);
       },
       (error:HttpErrorResponse) => {
         alert(error.message)
+        console.log(this.selectedJob);
       }
     )
   }
@@ -206,109 +208,109 @@ export class UserProfileComponent implements OnInit {
 
   public handleDistrictValue(value:any){
     if(value==1){
-      this.userdistrict = District.AMPARA
+      this.district = District.AMPARA
     }
     else if(value==2){
-      this.userdistrict = District.ANURADHAPURA
+      this.district = District.ANURADHAPURA
     }
     else if(value==3){
-      this.userdistrict = District.BADULAA
+      this.district = District.BADULAA
     }
     else if(value==4){
-      this.userdistrict = District.BATTICALOA
+      this.district = District.BATTICALOA
     }
     else if(value==5){
-      this.userdistrict = District.COLOMBO
+      this.district = District.COLOMBO
     }
     else if(value==6){
-      this.userdistrict = District.GALLE
+      this.district = District.GALLE
     }
     else if(value==7){
-      this.userdistrict = District.GAMPAHA
+      this.district = District.GAMPAHA
     }
     else if(value==8){
-      this.userdistrict = District.HAMBANTHOTA
+      this.district = District.HAMBANTHOTA
     }
     else if(value==9){
-      this.userdistrict = District.JAFFNA
+      this.district = District.JAFFNA
     }
     else if(value==10){
-      this.userdistrict = District.KALUTHARA
+      this.district = District.KALUTHARA
     }
     else if(value==11){
-      this.userdistrict = District.KANDY
+      this.district = District.KANDY
     }
     else if(value==12){
-      this.userdistrict = District.KEGALLE
+      this.district = District.KEGALLE
     }
     else if(value==13){
-      this.userdistrict = District.KILINOCHCHI
+      this.district = District.KILINOCHCHI
     }
     else if(value==14){
-      this.userdistrict = District.KURUNEGALA
+      this.district = District.KURUNEGALA
     }
     else if(value==15){
-      this.userdistrict = District.MANNER
+      this.district = District.MANNER
     }
     else if(value==16){
-      this.userdistrict = District.MATALE
+      this.district = District.MATALE
     }
     else if(value==17){
-      this.userdistrict = District.MATARA
+      this.district = District.MATARA
     }
     else if(value==18){
-      this.userdistrict = District.MONARAGALA
+      this.district = District.MONARAGALA
     }
     else if(value==19){
-      this.userdistrict = District.MULLAITIVU
+      this.district = District.MULLAITIVU
     }
     else if(value==20){
-      this.userdistrict = District.NUWARA_ELIYA
+      this.district = District.NUWARA_ELIYA
     }
     else if(value==21){
-      this.userdistrict = District.POLLANNARUWA
+      this.district = District.POLLANNARUWA
     }
     else if(value==22){
-      this.userdistrict = District.PUTTALAM
+      this.district = District.PUTTALAM
     }
     else if(value==23){
-      this.userdistrict = District.RATHNAPURA
+      this.district = District.RATHNAPURA
     }
     else if(value==24){
-      this.userdistrict = District.TRINCOMALEE
+      this.district = District.TRINCOMALEE
     }
     else if(value==25){
-      this.userdistrict = District.VAVUNIYA
+      this.district = District.VAVUNIYA
     }
   }
 
   public handleProvinceValue(value:any){
     if(value==1){
-      this.userprovince = Province.CENTRAL
+      this.province = Province.CENTRAL
     }
     else if(value==2){
-      this.userprovince = Province.EASTERN
+      this.province = Province.EASTERN
     }
     else if(value==3){
-      this.userprovince = Province.NORTH_CENTRAL
+      this.province = Province.NORTH_CENTRAL
     }
     else if(value==4){
-      this.userprovince = Province.NORTHERN
+      this.province = Province.NORTHERN
     }
     else if(value==5){
-      this.userprovince = Province.NORTH_WESTERN
+      this.province = Province.NORTH_WESTERN
     }
     else if(value==6){
-      this.userprovince = Province.SABARAGAMUWA
+      this.province = Province.SABARAGAMUWA
     }
     else if(value==7){
-      this.userprovince = Province.SOUTHERN
+      this.province = Province.SOUTHERN
     }
     else if(value==8){
-      this.userprovince = Province.UVA
+      this.province = Province.UVA
     }
     else if(value==9){
-      this.userprovince = Province.WESTERN
+      this.province = Province.WESTERN
     }
   }
   
@@ -403,6 +405,114 @@ export class UserProfileComponent implements OnInit {
     }
     else if(value==2){
       this.gender = Gender.FEMALE;
+    }
+  }
+
+  public handleUserDistrictValue(value:any){
+    if(value==1){
+      this.userdistrict = District.AMPARA
+    }
+    else if(value==2){
+      this.userdistrict = District.ANURADHAPURA
+    }
+    else if(value==3){
+      this.userdistrict = District.BADULAA
+    }
+    else if(value==4){
+      this.userdistrict = District.BATTICALOA
+    }
+    else if(value==5){
+      this.userdistrict = District.COLOMBO
+    }
+    else if(value==6){
+      this.userdistrict = District.GALLE
+    }
+    else if(value==7){
+      this.userdistrict = District.GAMPAHA
+    }
+    else if(value==8){
+      this.userdistrict = District.HAMBANTHOTA
+    }
+    else if(value==9){
+      this.userdistrict = District.JAFFNA
+    }
+    else if(value==10){
+      this.userdistrict = District.KALUTHARA
+    }
+    else if(value==11){
+      this.userdistrict = District.KANDY
+    }
+    else if(value==12){
+      this.userdistrict = District.KEGALLE
+    }
+    else if(value==13){
+      this.userdistrict = District.KILINOCHCHI
+    }
+    else if(value==14){
+      this.userdistrict = District.KURUNEGALA
+    }
+    else if(value==15){
+      this.userdistrict = District.MANNER
+    }
+    else if(value==16){
+      this.userdistrict = District.MATALE
+    }
+    else if(value==17){
+      this.userdistrict = District.MATARA
+    }
+    else if(value==18){
+      this.userdistrict = District.MONARAGALA
+    }
+    else if(value==19){
+      this.userdistrict = District.MULLAITIVU
+    }
+    else if(value==20){
+      this.userdistrict = District.NUWARA_ELIYA
+    }
+    else if(value==21){
+      this.userdistrict = District.POLLANNARUWA
+    }
+    else if(value==22){
+      this.userdistrict = District.PUTTALAM
+    }
+    else if(value==23){
+      this.userdistrict = District.RATHNAPURA
+    }
+    else if(value==24){
+      this.userdistrict = District.TRINCOMALEE
+    }
+    else if(value==25){
+      this.userdistrict = District.VAVUNIYA
+    }
+  }
+
+  public handleUserProvinceValue(value:any){
+    if(value==1){
+      this.userprovince = Province.CENTRAL
+    }
+    else if(value==2){
+      this.userprovince = Province.EASTERN
+    }
+    else if(value==3){
+      this.userprovince = Province.NORTH_CENTRAL
+    }
+    else if(value==4){
+      this.userprovince = Province.NORTHERN
+    }
+    else if(value==5){
+      this.userprovince = Province.NORTH_WESTERN
+    }
+    else if(value==6){
+      this.userprovince = Province.SABARAGAMUWA
+    }
+    else if(value==7){
+      this.userprovince = Province.SOUTHERN
+    }
+    else if(value==8){
+      this.userprovince = Province.UVA
+    }
+    else if(value==9){
+      this.userprovince = Province.WESTERN
     }
   }
 

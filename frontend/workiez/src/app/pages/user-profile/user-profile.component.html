@@ -397,6 +397,8 @@
         <div class="modal-body">
             <form #editUserForm="ngForm" (ngSubmit)="editUserProfile(editUserForm)">
               <input type="hidden" [(ngModel)]="user.userId" name="userId" class="form-control">
+              <input type="hidden" [(ngModel)]="user.password" name="password" class="form-control">
+              <input type="hidden" [(ngModel)]="user.role" name="role" class="form-control">
                 <div class="mb-3">
                   First Name
                   <input type="text" [(ngModel)]="user.firstname" name="firstname" class="form-control">  <!--meke me name eka noda ngmodel ek input tag eke value ekt user ge username ek bind une nha eka hodat mthk thiygnna ngmodel danwa nm name ekk thiynnama one-->
@@ -493,6 +495,7 @@
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                <p style="font-size: 12px; margin-top: 8px; color: red">Your changes will be updated when you login next time</p>
               </form>
 
         </div>
