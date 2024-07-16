@@ -21,6 +21,7 @@ import { NotificationWorker } from '../../../models/notificationWorker';
 import { WorkerNotificationService } from '../../services/worker-notification.service';
 import { Gender } from '../../../models/Enums/GenderEnum';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,7 +38,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private notificationUser:UserNotificationService , private loginService: LoginService , 
               private jobService:JobService , private applicationService:ApplicationService , 
-              private workerNotificationService: WorkerNotificationService, private userService: UserService){}
+              private workerNotificationService: WorkerNotificationService, private userService: UserService, 
+              private route: Router){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -65,20 +67,21 @@ export class UserProfileComponent implements OnInit {
 
   public setCurrentJob(job:Job):void{
     this.selectedJob = job;
+    console.log(this.selectedJob);
   }
 
   public applicationList :Application[] = [];
 
   public editJob(jobform:NgForm):void{
-    this.selectedJob = jobform.value;
-    this.jobService.UpdateJob(this.selectedJob).subscribe(
+    this.jobService.UpdateJob(jobform.value).subscribe(
       (response:string) => {
         alert("job updated successfully")
         console.log(response);
+        this.jobService.getJobs();
       },
       (error:HttpErrorResponse) => {
         alert(error.message)
-        console.log(this.selectedJob);
+        console.log(jobform.value);
       }
     )
   }
@@ -523,10 +526,31 @@ export class UserProfileComponent implements OnInit {
         userForm.reset();
       },
       (error:HttpErrorResponse) => {
-        alert("error occured the error: " + error.message)
+        alert("error occured the error: " + error.message);
+        console.log();
       }
     )
   }
 
-  
+  public deleteUser(userId: number):void{
+    this.jobService.deleteJobByuser(userId).subscribe(
+      (response:string) => {
+        console.log(response)
+      },
+      (error: HttpErrorResponse) => {
+        alert("couldn't delete user try again" + " error is : " + error.message)
+      }
+    )
+    this.userService.deleteUser(userId).subscribe(
+      (response:string) => {
+        console.log(response)
+        alert("deleted succesfully thanks for using workiez");
+        this.route.navigate([""])
+      },
+      (error:HttpErrorResponse) => {
+        alert("error occured!: "  + error.message);
+      }
+    ) 
+  } 
+
 }

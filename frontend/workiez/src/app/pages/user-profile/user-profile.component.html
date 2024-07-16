@@ -74,8 +74,8 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</button></a></li>
-                      <li><a class="dropdown-item" href="#">Delete Account</a></li>
-                      <li><a class="dropdown-item" href="#">Report somthing</a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#deleteProfile">Delete Account</button></a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;">Report something</button></a></li>
                     </ul>
                   </div>
             </div>
@@ -299,19 +299,20 @@
           <div class="modal-body">
             <form class="" #editJobform="ngForm" (ngSubmit)="editJob(editJobform)">
                 <div class="mb-2">
+                  <input type="hidden" [(ngModel)]="selectedJob.jobId" ngModel name="jobId">
                   <label for="JobName" class="form-label">Job name</label>
-                  <input type="text" class="form-control" ngModel="{{selectedJob.JobName}}" name="JobName">
+                  <input type="text" class="form-control" [(ngModel)]="selectedJob.JobName" ngModel name="JobName">
                 </div>
                 <div class="mb-2">
                   <label for="description" class="form-label">Description</label>
-                  <input type="text" class="form-control" ngModel="{{selectedJob.description}}" name="description">
+                  <input type="text" class="form-control" [(ngModel)]="selectedJob.description" ngModel name="description">
                 </div>
                 <div class="mb-3">
-                    <input type="hidden" class="form-control" ngModel="{{selectedJob.user}}" ngModel name="user" id="exampleInputPassword1">
+                    <input type="hidden" class="form-control" [(ngModel)]="selectedJob.user" ngModel name="user" id="exampleInputPassword1">
                 </div>
                 <div class="mb-3">
                     <label for="input1" class="form-label">locationDistrict</label>
-                    <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="district" (ngModelChange)="handleDistrictValue($event)">
+                    <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="userdistrict" (ngModelChange)="handleUserDistrictValue($event)">
                         <option selected>Select District</option>
                         <option value="1">AMPARA</option>
                         <option value="2">ANURADHAPURA</option>
@@ -339,12 +340,12 @@
                         <option value="24">TRINCOMALEE</option>
                         <option value="25">VAVUNIYA</option>
                     </select>
-                    <input type="hidden" class="form-control" ngModel="{{selectedJob.locationDistrict}}"  name="locationDistrict" id="exampleInputPassword1">
+                    <input type="hidden" class="form-control" [(ngModel)]="selectedJob.locationDistrict" ngModel  name="locationDistrict" id="exampleInputPassword1">
                 </div>
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Location Province</label>
-                    <select class="form-select input-type-custom col" name="input2" [(ngModel)]="province" ngModel (ngModelChange)="handleProvinceValue($event)">
+                    <select class="form-select input-type-custom col" name="input2" [(ngModel)]="province" ngModel (ngModelChange)="handleUserProvinceValue($event)">
                         <option selected>Select District</option>
                         <option value="1">CENTRAL</option>
                         <option value="2">EASTERN</option>
@@ -356,20 +357,20 @@
                         <option value="8">UVA</option>
                         <option value="9">WESTERN</option>
                     </select>
-                        <input type="hidden" class="form-control" ngModel="{{selectedJob.locationProvince}}" name="locationProvince" id="exampleInputPassword1">
+                        <input type="hidden" class="form-control" [(ngModel)]="selectedJob.locationProvince" ngModel name="locationProvince" id="exampleInputPassword1">
                   </div>
 
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Location City</label>
-                    <input type="text" class="form-control" ngModel="{{selectedJob.city}}" name="city" id="exampleInputPassword1">
+                    <input type="text" class="form-control" [(ngModel)]="selectedJob.city" ngModel name="city" id="exampleInputPassword1">
                   </div>
 
                   <div class="mb-3">
-                    <input type="hidden" class="form-control" ngModel="{{selectedJob.jobStatus}}" ngModel name="jobStatus" id="exampleInputPassword1">
+                    <input type="hidden" class="form-control" [(ngModel)]="selectedJob.jobStatus" ngModel name="jobStatus" id="exampleInputPassword1">
                   </div>
 
                   <div class="mb-3">
-                    <input type="hidden" class="form-control"  ngModel="{{selectedJob.creationDateTime}}" name="creationDateTime" id="exampleInputPassword1">
+                    <input type="hidden" class="form-control"  [(ngModel)]="selectedJob.creationDateTime" ngModel name="creationDateTime" id="exampleInputPassword1">
                   </div>
 
                 <!-- <div class="mb-3 form-check">
@@ -501,5 +502,25 @@
         </div>
       </div>
     </div>
+</div>
+
+<!-- delete user profile -->
+<div class="modal" tabindex="-1" id="deleteProfile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure... Because all of your data will be gone and you will be logged out</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteUser(user.userId)">Delete</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Go back</button>
+      </div>
+    </div>
   </div>
+</div>
+
 

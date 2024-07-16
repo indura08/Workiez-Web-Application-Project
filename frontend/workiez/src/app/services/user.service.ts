@@ -30,6 +30,11 @@ export class UserService {
   }
 
   public deleteUser(userId: number): Observable<string>{
-    return this.http.delete<string>(`${this.apiUrl}/users/delete/${userId}`)
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId);
+    var headers = new HttpHeaders()
+    if(userToken){
+      headers = headers.set("Authorization" , userToken)            
+    }
+    return this.http.delete<string>(`${this.apiUrl}/users/delete/${userId}`, {headers:headers, responseType: "text" as "json"})
   }
 }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Job } from '../../models/job';
 import { TokenService } from './token.service';
 import { LoginService } from './login.service';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,14 @@ export class JobService {
     }
     
     return this.http.put<string>(`${this.apiUrl}/job/update/${job.jobId}`, job, {headers:headers , responseType: 'text' as 'json'})
+  }
+
+  public deleteJobByuser(userId: number):Observable<string>{
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
+    var headers;
+    if(userToken){
+      headers = new HttpHeaders({"Authorization" : userToken})
+    }
+    return this.http.delete<string>(`${this.apiUrl}/job/delete/byUser/${userId}` , {headers:headers , responseType: "text" as "json"});
   }
 }
