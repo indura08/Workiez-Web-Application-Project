@@ -516,7 +516,7 @@
         <p>Are you sure... Because all of your data will be gone and you will be logged out</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="deleteUser(user.userId)">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="deleteJobByUserId(user.userId);deleteUser(user.userId)">Delete</button>
         <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Go back</button>
       </div>
     </div>

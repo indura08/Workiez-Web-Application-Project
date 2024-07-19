@@ -532,25 +532,46 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  public deleteUser(userId: number):void{
-    this.jobService.deleteJobByuser(userId).subscribe(
-      (response:string) => {
-        console.log(response)
+  public deleteJobByUserId(userId: number):void{
+    this.jobService.getJobsbyUser(userId).subscribe(
+      (response:Job[]) => {
+        for(let i =0 ; i< response.length ; i++){
+          this.applicationService.deleteApplicationByJob(response[i]).subscribe(
+            (response:string) => {
+              //console.log(response)
+              this.jobService.deleteJobByuser(userId).subscribe(
+                (response:string)=> {
+                  console.log(response)
+                },
+          
+                (error:HttpErrorResponse) => {
+                  alert(error.message);
+                }
+              )
+            },
+            (error:HttpErrorResponse) => {
+              console.log(error.message)
+              console.log(response[0])
+            }
+          )
+        }
       },
-      (error: HttpErrorResponse) => {
-        alert("couldn't delete user try again" + " error is : " + error.message)
+      (error:HttpErrorResponse) => {
+        alert(error.message)
       }
     )
+  }
+
+  public deleteUser(userId: number):void{
     this.userService.deleteUser(userId).subscribe(
       (response:string) => {
         console.log(response)
-        alert("deleted succesfully thanks for using workiez");
         this.route.navigate([""])
       },
       (error:HttpErrorResponse) => {
-        alert("error occured!: "  + error.message);
+        console.log(error.message)
       }
-    ) 
-  } 
+    )
+  }
 
 }

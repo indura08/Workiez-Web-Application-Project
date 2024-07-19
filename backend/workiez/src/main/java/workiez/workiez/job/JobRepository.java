@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public interface JobRepository extends JpaRepository<Job,Long> {
 
-    //List<Job> findAllByUser(User user);
+    List<Job> findAllByUser(User user);
     List<Job> findAllByLocationDistrict(District district);
     @Transactional
     void deleteByJobId(Long jobId);

@@ -1,10 +1,12 @@
 package workiez.workiez.job;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import workiez.workiez.application.ApplicationRepository;
 import workiez.workiez.user.*;
 
 import javax.swing.text.html.Option;
@@ -19,6 +21,8 @@ public class JobController {
     private JobRepository jobRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<Job>> getAllJobs(){
@@ -55,17 +59,17 @@ public class JobController {
 
     }
 
-//    @GetMapping("/user/{id}")
-//    public ResponseEntity<List<Job>> getJobsByUser(@PathVariable Long id){
-//        Optional<User> existingUser = userRepository.findById(id);
-//        if(existingUser.isPresent()){
-//            List<Job> userJobs = jobRepository.findAllByUser(existingUser.get());
-//            return ResponseEntity.status(HttpStatus.FOUND).body(userJobs);
-//        }
-//        else{
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//    }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Job>> getJobsByUser(@PathVariable Long id){
+        Optional<User> existingUser = userRepository.findById(id);
+        if(existingUser.isPresent()){
+            List<Job> userJobs = jobRepository.findAllByUser(existingUser.get());
+            return ResponseEntity.status(HttpStatus.OK).body(userJobs);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
     @GetMapping("/location/{district}")
     public ResponseEntity<List<Job>> findAllByDistrict(@PathVariable District district){
@@ -103,6 +107,7 @@ public class JobController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Transactional
     public ResponseEntity<String> deleteJob(@PathVariable Long id){
         Optional<Job> job = jobRepository.findById(id);
         if(job.isPresent()){
@@ -111,6 +116,21 @@ public class JobController {
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("job not found with id :" + id);
+        }
+    }
+    @DeleteMapping("/delete/byUser/{id}")
+    public ResponseEntity<String> deleteJobByUserId(@PathVariable Long id){
+        Optional<User> user1 = userRepository.findById(id);
+        if(user1.isPresent()){
+            List<Job> userJobs = jobRepository.findAllByUser(user1.get());
+            for(Job job: userJobs){
+                userRepository.deleteById(job.getJobId());
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("jobs are deleted successfully");
+        }
+
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't found any job related to the user you have provided");
         }
     }
 }

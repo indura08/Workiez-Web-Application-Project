@@ -85,4 +85,30 @@ export class JobService {
     }
     return this.http.delete<string>(`${this.apiUrl}/job/delete/byUser/${userId}` , {headers:headers , responseType: "text" as "json"});
   }
+
+  public getJobsbyUser(userId:number):Observable<Job[]>{
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser()?.userId);
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId);
+
+    if(userToken && !workerToken){
+      const headers = new HttpHeaders({'Authorization':  userToken})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/user/${userId}` , {headers:headers})
+    }
+    else if(!userToken && workerToken){
+      const headers = new HttpHeaders({'Authorization':  workerToken})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/user/${userId}` , {headers:headers})
+    }
+    //i havent established to check the logged one is user or worker so still didint established  the secenario where worker and user both tokens are available
+    else if(userToken && workerToken){
+      console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
+      const headers = new HttpHeaders({'Authorization' : userToken})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/user/${userId}` , {headers:headers})
+    }
+
+    else{
+      console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
+      const headers = new HttpHeaders({'Authorization' : 'Bearer '})
+      return this.http.get<Job[]>(`${this.apiUrl}/job/user/${userId}` , {headers:headers})
+    }
+  }
 }

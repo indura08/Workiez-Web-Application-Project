@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { LoginService } from './login.service';
 import { TokenService } from './token.service';
+import { Job } from '../../models/job';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,16 @@ export class ApplicationService {
     }
 
     return this.http.delete<string>(`${this.apiUrl}/application/delete/${applicationId}` , {headers:headers , responseType: 'text' as 'json'})
+  }
+
+  public deleteApplicationByJob(job:Job):Observable<string>{
+    const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId)
+    var headers = new HttpHeaders()
+    if(userToken){
+      headers = headers.set("Authorization" , userToken);
+    }
+
+    return this.http.delete<string>(`${this.apiUrl}/application/delete/byJob/${job.jobId}`, {headers:headers, responseType: "text" as "json"});
   }
 
 }

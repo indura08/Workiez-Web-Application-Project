@@ -1,5 +1,6 @@
 package workiez.workiez.application;
 
+import jakarta.transaction.Transactional;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -128,5 +129,18 @@ public class ApplicationController {
 
         List<Application> notfoundlist = new ArrayList<>();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notfoundlist);
+    }
+
+    @DeleteMapping("/delete/byJob/{id}")
+    @Transactional
+    public ResponseEntity<String> deletByJob(@PathVariable Long id){
+        Optional<Job> currentJob = jobRepository.findById(id);
+        if(currentJob.isPresent()){
+            applicationRepository.deleteByJob(currentJob.get());
+            return ResponseEntity.status(HttpStatus.OK).body("Applications deleted by job");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Applications not found");
+        }
     }
 }
