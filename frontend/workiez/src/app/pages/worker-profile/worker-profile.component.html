@@ -96,7 +96,7 @@
                 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
                 <div class="">
-                    <h3 class="text-center">Popular jobs</h3>
+                    <h3 class="text-center">All jobs</h3>
                 </div>
 
                 <div class="container">
@@ -107,7 +107,15 @@
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
                                 <span>{{job.creationDateTime}}</span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
-                                <button class="btn btn-success mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#addApplication" (click)="setCurrentJob(job)">Apply</button>
+                                <span *ngIf="job.jobStatus == 'PENDING'">
+                                    <button class="btn btn-success mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#addApplication" (click)="setCurrentJob(job)">Apply</button> 
+                                </span>
+                                <span *ngIf="job.jobStatus == 'IN_PROGRESS'">
+                                    <span class="text-danger fw-bold fs-6">You can't Apply to this job, it is in progress</span> 
+                                </span>
+                                <span *ngIf="job.jobStatus == 'COMPLETED'">
+                                    <span class="text-danger fw-bold fs-6">You can't Apply to this job, it was completed</span> 
+                                </span>
 
                             </div>
                     </div>
@@ -153,9 +161,11 @@
                                 <span>Job status: <b>{{job.jobStatus}}</b></span><br>
                                 <span>phone: {{job.user.phone}}</span><br>
 
-                                <div class="d-flex align-items-center justify-content-center ">
+                                <div class="mt-2 mb-4">
                                     <div>
                                         <button class="btn btn-dark mt-2 mb-2" (click)="getApplicationByJob(job)">See Application status</button><br>
+                                    </div>
+                                    <div>
                                         <span *ngIf="currentApplication.applicationId != 0 && currentApplication.job.jobId == job.jobId">
                                             <span>Your Application's status: {{currentApplication.applicationStatus}}</span>
                                         </span>

@@ -169,7 +169,7 @@
                                 <span>phone: {{application.worker.phone}}</span><br>
 
                                 <span *ngIf="application.applicationStatus == 'PENDING'">
-                                    <button class="btn btn-success mt-2 mb-2" (click)="setCurrentApplication(application)">Approve</button>
+                                    <button class="btn btn-primary mt-2 mb-2" (click)="setCurrentApplication(application)">Approve</button>
                                 </span>
 
                                 <span *ngIf="application.applicationStatus == 'ACCEPTED'">
@@ -177,7 +177,7 @@
                                 </span>
 
                                 <span *ngIf="application.applicationStatus == 'FINISHED'">
-                                    <span class="btn btn-success mt-2 mb-2">Job finished</span>
+                                    <span class="btn btn-dark mt-2 mb-2">Job finished</span>
                                 </span>
 
                             </div>

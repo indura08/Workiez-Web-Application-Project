@@ -152,7 +152,6 @@ export class UserProfileComponent implements OnInit {
     this.applicationJob.jobStatus = JobStatus.IN_PROGRESS;
     this.applicationJob.JobName = "name1"
     
-    
     this.workerNotification.worker = application.worker;
     
     this.applicationService.updateApplication(this.currentapplication.applicationId , this.currentapplication).subscribe(
@@ -187,18 +186,28 @@ export class UserProfileComponent implements OnInit {
     )
 
     this.applicationList.map(application => {
-
       if(application.applicationId !== this.currentapplication.applicationId){
-        this.applicationService.deleteApplication(application.applicationId).subscribe(
-          (response:string) => {
-            alert("all other applications for your job has been deleted")
-            console.log(response)
-            this.getApplicationsByJobId(application.job.jobId)
-          },
-          (error:HttpErrorResponse) => {
-            console.log(error.message);
-          }
-        )
+        this.workerNotificationService.createtWorkerNotification({notificationWorkerId: 0,
+          description: `Your application for job "${application.applicationName}" has been rejected. We are sorry :/`,
+          worker:application.worker,
+          date: this.dateTime.toString(),}).subscribe(
+            (response:string) => {
+              console.log(response)
+              this.applicationService.deleteApplication(application.applicationId).subscribe(
+                (response:string) => {
+                  console.log("all other applications for your job has been deleted")
+                  console.log(response)
+                  this.getApplicationsByJobId(application.job.jobId)
+                },
+                (error:HttpErrorResponse) => {
+                  console.log(error.message);
+                }
+              )
+            },
+            (error:HttpErrorResponse) => {
+              alert(error.message)
+            }
+          )
       }
     } )
 
