@@ -111,7 +111,7 @@ public class ApplicationController {
         if(existingWorker.isPresent()){
             Worker worker = existingWorker.get();
             List<Application> workerApplications = applicationRepository.findAllByWorker(worker);
-            return ResponseEntity.status(HttpStatus.FOUND).body(workerApplications);
+            return ResponseEntity.status(HttpStatus.OK).body(workerApplications);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -136,7 +136,7 @@ public class ApplicationController {
     public ResponseEntity<String> deletByJob(@PathVariable Long id){
         Optional<Job> currentJob = jobRepository.findById(id);
         if(currentJob.isPresent()){
-            applicationRepository.deleteByJob(currentJob.get());
+            applicationRepository.deleteAllByJob(currentJob.get());
             return ResponseEntity.status(HttpStatus.OK).body("Applications deleted by job");
         }
         else {

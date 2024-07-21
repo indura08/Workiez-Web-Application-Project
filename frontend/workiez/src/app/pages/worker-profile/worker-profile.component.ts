@@ -30,6 +30,14 @@ import { error } from 'console';
 })
 export class WorkerProfileComponent implements OnInit {
 
+  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService , private notificationWorkerService:WorkerNotificationService){}
+
+  ngOnInit(): void {
+    this.getJobs();
+    this.getAllNotification();
+    this.getAppliedJobs();
+  }
+
   public date = new Date();
 
   public currentJob:Job = {
@@ -57,12 +65,6 @@ export class WorkerProfileComponent implements OnInit {
     creationDateTime: ''
   }
 
-  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService , private notificationWorkerService:WorkerNotificationService){}
-
-  ngOnInit(): void {
-    this.getJobs();
-    this.getAllNotification();
-  }
 
   public applicationNotification: NotificationUser = {
     notificationId: 0,
@@ -85,6 +87,8 @@ export class WorkerProfileComponent implements OnInit {
 
   public worker:Worker = this.loginService.getWorker();
 
+  public appliedJobs:Job[] = [];
+
   public getJobs():void {
     this.jobService.getJobs().subscribe(
       (response:Job[]) => {
@@ -103,6 +107,7 @@ export class WorkerProfileComponent implements OnInit {
         this.createNotification(this.applicationNotification);
         console.log("application created successfully " + response );
         console.log("currentJOb is " + this.currentJob.user.userId)
+        this.getAppliedJobs();
       },
       (error:HttpErrorResponse) => {
         alert(error.message);
@@ -137,12 +142,49 @@ export class WorkerProfileComponent implements OnInit {
   public deleteNotification(notificationId:number):void{
     this.notificationWorkerService.deleteNotificationById(notificationId).subscribe(
       (response:string) => {
-        alert("notification deleted succesully")
+        console.log("notification deleted succesully")
         console.log(response)
         this.getAllNotification()
       },
       (error:HttpErrorResponse) =>{
         alert(error.message)
+      }
+    )
+  }
+
+  public getAppliedJobs():void{
+    this.applicationService.getApplicationByWorker(this.worker.workerId).subscribe(
+      (response:Application[]) => {
+        for(let i = 0 ; i < response.length; i++){
+          this.appliedJobs.push(response[i].job)
+        }
+      },
+      (error:HttpErrorResponse) => {
+        alert("Couldnt find jobs that you have applied error happend try again later " )
+        console.log(error.message);
+      }
+    )
+  }
+
+  public currentApplication :Application = {
+    applicationId: 0,
+    applicationName: '',
+    worker: this.worker,
+    job: this.currentJob,
+    applicationStatus:ApplicationStatus.PENDING,
+    applicationDateAndTime:""
+  }
+
+  public getApplicationByJob(job:Job):void{
+    this.applicationService.getApplicationByJobId(job.jobId).subscribe(
+      (response:Application[]) => {
+        var app = response.find(application => application.worker.workerId == this.worker.workerId);
+        if(app){
+          this.currentApplication = app;
+        }
+        else{
+          alert("application coudln't found")
+        }
       }
     )
   }

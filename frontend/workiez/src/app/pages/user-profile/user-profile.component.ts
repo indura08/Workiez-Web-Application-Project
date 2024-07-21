@@ -322,8 +322,8 @@ export class UserProfileComponent implements OnInit {
       (response:string) => {
         console.log(response)
         this.getJobs()
-        alert("job created successfully")
         jobForm.reset();
+        alert("job created successfully")
       },
       (error:HttpErrorResponse) => {
         alert(error.message +" this method was executed")
@@ -384,12 +384,42 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  public deleteJob(jobId:number):void{
-    this.jobService.deletJob(jobId).subscribe(
+  public deleteJob(job:Job):void{
+    this.applicationService.getApplicationByJobId(job.jobId).subscribe(
+      (response:Application[]) => {
+        for(let i =0 ; i<response.length; i++){
+
+          this.workerNotification.notificationWorkerId = response[i].worker.workerId
+          this.workerNotification.description = `the job "${response[i].job.description}" you have applied was deleted`
+          this.workerNotification.worker = response[i].worker
+          this.workerNotification.date = this.dateTime.toString()
+
+          this.workerNotificationService.createtWorkerNotification(this.workerNotification).subscribe(
+            (response:string) => {
+              console.log(response)
+            },
+            (error:HttpErrorResponse) => {
+              console.log(error.message)
+            }
+          )
+        }
+      }
+    )
+
+    this.applicationService.deleteApplicationByJob(job).subscribe(
       (response:string) => {
-        alert("job deleted successfully")
         console.log(response)
-        this.getJobs();
+
+        this.jobService.deletJob(job.jobId).subscribe(
+          (response:string) => {
+            alert("job deleted successfully")
+            this.getJobs();
+            console.log(response)
+          },
+          (error:HttpErrorResponse) => {
+            alert(error.message)
+          }
+        )
       },
       (error:HttpErrorResponse) => {
         alert(error.message)

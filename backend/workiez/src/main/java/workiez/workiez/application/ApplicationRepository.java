@@ -10,7 +10,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     List<Application> findAllByWorker(Worker worker);
     List<Application> findAllByJob_JobId(Long jobId);
-    void deleteByJob(Job job);
-
-
+    void deleteAllByJob(Job job);
 }

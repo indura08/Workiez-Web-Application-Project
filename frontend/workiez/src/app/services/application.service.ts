@@ -48,6 +48,16 @@ export class ApplicationService {
     }
   }
 
+  public getApplicationByWorker(workerId:number):Observable<Application[]>{
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId);
+    var headers = new HttpHeaders()
+    if(workerToken){
+      headers = headers.set("Authorization" , workerToken);
+    }
+
+    return this.http.get<Application[]>(`${this.apiUrl}/application/worker/${workerId}` , {headers:headers})
+  }
+
   public updateApplication(applicationId:number , application: Application):Observable<string>{
     const userToken = this.tokenService.getUserToken(this.loginService.getuser().userId);
     var headers = new HttpHeaders()
