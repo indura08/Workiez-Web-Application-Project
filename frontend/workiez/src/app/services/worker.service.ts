@@ -28,7 +28,12 @@ export class WorkerService {
   }
 
   public deleteWorker(workerId: number): Observable<string>{
-    return this.http.delete<string>(`${this.apiUrl}/delete/${workerId}`)
+    const workerToken = this.tokenService.getWorkerToken(this.loginService.getWorker().workerId)
+    var headers = new HttpHeaders()
+    if(workerToken){
+      headers = headers.set("Authorization" , workerToken);
+    } 
+    return this.http.delete<string>(`${this.apiUrl}/worker/delete/${workerId}`, {headers:headers , responseType: "text" as "json"})
   }
 
 

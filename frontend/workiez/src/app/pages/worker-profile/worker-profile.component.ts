@@ -21,6 +21,7 @@ import { WorkerNotificationService } from '../../services/worker-notification.se
 import { NotificationWorker } from '../../../models/notificationWorker';
 import { error } from 'console';
 import { WorkerService } from '../../services/worker.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-worker-profile',
@@ -33,7 +34,8 @@ export class WorkerProfileComponent implements OnInit {
 
   constructor(private loginService: LoginService , private jobService: JobService, 
               private applicationService: ApplicationService , private notificationUser:UserNotificationService , 
-              private notificationWorkerService:WorkerNotificationService , private workerService: WorkerService){}
+              private notificationWorkerService:WorkerNotificationService , private workerService: WorkerService,
+              private route: Router){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -326,5 +328,32 @@ export class WorkerProfileComponent implements OnInit {
     )
   }
 
+  //delete worker
+  public deleteWorkerProfile(workerId:number):void{
+    this.applicationService.getApplicationByWorker(workerId).subscribe(
+      (response:Application[]) => {
+        for(let i = 0; i < response.length; i++){
+          this.applicationService.deleteApplication(response[i].applicationId).subscribe(
+            (response:string) => {
+              console.log(response)
+            },
+            (error:HttpErrorResponse) => {
+              console.log(error.message)
+            }
+          )
+        }
+        this.workerService.deleteWorker(workerId).subscribe(
+          (response:string) => {
+            console.log(response)
+            this.route.navigate([""])
+            
+          },
+          (error:HttpErrorResponse) => {
+            alert(error.message);
+          }
+        )
+      }
+    )
+  }
 
 }

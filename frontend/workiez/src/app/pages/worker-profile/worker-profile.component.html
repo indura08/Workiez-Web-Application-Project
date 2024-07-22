@@ -65,8 +65,8 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</button></a></li>
-                      <li><a class="dropdown-item" href="#"><button class="btn btn-danger" style="display:transparent;">Delete Account</button></a></li>
-                      <li><a class="dropdown-item" href="#"><button class="btn btn-white" style="display:transparent;">Report somthing</button></a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-danger" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#deleteProfile">Delete Account</button></a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;">Report somthing</button></a></li>
                     </ul>
                   </div>
             </div>
@@ -225,7 +225,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 <!-- edit worker profile -->
 <div class="modal" tabindex="-1" id="editProfile">
@@ -355,3 +355,24 @@
       </div>
     </div>
 </div>
+
+<!-- delete worker profile -->
+<div class="modal" tabindex="-1" id="deleteProfile">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure you want to delete your profile???</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure... Because all of your data will be gone and you will be logged out</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="deleteWorkerProfile(worker.workerId)">Delete</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
