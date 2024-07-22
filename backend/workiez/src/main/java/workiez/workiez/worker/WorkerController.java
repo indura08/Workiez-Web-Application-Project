@@ -2,6 +2,7 @@ package workiez.workiez.worker;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.transaction.Transactional;
 import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,7 @@ public class WorkerController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Transactional //@Transactional Annotation: Ensure the method that accesses the lazily-loaded collection is annotated with @Transactional. This ensures the Hibernate session remains open during the method execution.
     public ResponseEntity<String> deleteWorker(@PathVariable Long id){
         Optional<Worker> worker = workerRepository.findById(id);
         if (worker.isPresent()){
