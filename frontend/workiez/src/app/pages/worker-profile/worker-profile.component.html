@@ -64,9 +64,9 @@
                         </span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                      <li><a class="dropdown-item" href="#">Delete Account</a></li>
-                      <li><a class="dropdown-item" href="#">Report somthing</a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</button></a></li>
+                      <li><a class="dropdown-item" href="#"><button class="btn btn-danger" style="display:transparent;">Delete Account</button></a></li>
+                      <li><a class="dropdown-item" href="#"><button class="btn btn-white" style="display:transparent;">Report somthing</button></a></li>
                     </ul>
                   </div>
             </div>
@@ -179,10 +179,6 @@
         </div>
     </div>
 
-    <div>pending jobs</div>
-    <div>explore jobs , jobs completion history eka gana podi div eka</div>
-    <div>about eka</div>
-
 </div>
 
 <!--application model-->
@@ -230,3 +226,132 @@
       </div>
     </div>
   </div>
+
+<!-- edit worker profile -->
+<div class="modal" tabindex="-1" id="editProfile">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit user Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #editWorkerForm="ngForm" (ngSubmit)="editWorkerProfile(editWorkerForm)">
+              <input type="hidden" [(ngModel)]="worker.workerId" name="workerId" class="form-control">
+              <input type="hidden" [(ngModel)]="worker.password" name="password" class="form-control">
+              <input type="hidden" [(ngModel)]="worker.role" name="role" class="form-control">
+                <div class="mb-3">
+                  First Name
+                  <input type="text" [(ngModel)]="worker.firstname" name="firstname" class="form-control">  <!--meke me name eka noda ngmodel ek input tag eke value ekt user ge username ek bind une nha eka hodat mthk thiygnna ngmodel danwa nm name ekk thiynnama one-->
+                </div>
+
+                <div class="mb-3">
+                  Last Name
+                  <input type="text" class="form-control" [(ngModel)]="worker.lastname" name="lastname">
+                </div>
+
+                <div class="mb-3">
+                  Username
+                  <input type="text" class="form-control" [(ngModel)]="worker.username" name="username"> 
+              </div>
+
+                <div class="mb-3">
+                    Email
+                    <input type="email" class="form-control" [(ngModel)]="worker.email" name="email"> 
+                </div>
+
+                <div class="mb-3">
+                    Gender
+                    <select class="form-select input-type-custom col" aria-label="Default select example" ngModel name="genderinput" [(ngModel)]="gender" (ngModelChange)="handleGenderValue($event)">
+                      <option selected>Select Gender</option>
+                      <option value="1">MALE</option>
+                      <option value="2">FEMALE</option>
+                    </select>
+
+                    <input type="hidden" [(ngModel)]="gender" class="form-control input-type-custom col mx-1" ngModel name="gender">
+                </div>
+
+                <div class="mb-3">
+                    Phone
+                    <input type="text" class="form-control" [(ngModel)]="worker.phone" name="phone">
+                </div>
+
+                <div class="mb-3">
+                    District
+                    <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="workerdistrict" (ngModelChange)="handleWorkerDistrictValue($event)">
+                      <option selected>Select District</option>
+                      <option value="1">AMPARA</option>
+                      <option value="2">ANURADHAPURA</option>
+                      <option value="3">BADULAA</option>
+                      <option value="4">BATTICALOA</option>
+                      <option value="5">COLOMBO</option>
+                      <option value="6">GALLE</option>
+                      <option value="7">GAMPAHA</option>
+                      <option value="8">HAMBANTHOTA</option>
+                      <option value="9">JAFFNA</option>
+                      <option value="10">KALUTHARA</option>
+                      <option value="11">KANDY</option>
+                      <option value="12">KEGALLE</option>
+                      <option value="13">KILINOCHCHI</option>
+                      <option value="14">KURUNEGALA</option>
+                      <option value="15">MANNER</option>
+                      <option value="16">MATALE</option>
+                      <option value="17">MATARA</option>
+                      <option value="18">MONARAGALA</option>
+                      <option value="19">MULLAITIVU</option>
+                      <option value="20">NUWARA_ELIYA</option>
+                      <option value="21">POLLANNARUWA</option>
+                      <option value="22">PUTTALAM</option>
+                      <option value="23">RATHNAPURA</option>
+                      <option value="24">TRINCOMALEE</option>
+                      <option value="25">VAVUNIYA</option>
+                  </select>
+
+                  <input type="hidden" [(ngModel)]="workerdistrict" class="form-control input-type-custom col mx-1" ngModel name="baseDistrict">
+                  
+                </div>
+
+                <div class="mb-3">
+                    Province
+                    <select class="form-select input-type-custom col" name="input2" [(ngModel)]="workerprovince" ngModel (ngModelChange)="handleWorkerProvinceValue($event)">
+                      <option selected>Select District</option>
+                      <option value="1">CENTRAL</option>
+                      <option value="2">EASTERN</option>
+                      <option value="3">NORTH_CENTRAL</option>
+                      <option value="4">NORTHERN</option>
+                      <option value="5">NORTH_WESTERN</option>
+                      <option value="6">SABARAGAMUWA</option>
+                      <option value="7">SOUTHERN</option>
+                      <option value="8">UVA</option>
+                      <option value="9">WESTERN</option>
+                  </select>
+
+                  <input type="hidden" [(ngModel)]="workerprovince" class="form-control input-type-custom col mx-1" ngModel name="baseProvince">
+                </div>
+
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" [(ngModel)]="worker.availability" name="availability">
+                    
+                    Experience description
+                    <input type="text" class="form-control" [(ngModel)]="worker.experienceDescription" name="experienceDescription">
+                    
+                </div>
+
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" [(ngModel)]="worker.services" name="services">
+                </div>
+
+                <div class="mb-3">
+                    City
+                    <input type="text" class="form-control" [(ngModel)]="worker.baseCity" name="baseCity">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
+                <p style="font-size: 12px; margin-top: 8px; color: red">Your changes will be updated when you login next time</p>
+            </form>
+
+        </div>
+      </div>
+    </div>
+</div>

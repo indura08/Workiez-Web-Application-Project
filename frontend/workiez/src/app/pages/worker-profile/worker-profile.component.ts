@@ -20,6 +20,7 @@ import { NotificationUser } from '../../../models/notificationUser';
 import { WorkerNotificationService } from '../../services/worker-notification.service';
 import { NotificationWorker } from '../../../models/notificationWorker';
 import { error } from 'console';
+import { WorkerService } from '../../services/worker.service';
 
 @Component({
   selector: 'app-worker-profile',
@@ -30,7 +31,9 @@ import { error } from 'console';
 })
 export class WorkerProfileComponent implements OnInit {
 
-  constructor(private loginService: LoginService , private jobService: JobService, private applicationService: ApplicationService , private notificationUser:UserNotificationService , private notificationWorkerService:WorkerNotificationService){}
+  constructor(private loginService: LoginService , private jobService: JobService, 
+              private applicationService: ApplicationService , private notificationUser:UserNotificationService , 
+              private notificationWorkerService:WorkerNotificationService , private workerService: WorkerService){}
 
   ngOnInit(): void {
     this.getJobs();
@@ -185,6 +188,140 @@ export class WorkerProfileComponent implements OnInit {
         else{
           alert("application coudln't found")
         }
+      }
+    )
+  }
+
+  //edit worker profile functionality
+
+  public gender: Gender = this.worker.gender
+  public workerdistrict: District = this.worker.baseDistrict;
+  public workerprovince: Province = this.worker.baseProvince;
+
+  public handleGenderValue(value:any){
+    if(value == 1){
+      this.gender = Gender.MALE;
+    }
+    else if(value==2){
+      this.gender = Gender.FEMALE;
+    }
+  }
+
+  public handleWorkerDistrictValue(value:any){
+    if(value==1){
+      this.workerdistrict = District.AMPARA
+    }
+    else if(value==2){
+      this.workerdistrict = District.ANURADHAPURA
+    }
+    else if(value==3){
+      this.workerdistrict = District.BADULAA
+    }
+    else if(value==4){
+      this.workerdistrict = District.BATTICALOA
+    }
+    else if(value==5){
+      this.workerdistrict = District.COLOMBO
+    }
+    else if(value==6){
+      this.workerdistrict = District.GALLE
+    }
+    else if(value==7){
+      this.workerdistrict = District.GAMPAHA
+    }
+    else if(value==8){
+      this.workerdistrict = District.HAMBANTHOTA
+    }
+    else if(value==9){
+      this.workerdistrict = District.JAFFNA
+    }
+    else if(value==10){
+      this.workerdistrict = District.KALUTHARA
+    }
+    else if(value==11){
+      this.workerdistrict = District.KANDY
+    }
+    else if(value==12){
+      this.workerdistrict = District.KEGALLE
+    }
+    else if(value==13){
+      this.workerdistrict = District.KILINOCHCHI
+    }
+    else if(value==14){
+      this.workerdistrict = District.KURUNEGALA
+    }
+    else if(value==15){
+      this.workerdistrict = District.MANNER
+    }
+    else if(value==16){
+      this.workerdistrict = District.MATALE
+    }
+    else if(value==17){
+      this.workerdistrict = District.MATARA
+    }
+    else if(value==18){
+      this.workerdistrict = District.MONARAGALA
+    }
+    else if(value==19){
+      this.workerdistrict = District.MULLAITIVU
+    }
+    else if(value==20){
+      this.workerdistrict = District.NUWARA_ELIYA
+    }
+    else if(value==21){
+      this.workerdistrict = District.POLLANNARUWA
+    }
+    else if(value==22){
+      this.workerdistrict = District.PUTTALAM
+    }
+    else if(value==23){
+      this.workerdistrict = District.RATHNAPURA
+    }
+    else if(value==24){
+      this.workerdistrict = District.TRINCOMALEE
+    }
+    else if(value==25){
+      this.workerdistrict = District.VAVUNIYA
+    }
+  }
+
+  public handleWorkerProvinceValue(value:any){
+    if(value==1){
+      this.workerprovince = Province.CENTRAL
+    }
+    else if(value==2){
+      this.workerprovince = Province.EASTERN
+    }
+    else if(value==3){
+      this.workerprovince = Province.NORTH_CENTRAL
+    }
+    else if(value==4){
+      this.workerprovince = Province.NORTHERN
+    }
+    else if(value==5){
+      this.workerprovince = Province.NORTH_WESTERN
+    }
+    else if(value==6){
+      this.workerprovince = Province.SABARAGAMUWA
+    }
+    else if(value==7){
+      this.workerprovince = Province.SOUTHERN
+    }
+    else if(value==8){
+      this.workerprovince = Province.UVA
+    }
+    else if(value==9){
+      this.workerprovince = Province.WESTERN
+    }
+  }
+
+  public editWorkerProfile(workerForm:NgForm):void{
+    this.workerService.updateWorker(workerForm.value).subscribe(
+      (response:string) => {
+        console.log(response)
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
       }
     )
   }
