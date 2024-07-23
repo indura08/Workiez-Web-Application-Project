@@ -163,8 +163,8 @@ export class JobPageComponent implements OnInit {
     this.jobservice.getJobs().subscribe(
       (response:Job[]) => {
         this.jobs = response;
-        console.log(this.loginService.getuser())
-        console.log('Jobs updated:', this.jobs)
+        // console.log(this.loginService.getuser())
+        // console.log('Jobs updated:', this.jobs)
       },
 
       (error:HttpErrorResponse) => {
@@ -203,6 +203,115 @@ export class JobPageComponent implements OnInit {
         console.log(error.message)
       }
     )
+  }
+
+  //filter jobs functions
+
+  public filterDistrictValue(value:any){
+    let filteredJobs: Job[] = [];
+    if(value==1){
+       this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.AMPARA)
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==2){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.ANURADHAPURA)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==3){
+       
+    }
+    else if(value==4){
+       
+    }
+    else if(value==5){
+       
+    }
+    else if(value==6){
+
+    }
+           
+    else if(value==7){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.GAMPAHA)
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==8){
+       
+    }
+    else if(value==9){
+       
+    }
+    else if(value==10){
+       
+    }
+    else if(value==11){
+
+    }
+        
+    else if(value==12){
+       
+    }
+    else if(value==13){
+       
+    }
+    else if(value==14){
+       
+    }
+    else if(value==15){
+       
+    }
+    else if(value==16){
+       
+    }
+    else if(value==17){
+       
+    }
+    else if(value==18){
+       
+    }
+    else if(value==19){
+       
+    }
+    else if(value==20){
+       
+    }
+    else if(value==21){
+       
+    }
+    else if(value==22){
+       
+    }
+    else if(value==23){
+       
+    }
+    else if(value==24){
+       
+    }
+    else if(value==25){
+       
+    }
+
+    this.jobs = filteredJobs;
+    console.log(this.jobs)  //this was aded to debug purposes
   }
   
 

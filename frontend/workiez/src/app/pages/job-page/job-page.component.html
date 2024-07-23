@@ -35,7 +35,10 @@
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid black;
-    
+    }
+
+    .custom-margin{
+      margin-right: 7px;;
     }
 
 </style>
@@ -50,16 +53,62 @@
     </div>
 
     <div class="mx-5 d-flex">
-        Province:
+        <span class="py-1 custom-margin">Province:</span>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Select province</option>
+          <option value="1">CENTRAL</option>
+          <option value="2">EASTERN</option>
+          <option value="3">NORTH_CENTRAL</option>
+          <option value="4">NORTHERN</option>
+          <option value="5">NORTH_WESTERN</option>
+          <option value="6">SABARAGAMUWA</option>
+          <option value="7">SOUTHERN</option>
+          <option value="8">UVA</option>
+          <option value="9">WESTERN</option>
+        </select>
     </div>
 
     <div class="mx-5 d-flex">
-        district:
+      <span class="py-1 custom-margin">District:</span>
+      <select class="form-select" aria-label="Default select example" ngModel (ngModelChange)="filterDistrictValue($event)">
+        <option selected>Select province</option>
+        <option value="1">AMPARA</option>
+        <option value="2">ANURADHAPURA</option>
+        <option value="3">BADULAA</option>
+        <option value="4">BATTICALOA</option>
+        <option value="5">COLOMBO</option>
+        <option value="6">GALLE</option>
+        <option value="7">GAMPAHA</option>
+        <option value="8">HAMBANTHOTA</option>
+        <option value="9">JAFFNA</option>
+        <option value="10">KALUTHARA</option>
+        <option value="11">KANDY</option>
+        <option value="12">KEGALLE</option>
+        <option value="13">KILINOCHCHI</option>
+        <option value="14">KURUNEGALA</option>
+        <option value="15">MANNER</option>
+        <option value="16">MATALE</option>
+        <option value="17">MATARA</option>
+        <option value="18">MONARAGALA</option>
+        <option value="19">MULLAITIVU</option>
+        <option value="20">NUWARA_ELIYA</option>
+        <option value="21">POLLANNARUWA</option>
+        <option value="22">PUTTALAM</option>
+        <option value="23">RATHNAPURA</option>
+        <option value="24">TRINCOMALEE</option>
+        <option value="25">VAVUNIYA</option>
+      </select>
     </div>
 
-    <div class="mx-5 d-flex">
-        city:
-    </div>
+    <!-- <div class="mx-5 d-flex">
+        <span class="py-1 custom-margin">Province:</span>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Select province</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+    </div> -->
     
 </div>
 
