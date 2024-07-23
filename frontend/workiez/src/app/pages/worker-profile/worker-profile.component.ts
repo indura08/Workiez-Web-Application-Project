@@ -342,14 +342,31 @@ export class WorkerProfileComponent implements OnInit {
             }
           )
         }
-        this.workerService.deleteWorker(workerId).subscribe(
-          (response:string) => {
-            console.log(response)
-            this.route.navigate([""])
-            
+        this.notificationWorkerService.getAllNotificationBYworker(this.worker.workerId).subscribe(
+          (response: NotificationWorker[]) => {
+            for(let i = 0 ; i< response.length ; i++){
+              this.notificationWorkerService.deleteNotificationById(response[i].notificationWorkerId).subscribe(
+                (response:string) => {
+                  console.log(response)
+                },
+                (error:HttpErrorResponse) => {
+                  console.log(error.message);
+                }
+              )
+            }
+            this.workerService.deleteWorker(workerId).subscribe(
+              (response:string) => {
+                console.log(response)
+                this.route.navigate([""])
+                
+              },
+              (error:HttpErrorResponse) => {
+                alert(error.message);
+              }
+            )
           },
           (error:HttpErrorResponse) => {
-            alert(error.message);
+            console.log(error.message)
           }
         )
       }

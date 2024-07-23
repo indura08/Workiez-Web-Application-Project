@@ -207,12 +207,13 @@ export class JobPageComponent implements OnInit {
 
   //filter jobs functions
 
-  public filterDistrictValue(value:any){
+  public filterDistrictValue(value:any):void{
     let filteredJobs: Job[] = [];
     if(value==1){
        this.jobservice.getJobs().subscribe(
         (response:Job[]) => {
           filteredJobs = response.filter(job => job.locationDistrict == District.AMPARA)
+          this.jobs = filteredJobs;
           console.log(filteredJobs)
         },
         (error:HttpErrorResponse) => {
@@ -224,6 +225,7 @@ export class JobPageComponent implements OnInit {
       this.jobservice.getJobs().subscribe(
         (response:Job[]) => {
           filteredJobs = response.filter(job => job.locationDistrict == District.ANURADHAPURA)
+          this.jobs = filteredJobs;
         },
         (error:HttpErrorResponse) => {
           alert("couldn't fetch Jobs from the backend server error is :" + error.message)
@@ -231,22 +233,366 @@ export class JobPageComponent implements OnInit {
        )
     }
     else if(value==3){
-       
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.BADULAA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
     else if(value==4){
-       
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.BATTICALOA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
     else if(value==5){
-       
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.COLOMBO)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
     else if(value==6){
-
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.GALLE)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
            
     else if(value==7){
       this.jobservice.getJobs().subscribe(
         (response:Job[]) => {
           filteredJobs = response.filter(job => job.locationDistrict == District.GAMPAHA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==8){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.HAMBANTHOTA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==9){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.JAFFNA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==10){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.KALUTHARA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==11){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.KANDY)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+        
+    else if(value==12){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.KEGALLE)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==13){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.KILINOCHCHI)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==14){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.KURUNEGALA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==15){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.MANNER)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==16){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.MATALE)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==17){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.MATARA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==18){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.MONARAGALA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==19){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.MULLAITIVU)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==20){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.NUWARA_ELIYA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==21){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.POLLANNARUWA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==22){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.PUTTALAM)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==23){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.RATHNAPURA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==24){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.TRINCOMALEE)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==25){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationDistrict == District.VAVUNIYA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs) //this was added for debug purposes
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    //this.jobs = filteredJobs;
+    console.log(this.jobs)  //this was aded to debug purposes
+  }
+
+  public filterProvinceValue(value:any):void{
+    let filteredJobs: Job[] = [];
+    if(value==1){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.CENTRAL)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==2){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.EASTERN)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==3){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.NORTH_CENTRAL)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==4){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.NORTHERN)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==5){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.NORTH_WESTERN)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==6){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.SABARAGAMUWA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
+    }
+    else if(value==7){
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.SOUTHERN)
+          this.jobs = filteredJobs;
           console.log(filteredJobs)
         },
         (error:HttpErrorResponse) => {
@@ -255,63 +601,29 @@ export class JobPageComponent implements OnInit {
        )
     }
     else if(value==8){
-       
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.UVA)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
     else if(value==9){
-       
+      this.jobservice.getJobs().subscribe(
+        (response:Job[]) => {
+          filteredJobs = response.filter(job => job.locationProvince == Province.WESTERN)
+          this.jobs = filteredJobs;
+          console.log(filteredJobs)
+        },
+        (error:HttpErrorResponse) => {
+          alert("couldn't fetch Jobs from the backend server error is :" + error.message)
+        }
+       )
     }
-    else if(value==10){
-       
-    }
-    else if(value==11){
-
-    }
-        
-    else if(value==12){
-       
-    }
-    else if(value==13){
-       
-    }
-    else if(value==14){
-       
-    }
-    else if(value==15){
-       
-    }
-    else if(value==16){
-       
-    }
-    else if(value==17){
-       
-    }
-    else if(value==18){
-       
-    }
-    else if(value==19){
-       
-    }
-    else if(value==20){
-       
-    }
-    else if(value==21){
-       
-    }
-    else if(value==22){
-       
-    }
-    else if(value==23){
-       
-    }
-    else if(value==24){
-       
-    }
-    else if(value==25){
-       
-    }
-
-    this.jobs = filteredJobs;
-    console.log(this.jobs)  //this was aded to debug purposes
   }
   
 

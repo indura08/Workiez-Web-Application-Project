@@ -54,7 +54,7 @@
 
     <div class="mx-5 d-flex">
         <span class="py-1 custom-margin">Province:</span>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" ngModel (ngModelChange)="filterProvinceValue($event)">
           <option selected>Select province</option>
           <option value="1">CENTRAL</option>
           <option value="2">EASTERN</option>

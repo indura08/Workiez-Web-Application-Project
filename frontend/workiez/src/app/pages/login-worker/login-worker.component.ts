@@ -153,7 +153,7 @@ export class LoginWorkerComponent implements OnInit {
     this.workerService.addWorker(addForm.value).subscribe(
       (response:string)=>{
         console.log(response)
-        this.router.navigate(['/profile/worker'])
+        this.router.navigate(['/worker/login'])
         addForm.resetForm();
         console.log(this.services);  //this was added for debugging purposes
       },
