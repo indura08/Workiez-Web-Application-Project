@@ -16,7 +16,7 @@ export class MainPageComponent {
   constructor(private router: Router){}
 
   routeFunction1(){
-    this.router.navigate(['login'])
+    this.router.navigate(['/login'])
   }
 
 }
