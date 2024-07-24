@@ -41,6 +41,7 @@ export class WorkerProfileComponent implements OnInit {
     this.getJobs();
     this.getAllNotification();
     this.getAppliedJobs();
+    console.log(this.worker)
   }
 
   public date = new Date();

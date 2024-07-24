@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { District } from '../../../models/Enums/DistrictEnum';
 import { Province } from '../../../models/Enums/ProvinceEnum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -25,7 +26,7 @@ export class UserRegisterComponent implements OnInit {
   public district: District = District.COLOMBO;
   public province: Province = Province.WESTERN;
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, private route: Router){}
 
   ngOnInit(): void {}
   
@@ -153,6 +154,7 @@ export class UserRegisterComponent implements OnInit {
       (response:string)=> {
         console.log(response)
         addForm.resetForm();
+        this.route.navigate(["/login"]);
       },
 
       (error: HttpErrorResponse)=> {

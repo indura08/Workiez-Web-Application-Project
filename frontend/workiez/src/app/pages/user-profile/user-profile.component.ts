@@ -342,7 +342,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   public getJobs():void{
-    this.jobService.getJobs().subscribe(
+    this.jobService.getJobsbyUser(this.user.userId).subscribe(
       (response:Job[]) => {
         this.jobs = response
         console.log(response)

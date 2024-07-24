@@ -55,7 +55,7 @@ public class Worker implements UserDetails {
             joinColumns = @JoinColumn(name = "workerId"),
             inverseJoinColumns = @JoinColumn(name = "serviceId")
     )
-    @JsonIgnore //@JsonManagedReference   //is used on the parent side (in this case, the Worker entity) of the relationship to indicate that it is the forward part of the reference.
+    //@JsonIgnore //@JsonManagedReference   //is used on the parent side (in this case, the Worker entity) of the relationship to indicate that it is the forward part of the reference.
     private List<Service> services;
 
     private Boolean availability;

@@ -1,6 +1,7 @@
 package workiez.workiez.service;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,6 @@ public class Service {
 
     @ManyToMany(mappedBy = "services")
     @Column(nullable = true)
-    //@JsonBackReference      //is used on the child side (in this case, the Service entity) to indicate that it is the back part of the reference. This prevents the back reference from being serialized.
+    @JsonIgnore         //@JsonBackReference      //is used on the child side (in this case, the Service entity) to indicate that it is the back part of the reference. This prevents the back reference from being serialized.
     private List<Worker> workers;
 }
