@@ -40,9 +40,11 @@
 
     }
 
-    /* .div-width{
-        width: 300px;
-    } */
+    .custom-font{
+        font-size: 14px;
+        font-weight: 500;
+    }
+
 
 
 </style>
@@ -109,7 +111,24 @@
 
                 <div class="container">
                     <div class="row" >
-                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
+
+                        <div class="card border border-dark border-1 mb-2" style="width: 18rem;" *ngFor="let job of jobs">
+                            <div class="card-body">
+                              <h3 class="card-title">{{job.description}}</h3>
+                              <h6 class="card-subtitle mb-3 mt-3 text-body-secondary">User: {{job.user.firstname}} {{job.user.lastname}}</h6>
+                              <p class="card-text custom-font">{{job.locationProvince}} / {{job.locationDistrict}} / {{job.city}}</p>
+                              <span>{{job.creationDateTime}}</span><br>
+                              <span>phone: {{job.user.phone}}</span><br>
+                              <span>Status: <b>{{job.jobStatus}}</b></span><br>
+
+                              <span>
+                                <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); getApplicationsByJobId(jobId)"><span class="material-symbols-outlined" style="font-size: 25px;">list</span></button>
+                                <button class="btn btn-success mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" data-bs-toggle="modal" data-bs-target="#editJob" (click)="setCurrentJob(job); "><span class="material-symbols-outlined" style="font-size: 25px;">edit</span></button>
+                                <button class="btn btn-danger mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); deleteJob(job)"><span class="material-symbols-outlined" style="font-size: 25px;">delete</span></button>
+                            </span>
+                            </div>
+                          </div>
+                            <!-- <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
                                 <h4>{{job.description}}</h4>
                                 <span>{{job.user.username}}</span><br>
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
@@ -123,7 +142,7 @@
                                     <button class="btn btn-danger mt-2 mb-2 mx-1" style="height: 40px; width: 40pxs;" (click)="setCurrentJobId(job.jobId); deleteJob(job)"><span class="material-symbols-outlined" style="font-size: 25px;">delete</span></button>
                                 </span>
 
-                            </div>
+                            </div> -->
                     </div>
                 </div>
 

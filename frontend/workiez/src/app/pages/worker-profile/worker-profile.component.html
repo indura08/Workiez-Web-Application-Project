@@ -37,6 +37,11 @@
         height: 400px;
     }
 
+    .custom-font{
+        font-size: 14px;
+        font-weight: 500;
+    }
+
 </style>
 
 <div class="container-fluid">
@@ -59,7 +64,7 @@
 
             <div class="mx-4">
                 <span class="material-symbols-outlined mt-2">
-                    <a href="" class="a-custom">work</a>
+                    <a href="/jobs" class="a-custom">work</a>
                 </span>
             </div>
 
@@ -109,7 +114,28 @@
 
                 <div class="container">
                     <div class="row" >
-                            <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
+
+                        <div class="card border border-dark border-1 mb-2" style="width: 18rem;" *ngFor="let job of jobs">
+                            <div class="card-body">
+                              <h4 class="card-title">{{job.description}}</h4>
+                              <h6 class="card-subtitle mb-3 mt-3 text-body-secondary">User: {{job.user.firstname}} {{job.user.lastname}}</h6>
+                              <p class="card-text custom-font">{{job.locationProvince}} / {{job.locationDistrict}} / {{job.city}}</p>
+                              <span>{{job.creationDateTime}}</span><br>
+                              <span>phone: {{job.user.phone}}</span><br>
+                              <span>Current Status: <b>{{job.jobStatus}}</b></span><br>
+                              <span *ngIf="job.jobStatus == 'PENDING'">
+                                <button class="btn btn-success mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#addApplication" (click)="setCurrentJob(job)">Apply</button> 
+                              </span>
+                              <span *ngIf="job.jobStatus == 'IN_PROGRESS'">
+                                <span class="text-danger fw-bold fs-6">You can't Apply to this job, it is in progress</span> 
+                              </span>
+                              <span *ngIf="job.jobStatus == 'COMPLETED'">
+                                <span class="text-danger fw-bold fs-6">You can't Apply to this job, it was completed</span> 
+                              </span>
+                            </div>
+                          </div>
+
+                            <!-- <div class="border border-1 border-dark col-6 mb-2 margin-for-job-div" *ngFor="let job of jobs">
                                 <h4>{{job.description}}</h4>
                                 <span>{{job.user.username}}</span><br>
                                 <span>{{job.locationDistrict}} , {{job.locationProvince}} , {{job.city}}</span><br>
@@ -125,7 +151,7 @@
                                     <span class="text-danger fw-bold fs-6">You can't Apply to this job, it was completed</span> 
                                 </span>
 
-                            </div>
+                            </div> -->
                     </div>
                 </div>
 
