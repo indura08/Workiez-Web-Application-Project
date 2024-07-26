@@ -79,6 +79,7 @@
                       <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#editProfile">Edit Profile</button></a></li>
                       <li><a class="dropdown-item"><button class="btn btn-danger" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#deleteProfile">Delete Account</button></a></li>
                       <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;">Report somthing</button></a></li>
+                      <li><a class="dropdown-item"><button class="btn btn-white" style="display:transparent;" data-bs-toggle="modal" data-bs-target="#logout">Logout</button></a></li>
                     </ul>
                   </div>
             </div>
@@ -404,6 +405,25 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" (click)="deleteWorkerProfile(worker.workerId)">Delete</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- logout modal -->
+<div class="modal" tabindex="-1" id="logout">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Are you sure you want to logout...?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>You will be logged</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="logout(worker)">Logout</button>
         </div>
       </div>
     </div>

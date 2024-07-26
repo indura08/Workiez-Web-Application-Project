@@ -374,4 +374,10 @@ export class WorkerProfileComponent implements OnInit {
     )
   }
 
+  //logout
+  public logout(worker:Worker):void{
+    this.loginService.logoutworker(worker)
+    this.route.navigate(["/worker/login"])
+  }
+
 }

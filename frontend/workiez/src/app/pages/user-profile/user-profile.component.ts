@@ -613,4 +613,9 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
+  public logout(user:User):void{
+    this.loginService.logoutUser(user)
+    this.route.navigate(["/login"])
+  }
+
 }

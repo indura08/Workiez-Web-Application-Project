@@ -22,6 +22,14 @@ export class TokenService {
   getWorkerToken(workerId: number):string | null{
     return localStorage.getItem(`worker_${workerId}`);
   }
+
+  public removeUserToken(userId:number):void{
+    localStorage.removeItem(`user_${userId}`)
+  }
+
+  public removeWorerToken(workerId:number):void{
+    localStorage.removeItem(`worker_${workerId}`)
+  } 
 }
 
 

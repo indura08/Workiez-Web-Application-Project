@@ -13,12 +13,15 @@ import { WorkerAuthenticationresponse } from '../../models/authenticationRespons
 import { Worker } from '../../models/worker';
 import { stringify } from 'querystring';
 import { UserDTO } from '../../models/UserDTO';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private apiUrl = environment.apiBaseUrl;
+
+  constructor(private http: HttpClient, private tokenService:TokenService){}
 
   public user:User = {
     userId:0,
@@ -150,10 +153,6 @@ export class LoginService {
     return this.jobUserDTO;
   }
 
-
-
-  constructor(private http: HttpClient){}
-
   public loginUser(loginRequest:LoginRequest):Observable<AuthenticationResponse>{
     const headers = new HttpHeaders({'Content-type': 'application/json'})
     return this.http.post<AuthenticationResponse>(`${this.apiUrl}/auth/login/user`, loginRequest , {headers:headers})
@@ -162,5 +161,15 @@ export class LoginService {
   public loginWorker(loginRequest:LoginRequest):Observable<WorkerAuthenticationresponse>{
     const headers = new HttpHeaders({ 'Content-type': 'application/json' })
     return this.http.post<WorkerAuthenticationresponse>(`${this.apiUrl}/auth/login/worker` , loginRequest , {headers:headers});
+  }
+
+  public logoutUser(user:User):void{
+    localStorage.removeItem(`globalUser`)
+    this.tokenService.removeUserToken(user.userId)
+  }
+
+  public logoutworker(worker:Worker):void{
+    localStorage.removeItem(`globalWorker`)
+    this.tokenService.removeUserToken(worker.workerId)
   }
 }
