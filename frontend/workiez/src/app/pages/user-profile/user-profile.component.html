@@ -90,7 +90,23 @@
         <div class="border border-2 border-dark mt-3 d-flex ">
             
             <div class="fixed-size-scrollable w-50 mx-2 col divs-height">
-                <div class="">
+
+              <div class="card">
+                <div class="card-body">
+                  <h2 class="card-title" style="text-align: center;">{{user.firstname}} {{user.lastname}}</h2>
+                  <h6 class="card-subtitle mb-2 text-body-secondary mt-3"><span class="mx-5">{{user.district}}</span> <span class="mx-5">{{user.province}}</span> <span class="mx-5">{{user.city}}</span></h6>
+                  <hr>
+                  <div>
+                    <h5 class="mb-3">email: {{user.email}}</h5><br>
+                    <h5 class="mb-3">Gender: {{user.gender}}</h5><br>
+                    <h5 class="mb-3">phone: {{user.phone}}</h5><br>
+                  </div>
+                  <a href="/job" class="card-link mx-5" style="text-decoration: none; "><button class="btn btn-success">Jobs</button></a>
+                  <a href="#" class="card-link mx-5" style="text-decoration: none; "><button class="btn btn-primary">Home Page</button></a>
+                </div>
+              </div>
+
+                <!-- <div class="">
                     <h3 class="text-center">{{user.username}}</h3>
                 </div>
 
@@ -101,7 +117,7 @@
                     province: {{user.province}}<br>
                     city: {{user.city}}<br>
                     phone: {{user.phone}}<br>
-                </div>
+                </div> -->
             </div>
                 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">

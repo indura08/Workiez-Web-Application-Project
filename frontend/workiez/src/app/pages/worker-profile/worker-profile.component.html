@@ -92,7 +92,22 @@
         <div class="border border-2 border-dark mt-3 d-flex ">
             
             <div class="fixed-size-scrollable w-50 mx-2 col divs-height">
-                <div class="">
+
+              <div class="card">
+                <div class="card-body">
+                  <h2 class="card-title" style="text-align: center;">{{worker.firstname}} {{worker.lastname}}</h2>
+                  <h6 class="card-subtitle mb-2 text-body-secondary mt-3"><span class="mx-5">{{worker.baseDistrict}}</span> <span class="mx-5">{{worker.baseProvince}}</span> <span class="mx-5">{{worker.baseCity}}</span></h6>
+                  <hr>
+                  <div class="mb-3">
+                    <h6 class="mb-1">email: {{worker.email}}</h6><br>
+                    <h6 class="mb-2">Gender: {{worker.gender}}</h6><br>
+                    <h6 class="">Services:</h6><h6 class="" *ngFor="let service of worker.services" style="display: inline;">{{service.serviceName.toLowerCase()}}, &nbsp;</h6><br>
+                  </div>
+                  <a href="/job" class="card-link mx-5" style="text-decoration: none; "><button class="btn btn-success">Jobs</button></a>
+                  <a href="#" class="card-link mx-5" style="text-decoration: none; "><button class="btn btn-primary">Home Page</button></a>
+                </div>
+              </div>
+                <!-- <div class="">
                     <h3 class="text-center">{{worker.username}}</h3>
                 </div>
 
@@ -105,7 +120,7 @@
                     Phone: {{worker.phone}}<br>
                     Services {{worker.services[0]?.serviceName}}, {{worker.services[1]?.serviceName}}<br>
                     experience description: {{worker.experienceDescription}}<br>
-                </div>
+                </div> -->
             </div>
                 
             <div class="fixed-size-scrollable w-50 mx-2 divs-height">
