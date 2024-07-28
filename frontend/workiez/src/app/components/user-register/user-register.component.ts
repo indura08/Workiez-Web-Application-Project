@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { UserService } from '../../services/user.service';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { response } from 'express';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../../models/user';
 import { error } from 'console';
 import { Gender } from '../../../models/Enums/GenderEnum';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { District } from '../../../models/Enums/DistrictEnum';
 import { Province } from '../../../models/Enums/ProvinceEnum';
 import { Router } from '@angular/router';
+import { Role } from '../../../models/Enums/RoleEnum';
 
 @Component({
   selector: 'app-user-register',
@@ -30,6 +32,16 @@ export class UserRegisterComponent implements OnInit {
 
   ngOnInit(): void {}
   
+  userCreationForm = new FormGroup({
+    firstname: new FormControl("" , [Validators.required]),
+    lastname: new FormControl("" , [Validators.required]),
+    username: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required, Validators.maxLength(10)]),
+    role: new FormControl(Role.ROLE_USER),
+    gender: new FormControl("" , [Validators.required])
+
+  })
   
   public handleGenderValue(value:any){
     if(value == 1){

@@ -42,6 +42,11 @@
         font-weight: 500;
     }
 
+    .custom-margin{
+      margin-right: 60px;
+      margin-left: 60px;
+    }
+
 </style>
 
 <div class="container-fluid">
@@ -96,7 +101,7 @@
               <div class="card">
                 <div class="card-body">
                   <h2 class="card-title" style="text-align: center;">{{worker.firstname}} {{worker.lastname}}</h2>
-                  <h6 class="card-subtitle mb-2 text-body-secondary mt-3"><span class="mx-5">{{worker.baseDistrict}}</span> <span class="mx-5">{{worker.baseProvince}}</span> <span class="mx-5">{{worker.baseCity}}</span></h6>
+                  <h6 class="card-subtitle mb-2 text-body-secondary mt-3"><span class="custom-margin">{{worker.baseDistrict}}</span> <span class="mx-4">{{worker.baseProvince}}</span> <span class="mx-4">{{worker.baseCity}}</span></h6>
                   <hr>
                   <div class="mb-3">
                     <h6 class="mb-1">email: {{worker.email}}</h6><br>
