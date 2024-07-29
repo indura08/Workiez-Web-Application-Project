@@ -18,7 +18,7 @@ import { Role } from '../../../models/Enums/RoleEnum';
 @Component({
   selector: 'app-user-register',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, CommonModule],
+  imports: [HeaderComponent, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './user-register.component.html',
   styleUrl: './user-register.component.css'
 })
@@ -33,14 +33,17 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {}
   
   userCreationForm = new FormGroup({
-    firstname: new FormControl("" , [Validators.required]),
+    firstname: new FormControl('' , [Validators.required]),
     lastname: new FormControl("" , [Validators.required]),
     username: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.maxLength(10)]),
     role: new FormControl(Role.ROLE_USER),
-    gender: new FormControl("" , [Validators.required])
-
+    gender: new FormControl(Gender.MALE , [Validators.required]),
+    phone: new FormControl("", [Validators.required]),
+    district: new FormControl(District.COLOMBO, [Validators.required]),
+    province: new FormControl(Province.WESTERN, [Validators.required]),
+    city: new FormControl("", [Validators.required]),
   })
   
   public handleGenderValue(value:any){
@@ -55,10 +58,10 @@ export class UserRegisterComponent implements OnInit {
   
   public handleDistrictValue(value:any){
     if(value==1){
-      this.district = District.AMPARA
+      this.userCreationForm.patchValue({district: District.AMPARA})
     }
     else if(value==2){
-      this.district = District.ANURADHAPURA
+      this.userCreationForm.patchValue({district: District.ANURADHAPURA})
     }
     else if(value==3){
       this.district = District.BADULAA
@@ -133,10 +136,10 @@ export class UserRegisterComponent implements OnInit {
 
   public handleProvinceValue(value:any){
     if(value==1){
-      this.province = Province.CENTRAL
+      this.userCreationForm.patchValue({province: Province.CENTRAL })
     }
     else if(value==2){
-      this.province = Province.EASTERN
+      this.userCreationForm.patchValue({province: Province.EASTERN})
     }
     else if(value==3){
       this.province = Province.NORTH_CENTRAL
@@ -161,19 +164,36 @@ export class UserRegisterComponent implements OnInit {
     }
   } 
 
-  public addUser(addForm:NgForm):void{
-    this.userService.addUser(addForm.value).subscribe(
-      (response:string)=> {
-        console.log(response)
-        addForm.resetForm();
-        this.route.navigate(["/login"]);
-      },
-
-      (error: HttpErrorResponse)=> {
-        alert(error.message);
-        console.log(addForm.value)
+  public addUser():void{
+    if(this.userCreationForm.valid){
+      const newUser: User = {
+        userId: 0,
+        firstname: this.userCreationForm.value.firstname as string,
+        lastname: this.userCreationForm.value.lastname as string,
+        email: this.userCreationForm.value.email as string,
+        password: this.userCreationForm.value.password as string,
+        username: this.userCreationForm.value.username as string,
+        role: this.userCreationForm.value.role as Role,
+        gender: this.userCreationForm.value.gender as Gender,
+        phone: this.userCreationForm.value.phone as string,
+        district: this.userCreationForm.value.district as District,
+        province: this.userCreationForm.value.province as Province,
+        city: this.userCreationForm.value.city as string
       }
-    )
+
+      this.userService.addUser(newUser).subscribe(
+        (response:string)=> {
+          console.log(response)
+          //addForm.resetForm();
+          this.route.navigate(["/login"]);
+        },
+  
+        (error: HttpErrorResponse)=> {
+          alert(error.message);
+          //console.log(addForm.value)
+        }
+      )
+    }
   }
 
 

@@ -40,10 +40,22 @@
 <div class="container-fluid d-flex margin-to-header">
     <div class="w-50 main-div-margin border border-dark border-2">
         <h1 class="text-center mt-3 fs-3 mb-2">Register Your User account</h1>
-    <form class="mb-3 mx-5 form-class" #registerForm="ngForm" (ngSubmit)="addUser(registerForm)">
+    <form class="mb-3 mx-5 form-class" [formGroup]="userCreationForm" (ngSubmit)="$event.preventDefault(); addUser()">
         <div class="mb-3 row">
-          <input type="email" class="form-control input-type-custom col mx-1" ngModel name="firstname" placeholder="First name">
-          <input type="text" class="form-control input-type-custom col mx-1" ngModel name="lastname" placeholder="Last name">  
+          <input type="text" class="form-control input-type-custom col mx-1" formControlName="firstname" name="firstname" placeholder="First name">
+          <input type="text" class="form-control input-type-custom col mx-1"  formControlName="lastname" name="lastname" placeholder="Last name">  
+        </div>
+        
+        <div *ngIf="userCreationForm.get('firstname')?.invalid && (userCreationForm.get('firstname')?.dirty || userCreationForm.get('firstname')?.touched)">
+            <small *ngIf="userCreationForm.get('firstname')?.hasError('required')">
+                <p class="text-danger">This feild is required</p>
+            </small>
+        </div>
+
+        <div *ngIf="userCreationForm.get('lastname')?.invalid && (userCreationForm.get('lastname')?.dirty || userCreationForm.get('lastname')?.touched)">
+            <small *ngIf="userCreationForm.get('lastname')?.hasError('required')">
+                <p class="text-danger">This feild is required</p>
+            </small>
         </div>
 
         <div class="mb-3 row">
