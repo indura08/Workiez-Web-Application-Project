@@ -12,8 +12,8 @@ export const routes: Routes = [
     {'path': "" , component: MainPageComponent},
     {'path': "worker/login" , component:WorkerLoginComponent},
     {'path': "login", component:LoginUserComponentComponent},
-    {'path': "user/register" , component: UserRegisterComponent},   //done
-    {'path': "worker/register", component: LoginWorkerComponent},   //done
+    {'path': "user/register" , component: UserRegisterComponent}, 
+    {'path': "worker/register", component: LoginWorkerComponent},   
     {'path': "profile/user", component: UserProfileComponent},
     {'path': "profile/worker", component: WorkerProfileComponent},
     {'path': "jobs", component:JobPageComponent},                   

@@ -37,21 +37,21 @@ export class UserRegisterComponent implements OnInit {
     lastname: new FormControl("" , [Validators.required]),
     username: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [Validators.required, Validators.maxLength(10)]),
+    password: new FormControl("", [Validators.required, Validators.minLength(7)]),
     role: new FormControl(Role.ROLE_USER),
-    gender: new FormControl(Gender.MALE , [Validators.required]),
+    gender: new FormControl("" , [Validators.required]),
     phone: new FormControl("", [Validators.required]),
-    district: new FormControl(District.COLOMBO, [Validators.required]),
-    province: new FormControl(Province.WESTERN, [Validators.required]),
+    district: new FormControl("", [Validators.required]),
+    province: new FormControl("", [Validators.required]),
     city: new FormControl("", [Validators.required]),
   })
   
   public handleGenderValue(value:any){
     if(value == 1){
-      this.gender = Gender.MALE;
+      this.userCreationForm.patchValue({gender: Gender.MALE})
     }
     else if(value==2){
-      this.gender = Gender.FEMALE;
+      this.userCreationForm.patchValue({gender: Gender.FEMALE})
     }
   }
 
@@ -64,73 +64,73 @@ export class UserRegisterComponent implements OnInit {
       this.userCreationForm.patchValue({district: District.ANURADHAPURA})
     }
     else if(value==3){
-      this.district = District.BADULAA
+      this.userCreationForm.patchValue({district: District.BADULAA})
     }
     else if(value==4){
-      this.district = District.BATTICALOA
+      this.userCreationForm.patchValue({district: District.BATTICALOA})
     }
     else if(value==5){
-      this.district = District.COLOMBO
+      this.userCreationForm.patchValue({district: District.COLOMBO})
     }
     else if(value==6){
-      this.district = District.GALLE
+      this.userCreationForm.patchValue({district: District.GALLE})
     }
     else if(value==7){
-      this.district = District.GAMPAHA
+      this.userCreationForm.patchValue({district: District.GAMPAHA})
     }
     else if(value==8){
-      this.district = District.HAMBANTHOTA
+      this.userCreationForm.patchValue({district: District.HAMBANTHOTA})
     }
     else if(value==9){
-      this.district = District.JAFFNA
+      this.userCreationForm.patchValue({district: District.JAFFNA})
     }
     else if(value==10){
-      this.district = District.KALUTHARA
+      this.userCreationForm.patchValue({district: District.KALUTHARA})
     }
     else if(value==11){
-      this.district = District.KANDY
+      this.userCreationForm.patchValue({district: District.KANDY})
     }
     else if(value==12){
-      this.district = District.KEGALLE
+      this.userCreationForm.patchValue({district: District.KEGALLE})
     }
     else if(value==13){
-      this.district = District.KILINOCHCHI
+      this.userCreationForm.patchValue({district: District.KILINOCHCHI})
     }
     else if(value==14){
-      this.district = District.KURUNEGALA
+      this.userCreationForm.patchValue({district: District.KURUNEGALA})
     }
     else if(value==15){
-      this.district = District.MANNER
+      this.userCreationForm.patchValue({district: District.MANNER})
     }
     else if(value==16){
-      this.district = District.MATALE
+      this.userCreationForm.patchValue({district: District.MATALE})
     }
     else if(value==17){
-      this.district = District.MATARA
+      this.userCreationForm.patchValue({district: District.MATARA})
     }
     else if(value==18){
-      this.district = District.MONARAGALA
+      this.userCreationForm.patchValue({district: District.MONARAGALA})
     }
     else if(value==19){
-      this.district = District.MULLAITIVU
+      this.userCreationForm.patchValue({district: District.MULLAITIVU})
     }
     else if(value==20){
-      this.district = District.NUWARA_ELIYA
+      this.userCreationForm.patchValue({district: District.NUWARA_ELIYA})
     }
     else if(value==21){
-      this.district = District.POLLANNARUWA
+      this.userCreationForm.patchValue({district: District.POLLANNARUWA})
     }
     else if(value==22){
-      this.district = District.PUTTALAM
+      this.userCreationForm.patchValue({district: District.PUTTALAM})
     }
     else if(value==23){
-      this.district = District.RATHNAPURA
+      this.userCreationForm.patchValue({district: District.RATHNAPURA})
     }
     else if(value==24){
-      this.district = District.TRINCOMALEE
+      this.userCreationForm.patchValue({district: District.TRINCOMALEE})
     }
     else if(value==25){
-      this.district = District.VAVUNIYA
+      this.userCreationForm.patchValue({district: District.VAVUNIYA})
     }
   }
 
@@ -142,25 +142,25 @@ export class UserRegisterComponent implements OnInit {
       this.userCreationForm.patchValue({province: Province.EASTERN})
     }
     else if(value==3){
-      this.province = Province.NORTH_CENTRAL
+      this.userCreationForm.patchValue({province: Province.NORTH_CENTRAL})
     }
     else if(value==4){
-      this.province = Province.NORTHERN
+      this.userCreationForm.patchValue({province: Province.NORTHERN})
     }
     else if(value==5){
-      this.province = Province.NORTH_WESTERN
+      this.userCreationForm.patchValue({province: Province.NORTH_WESTERN})
     }
     else if(value==6){
-      this.province = Province.SABARAGAMUWA
+      this.userCreationForm.patchValue({province: Province.SABARAGAMUWA})
     }
     else if(value==7){
-      this.province = Province.SOUTHERN
+      this.userCreationForm.patchValue({province: Province.SOUTHERN})
     }
     else if(value==8){
-      this.province = Province.UVA
+      this.userCreationForm.patchValue({province: Province.UVA})
     }
     else if(value==9){
-      this.province = Province.WESTERN
+      this.userCreationForm.patchValue({province: Province.WESTERN})
     }
   } 
 
@@ -184,12 +184,14 @@ export class UserRegisterComponent implements OnInit {
       this.userService.addUser(newUser).subscribe(
         (response:string)=> {
           console.log(response)
+          console.log(newUser)
           //addForm.resetForm();
           this.route.navigate(["/login"]);
         },
   
         (error: HttpErrorResponse)=> {
           alert(error.message);
+          console.log(newUser)
           //console.log(addForm.value)
         }
       )
