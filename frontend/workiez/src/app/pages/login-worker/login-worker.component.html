@@ -45,31 +45,74 @@
 <div class="container-fluid d-flex margin-to-header mx-1">
     <div class="w-50 main-div-margin border border-dark border-2">
         <h1 class="text-center mt-3 fs-3 mb-2">Register Your Worker account</h1>
-    <form class="mb-3 mx-5 form-class" #addWorkerForm="ngForm" (ngSubmit)="addWorker(addWorkerForm)">
+    <form class="mb-3 mx-5 form-class" [formGroup]="workerCreationForm" (ngSubmit)="$event.preventDefault(); addWorker()">
         <div class="mb-3 row">
-          <input type="text" class="form-control input-type-custom col mx-1" ngModel name="firstname" placeholder="First name">
-          <input type="text" class="form-control input-type-custom col mx-1" ngModel name="lastname" placeholder="Last name">  
+          <input type="text" class="form-control input-type-custom col mx-1" formControlName="firstname" name="firstname" placeholder="First name">
+          <input type="text" class="form-control input-type-custom col mx-1" formControlName="lastname" name="lastname" placeholder="Last name">  
+        </div>
+
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('firstname')?.invalid && (workerCreationForm.get('firstname')?.dirty || workerCreationForm.get('firstname')?.touched)">
+                <small *ngIf="workerCreationForm.get('firstname')?.hasError('required')">
+                    <p class="text-danger">First name is required</p>
+                </small>
+            </div>
+    
+            <div class="w-50" *ngIf="workerCreationForm.get('lastname')?.invalid && (workerCreationForm.get('lastname')?.dirty || workerCreationForm.get('lastname')?.touched)">
+                <small *ngIf="workerCreationForm.get('lastname')?.hasError('required')">
+                    <p class="text-danger">Last name is required</p>
+                </small>
+            </div>
         </div>
 
         <div class="mb-3 row">
-            <input type="text" class="form-control input-type-custom col mx-1" ngModel name="username" placeholder="Username">
-            <input type="email" class="form-control input-type-custom col mx-1" ngModel name="email" placeholder="Email">
+            <input type="text" class="form-control input-type-custom col mx-1" formControlName="username" name="username" placeholder="Username">
+            <input type="email" class="form-control input-type-custom col mx-1" formControlName="email" name="email" placeholder="Email">
+        </div>
+
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('username')?.invalid && (workerCreationForm.get('username')?.dirty || workerCreationForm.get('username')?.touched)">
+                <small *ngIf="workerCreationForm.get('username')?.hasError('required')">
+                    <p class="text-danger">User name is required</p>
+                </small>
+            </div>
+    
+            <div class="w-50" *ngIf="workerCreationForm.get('email')?.invalid && (workerCreationForm.get('email')?.dirty || workerCreationForm.get('email')?.touched)">
+                <small *ngIf="workerCreationForm.get('email')?.hasError('required')">
+                    <p class="text-danger">Email is required</p>
+                </small>
+            </div>
         </div>
 
         <div class="mb-3 row">
-            <input type="password" class="form-control input-type-custom col mx-1" ngModel name="password" placeholder="Password">
-            <select class="form-select input-type-custom col" aria-label="Default select example" ngModel ngModel name="genderinput" [(ngModel)]="gender" (ngModelChange)="handleGenderValue($event)">
+            <input type="password" class="form-control input-type-custom col mx-1" formControlName="password" name="password" placeholder="Password">
+            <select class="form-select input-type-custom col" aria-label="Default select example" formControlName="gender" name="genderinput" (ngModelChange)="handleGenderValue($event)">
                 <option selected disabled>Select Gender</option>
                 <option value="1">MALE</option>
                 <option value="2">FEMALE</option>
             </select>
+        </div>
 
-            <input type="hidden" class="form-control input-type-custom col mx-1" name="gender" [(ngModel)]="gender">
-            
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('password')?.invalid && (workerCreationForm.get('password')?.dirty || workerCreationForm.get('password')?.touched)">
+                <small *ngIf="workerCreationForm.get('password')?.hasError('required')">
+                    <p class="text-danger">Password is required</p>
+                </small>
+
+                <small *ngIf="workerCreationForm.get('password')?.hasError('minlength')">
+                    <p class="text-danger">Password must have minimum of 7 characters</p>
+                </small>
+            </div>
+    
+            <div class="w-50" *ngIf="workerCreationForm.get('gender')?.invalid && (workerCreationForm.get('gender')?.dirty || workerCreationForm.get('gender')?.touched)">
+                <small *ngIf="workerCreationForm.get('gender')?.hasError('required')">
+                    <p class="text-danger">Gender is required</p>
+                </small>
+            </div>
         </div>
 
           <div class="mb-3 row">
-            <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" [(ngModel)]="district" (ngModelChange)="handleDistrictValue($event)">
+            <select class="form-select input-type-custom col" aria-label="Default select example" name="input1" formControlName="baseDistrict" (ngModelChange)="handleDistrictValue($event)">
                 <option selected>Select District</option>
                 <option value="1">AMPARA</option>
                 <option value="2">ANURADHAPURA</option>
@@ -98,9 +141,7 @@
                 <option value="25">VAVUNIYA</option>
             </select>
 
-            <input type="hidden" class="form-control input-type-custom col mx-1" name="baseDistrict" [(ngModel)]="district">
-
-            <select class="form-select input-type-custom cols mx-1" name="input2" [(ngModel)]="province" ngModel (ngModelChange)="handleProvinceValue($event)">
+            <select class="form-select input-type-custom cols mx-1" name="input2" formControlName="baseProvince" (ngModelChange)="handleProvinceValue($event)">
                 <option selected>Select District</option>
                 <option value="1">CENTRAL</option>
                 <option value="2">EASTERN</option>
@@ -113,28 +154,63 @@
                 <option value="9">WESTERN</option>
             </select>
 
-            <input type="hidden" class="form-control input-type-custom col mx-1" name="baseProvince" [(ngModel)]="province">
+        </div>
 
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('baseDistrict')?.invalid && (workerCreationForm.get('baseDistrict')?.dirty || workerCreationForm.get('baseDistrict')?.touched)">
+                <small *ngIf="workerCreationForm.get('baseDistrict')?.hasError('required')">
+                    <p class="text-danger">District is required</p>
+                </small>
+            </div>
+    
+            <div class="w-50" *ngIf="workerCreationForm.get('baseProvince')?.invalid && (workerCreationForm.get('baseProvince')?.dirty || workerCreationForm.get('baseProvince')?.touched)">
+                <small *ngIf="workerCreationForm.get('baseProvince')?.hasError('required')">
+                    <p class="text-danger">Province is required</p>
+                </small>
+            </div>
         </div>
 
         <div class="mb-3 row">
-            <input type="text" class="form-control input-type-custom col mx-1" ngModel name="phone" placeholder="phone Number">
-            <input type="text" class="form-control input-type-custom col mx-1" ngModel name="availability12" placeholder="availability">
+            <input type="text" class="form-control input-type-custom col mx-1" formControlName="phone" name="phone" placeholder="phone Number">
+            <input type="text" class="form-control input-type-custom col mx-1" formControlName="availability" name="availability12" placeholder="availability">
+        </div>
+
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('phone')?.invalid && (workerCreationForm.get('phone')?.dirty || workerCreationForm.get('phone')?.touched)">
+                <small *ngIf="workerCreationForm.get('phone')?.hasError('required')">
+                    <p class="text-danger">phone is required</p>
+                </small>
+            </div>
+    
         </div>
 
         <div class="mb-3 row">
-            <input type="text" class="form-control input-type-custom col mx-1" ngModel name="experienceDescription" placeholder="experience description">
-            <input type="text" class="form-control input-type-custom col mx-1" ngModel name="baseCity" placeholder="city">
+            <input type="text" class="form-control input-type-custom col mx-1" formControlName="experienceDescription" name="experienceDescription" placeholder="experience description">
+            <input type="text" class="form-control input-type-custom col mx-1" formControlName="baseCity" name="baseCity" placeholder="city">
+        </div>
+
+        <div class="d-flex">
+            <div class="w-50" *ngIf="workerCreationForm.get('experienceDescription')?.invalid && (workerCreationForm.get('experienceDescription')?.dirty || workerCreationForm.get('experienceDescription')?.touched)">
+                <small *ngIf="workerCreationForm.get('experienceDescription')?.hasError('required')">
+                    <p class="text-danger">Experience Description is required</p>
+                </small>
+            </div>
+    
+            <div class="w-50" *ngIf="workerCreationForm.get('baseCity')?.invalid && (workerCreationForm.get('baseCity')?.dirty || workerCreationForm.get('baseCity')?.touched)">
+                <small *ngIf="workerCreationForm.get('baseCity')?.hasError('required')">
+                    <p class="text-danger">City is required</p>
+                </small>
+            </div>
         </div>
 
         <div class="mb-3">
             <div class="mb-2">
-                Select Services You provide
+                Select Services You provide (Required)
             </div>
 
             <div class="col-12">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input border border-dark border-2" type="checkbox" ngModel value="mason" name="model" (click)="handlecheckbox($event)">
+                    <input class="form-check-input border border-dark border-2" type="checkbox" value="mason" name="model" (click)="handlecheckbox($event)">
                     <label class="form-check-label" for="inlineCheckbox1">MASON</label>
                 </div>
     
@@ -207,7 +283,6 @@
                     <label class="form-check-label" for="inlineCheckbox3">CARPENTERS</label>
                 </div>
 
-                <input type="hidden" class="form-control input-type-custom col mx-1" name="services" [(ngModel)]="services">
 
             </div>
 
@@ -227,7 +302,7 @@
         </div>
 
         <div class="row">
-            <button type="submit" class="btn btn-success col mx-1">Register</button>
+            <button type="submit" [disabled]="workerCreationForm.invalid" class="btn btn-success col mx-1">Register</button>
             <button type="reset" class="btn btn-danger col">Reset Form</button>
         </div>
       </form>

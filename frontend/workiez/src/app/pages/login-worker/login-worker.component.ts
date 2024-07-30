@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { WorkerService } from '../../services/worker.service';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Province } from '../../../models/Enums/ProvinceEnum';
 import { District } from '../../../models/Enums/DistrictEnum';
 import { Gender } from '../../../models/Enums/GenderEnum';
+import { ReactiveFormsModule } from '@angular/forms';
 import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -12,11 +13,13 @@ import { CommonModule } from '@angular/common';
 import { Service } from '../../../models/service';
 import { ServiceName } from '../../../models/Enums/ServicenameEnum';
 import { Router } from '@angular/router';
+import { Role } from '../../../models/Enums/RoleEnum';
+import { Worker } from '../../../models/worker';
 
 @Component({
   selector: 'app-login-worker',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, CommonModule],
+  imports: [HeaderComponent, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './login-worker.component.html',
   styleUrl: './login-worker.component.css'
 })
@@ -30,140 +33,172 @@ export class LoginWorkerComponent implements OnInit {
   services: Service[] = [];
   checked:boolean = false;
 
+  workerCreationForm = new FormGroup({
+    firstname: new FormControl("", [Validators.required]),
+    lastname: new FormControl("", [Validators.required]),
+    username: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required, Validators.minLength(7)]),
+    baseDistrict: new FormControl("", [Validators.required]),
+    baseProvince: new FormControl("", [Validators.required]),
+    baseCity: new FormControl("", [Validators.required]),
+    gender: new FormControl("", [Validators.required]),
+    phone: new FormControl("", [Validators.required]),
+    availability: new FormControl(true, []),
+    experienceDescription: new FormControl("" , [Validators.required]),
+    role: new FormControl(Role.ROLE_WORKER, [])
+  })
 
   public handleGenderValue(value:any){
     if(value == 1){
-      this.gender = Gender.MALE;
+      this.workerCreationForm.patchValue({gender: Gender.MALE})
     }
     else if(value==2){
-      this.gender = Gender.FEMALE;
+      this.workerCreationForm.patchValue({gender: Gender.FEMALE})
     }
   }
 
   
   public handleDistrictValue(value:any){
     if(value==1){
-      this.district = District.AMPARA
+      this.workerCreationForm.patchValue({baseDistrict: District.AMPARA});
     }
     else if(value==2){
-      this.district = District.ANURADHAPURA
+      this.workerCreationForm.patchValue({baseDistrict: District.ANURADHAPURA});
     }
     else if(value==3){
-      this.district = District.BADULAA
+      this.workerCreationForm.patchValue({baseDistrict: District.BADULAA});
     }
     else if(value==4){
-      this.district = District.BATTICALOA
+      this.workerCreationForm.patchValue({baseDistrict: District.BATTICALOA});
     }
     else if(value==5){
-      this.district = District.COLOMBO
+      this.workerCreationForm.patchValue({baseDistrict: District.COLOMBO});
     }
     else if(value==6){
-      this.district = District.GALLE
+      this.workerCreationForm.patchValue({baseDistrict: District.GALLE});
     }
     else if(value==7){
-      this.district = District.GAMPAHA
+      this.workerCreationForm.patchValue({baseDistrict: District.GAMPAHA});
     }
     else if(value==8){
-      this.district = District.HAMBANTHOTA
+      this.workerCreationForm.patchValue({baseDistrict: District.HAMBANTHOTA});
     }
     else if(value==9){
-      this.district = District.JAFFNA
+      this.workerCreationForm.patchValue({baseDistrict: District.JAFFNA});
     }
     else if(value==10){
-      this.district = District.KALUTHARA
+      this.workerCreationForm.patchValue({baseDistrict: District.KALUTHARA});
     }
     else if(value==11){
-      this.district = District.KANDY
+      this.workerCreationForm.patchValue({baseDistrict: District.KANDY});
     }
     else if(value==12){
-      this.district = District.KEGALLE
+      this.workerCreationForm.patchValue({baseDistrict: District.KEGALLE});
     }
     else if(value==13){
-      this.district = District.KILINOCHCHI
+      this.workerCreationForm.patchValue({baseDistrict: District.KILINOCHCHI});
     }
     else if(value==14){
-      this.district = District.KURUNEGALA
+      this.workerCreationForm.patchValue({baseDistrict: District.KURUNEGALA});
     }
     else if(value==15){
-      this.district = District.MANNER
+      this.workerCreationForm.patchValue({baseDistrict: District.MANNER});
     }
     else if(value==16){
-      this.district = District.MATALE
+      this.workerCreationForm.patchValue({baseDistrict: District.MATALE});
     }
     else if(value==17){
-      this.district = District.MATARA
+      this.workerCreationForm.patchValue({baseDistrict: District.MATARA});
     }
     else if(value==18){
-      this.district = District.MONARAGALA
+      this.workerCreationForm.patchValue({baseDistrict: District.MONARAGALA});
     }
     else if(value==19){
-      this.district = District.MULLAITIVU
+      this.workerCreationForm.patchValue({baseDistrict: District.MULLAITIVU});
     }
     else if(value==20){
-      this.district = District.NUWARA_ELIYA
+      this.workerCreationForm.patchValue({baseDistrict: District.NUWARA_ELIYA});
     }
     else if(value==21){
-      this.district = District.POLLANNARUWA
+      this.workerCreationForm.patchValue({baseDistrict: District.POLLANNARUWA});
     }
     else if(value==22){
-      this.district = District.PUTTALAM
+      this.workerCreationForm.patchValue({baseDistrict: District.PUTTALAM});
     }
     else if(value==23){
-      this.district = District.RATHNAPURA
+      this.workerCreationForm.patchValue({baseDistrict: District.RATHNAPURA});
     }
     else if(value==24){
-      this.district = District.TRINCOMALEE
+      this.workerCreationForm.patchValue({baseDistrict: District.TRINCOMALEE});
     }
     else if(value==25){
-      this.district = District.VAVUNIYA
+      this.workerCreationForm.patchValue({baseDistrict: District.VAVUNIYA});
     }
   }
 
   public handleProvinceValue(value:any){
     if(value==1){
-      this.province = Province.CENTRAL
+      this.workerCreationForm.patchValue({baseProvince: Province.CENTRAL})
     }
     else if(value==2){
-      this.province = Province.EASTERN
+      this.workerCreationForm.patchValue({baseProvince: Province.EASTERN})
     }
     else if(value==3){
-      this.province = Province.NORTH_CENTRAL
+      this.workerCreationForm.patchValue({baseProvince: Province.NORTH_CENTRAL})
     }
     else if(value==4){
-      this.province = Province.NORTHERN
+      this.workerCreationForm.patchValue({baseProvince: Province.NORTHERN})
     }
     else if(value==5){
-      this.province = Province.NORTH_WESTERN
+      this.workerCreationForm.patchValue({baseProvince: Province.NORTH_WESTERN})
     }
     else if(value==6){
-      this.province = Province.SABARAGAMUWA
+      this.workerCreationForm.patchValue({baseProvince: Province.SABARAGAMUWA})
     }
     else if(value==7){
-      this.province = Province.SOUTHERN
+      this.workerCreationForm.patchValue({baseProvince: Province.SOUTHERN})
     }
     else if(value==8){
-      this.province = Province.UVA
+      this.workerCreationForm.patchValue({baseProvince: Province.UVA})
     }
     else if(value==9){
-      this.province = Province.WESTERN
+      this.workerCreationForm.patchValue({baseProvince: Province.WESTERN})
     }
   } 
 
-  public addWorker(addForm:NgForm){
-    this.workerService.addWorker(addForm.value).subscribe(
-      (response:string)=>{
-        console.log(response)
-        this.router.navigate(['/worker/login'])
-        addForm.resetForm();
-        console.log(this.services);  //this was added for debugging purposes
-      },
-      (error: HttpErrorResponse) =>{
-        alert(error.message)
-        console.log(addForm.value); //this was added for debugging purposes
-        console.log(this.services); //this was added for debugging purposes
-      } 
+  public addWorker(){
+    if(this.workerCreationForm.valid){
+      const newWorker: Worker = {
+        workerId: 0,
+        firstname: this.workerCreationForm.value.firstname as string,
+        lastname: this.workerCreationForm.value.lastname as string,
+        username: this.workerCreationForm.value.username as string,
+        email:this.workerCreationForm.value.email as string,
+        password: this.workerCreationForm.value.password as string,
+        baseDistrict: this.workerCreationForm.value.baseDistrict as District,
+        baseProvince: this.workerCreationForm.value.baseProvince as Province,
+        baseCity: this.workerCreationForm.value.baseCity as string,
+        gender: this.workerCreationForm.value.gender as Gender,
+        phone: this.workerCreationForm.value.phone as string,
+        services: this.services,
+        availability: this.workerCreationForm.value.availability as boolean,
+        experienceDescription: this.workerCreationForm.value.experienceDescription as string,
+        role: this.workerCreationForm.value.role as Role,
+      }
 
-    )
+      this.workerService.addWorker(newWorker).subscribe(
+        (response:string) => {
+          console.log(response);  //this was added to debugging purposes
+          console.log(newWorker);
+          this.router.navigate(['/worker/login'])
+        },
+        (error:HttpErrorResponse) => {
+          alert(error.message)
+          console.log(newWorker)  //this was added to debugginh purposes
+        }
+      )
+    }
   }
 
   public handlecheckbox(event:any){
@@ -233,5 +268,21 @@ export class LoginWorkerComponent implements OnInit {
   }
 
 
+//add worker before
+// public addWorker(addForm:NgForm){
+//   this.workerService.addWorker(addForm.value).subscribe(
+//     (response:string)=>{
+//       console.log(response)
+//       this.router.navigate(['/worker/login'])
+//       addForm.resetForm();
+//       console.log(this.services);  //this was added for debugging purposes
+//     },
+//     (error: HttpErrorResponse) =>{
+//       alert(error.message)
+//       console.log(addForm.value); //this was added for debugging purposes
+//       console.log(this.services); //this was added for debugging purposes
+//     } 
 
+//   )
+// }
 }
