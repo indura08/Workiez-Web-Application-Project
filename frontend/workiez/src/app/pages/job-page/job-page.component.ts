@@ -38,10 +38,11 @@ export class JobPageComponent implements OnInit {
   constructor(private jobservice: JobService , private loginService: LoginService ,private tokenService: TokenService, private applicationService: ApplicationService){}
 
   public jobUser:User = this.loginService.getuser()
+  public loggedInWorker: Worker = this.loginService.getWorker();
   
   public dateTime = new Date();
 
-  public worker:string = "indura";
+  //public worker:string = "indura";
 
   public applicationWorker: Worker = this.loginService.worker;
 

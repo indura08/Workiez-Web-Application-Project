@@ -152,9 +152,13 @@
             <span>{{job.creationDateTime}}</span><br>
             <span>phone: {{job.user.phone}}</span><br>
   
-            <div class="d-flex mt-4" *ngIf="job.jobStatus == 'PENDING'">
+            <div class="d-flex mt-4" *ngIf="job.jobStatus == 'PENDING' && loggedInWorker.workerId != 0">
               <button type="button" class="btn btn-success w-50 mx-2 btn1" data-bs-toggle="modal" data-bs-target="#addApplication" >Apply</button>
               <button class="btn btn-dark w-50 mx-2 btn1">View More</button>
+            </div>
+
+            <div class="d-flex mt-4 border border-dark border-2" *ngIf="job.jobStatus == 'PENDING' && loggedInWorker.workerId == 0">
+              <span class="text-danger fw-bolder px-3 pt-3 pb-3">You have to create a worker Account to apply for jobs</span>
             </div>
             
             <div class="d-flex mt-4" *ngIf="job.jobStatus == 'IN_PROGRESS'">
@@ -236,7 +240,7 @@
                 </div>
                 <div class="mb-2">
                   <label for="description" class="form-label">Worker</label>
-                  <input type="text" class="form-control" ngModel name="worker" [(ngModel)]="worker">
+                  <input type="text" class="form-control" ngModel name="worker" [(ngModel)]="loggedInWorker.firstname">
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Job</label>

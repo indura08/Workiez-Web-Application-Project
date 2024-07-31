@@ -29,11 +29,11 @@ export class JobService {
       return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
     }
     //i havent established to check the logged one is user or worker so still didint established  the secenario where worker and user both tokens are available
-    else if(userToken && workerToken){
-      console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
-      const headers = new HttpHeaders({'Authorization' : userToken})
-      return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
-    }
+    // else if(userToken && workerToken){
+    //   console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
+    //   const headers = new HttpHeaders({'Authorization' : userToken})
+    //   return this.http.get<Job[]>(`${this.apiUrl}/job/all` , {headers:headers})
+    // }
 
     else{
       console.log(workerToken + " " + userToken +  "this is worker token and this is job service speaking?")
