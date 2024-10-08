@@ -49,24 +49,24 @@
         <div class="collapse navbar-collapse" id="navmenu">
             <ul class="navbar-nav ms-auto">
                 <div *ngIf="loggedInUser.userId == 0 && loggedInWorker.workerId == 0">
-                    <li class="nav-item"><a href="/login" target="_blank" class="a fw-lighter"><i class="bi bi-briefcase-fill larger-icon navbar-icon-margin"></i>Jobs</a></li>
+                    <li class="nav-item"><a routerLink="/login" target="_blank" class="a fw-lighter"><i class="bi bi-briefcase-fill larger-icon navbar-icon-margin"></i>Jobs</a></li>
                 </div>
 
                 <div *ngIf="loggedInUser.userId != 0 || loggedInWorker.workerId != 0">
-                    <li class="nav-item"><a href="/jobs" target="_blank" class="a fw-lighter"><i class="bi bi-briefcase-fill larger-icon navbar-icon-margin"></i>Jobs</a></li>
+                    <li class="nav-item"><a routerLink="/jobs" target="_blank" class="a fw-lighter"><i class="bi bi-briefcase-fill larger-icon navbar-icon-margin"></i>Jobs</a></li>
                 </div>
 
-                <li class="nav-item"><a href="user/register" class="a fw-lighter"><i class="bi bi-person-fill larger-icon navbar-icon-margin"></i>Sign up</a></li>
+                <li class="nav-item"><a routerLink="user/register" class="a fw-lighter"><i class="bi bi-person-fill larger-icon navbar-icon-margin"></i>Sign up</a></li>
                 <div *ngIf="loggedInUser.userId == 0  && loggedInWorker.workerId == 0">
-                    <li class="nav-item"><a href="login" class="a fw-lighter"><i class="bi bi-door-open-fill larger-icon navbar-icon-margin"></i>Sign in</a></li>
+                    <li class="nav-item"><a routerLink="login" class="a fw-lighter"><i class="bi bi-door-open-fill larger-icon navbar-icon-margin"></i>Sign in</a></li>
                 </div>
 
                 <div *ngIf="loggedInUser.userId != 0  && loggedInWorker.workerId == 0">
-                    <li class="nav-item"><a href="profile/user" class="a fw-lighter"><span class="material-symbols-outlined">location_home</span>{{loggedInUser.firstname}}</a></li>
+                    <li class="nav-item"><a routerLink="profile/user" class="a fw-lighter"><span class="material-symbols-outlined">location_home</span>{{loggedInUser.firstname}}</a></li>
                 </div>
 
                 <div *ngIf="loggedInUser.userId == 0  && loggedInWorker.workerId != 0">
-                    <li class="nav-item"><a href="profile/worker" class="a fw-lighter"><span class="material-symbols-outlined">location_home</span>{{loggedInWorker.firstname}}</a></li>
+                    <li class="nav-item"><a routerLink="profile/worker" class="a fw-lighter"><span class="material-symbols-outlined">location_home</span>{{loggedInWorker.firstname}}</a></li>
                 </div>
 
             </ul>
