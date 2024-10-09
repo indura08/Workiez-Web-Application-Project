@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: angular-frontend
-          image: indura08/workiez-project:angular-app
+          image: indura08/workiez-project:angular-v1
           ports:
-            - containerPort: 4200
+            - containerPort: 80

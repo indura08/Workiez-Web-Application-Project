@@ -17,6 +17,9 @@ RUN ng build
 
 FROM nginx:1.27.2-alpine
 
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf 
+#me 20 weni line ekn thami nginx routing krnne nathuwa nginx ekn routing tika angular app eke routing ekt maru krnne 
+
 COPY --from=build-stage /app/dist/workiez/browser /usr/share/nginx/html
 
 EXPOSE 80
