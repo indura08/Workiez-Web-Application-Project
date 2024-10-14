@@ -59,5 +59,12 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
+    //this is for testing purposes
+
+    @GetMapping("/test")
+    public ResponseEntity<String> sayHello(){
+        return ResponseEntity.status(HttpStatus.OK).body("hello from workiez backend API");
+    }
+
 
 }

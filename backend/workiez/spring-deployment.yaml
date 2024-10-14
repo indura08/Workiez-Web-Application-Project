@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: spring-backend
+  labels:
+    app: spring-backend
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-backend
+  template:
+    metadata:
+      labels:
+        app: spring-backend
+    spec: 
+      containers:
+        - name: spring-backend
+          image: indura08/workiez-project:springboot-v2
+          ports: 
+            - containerPort: 8080
