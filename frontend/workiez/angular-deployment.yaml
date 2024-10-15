@@ -16,6 +16,8 @@ spec:
     spec:
       containers:
         - name: angular-frontend
-          image: indura08/workiez-project:angular-v3
+          image: indura08/workiez-project:angular-v4
           ports:
             - containerPort: 80
+
+#kubectl exec -it angular-frontend -- nslookup spring-backend
