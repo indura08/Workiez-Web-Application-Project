@@ -51,7 +51,7 @@ public class WorkerAuthenticationService {
                 Optional<Service> existingService = serviceRepository.findById(service.getServiceId());
                 if(existingService.isPresent()){
                     Service currentservice = existingService.get();
-                    currentservice.getWorkers().add(worker);
+                    currentservice.getWorkers().add(newWorker);
                     serviceRepository.save(currentservice);
                 }
             }

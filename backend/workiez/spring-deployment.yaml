@@ -16,6 +16,6 @@ spec:
     spec: 
       containers:
         - name: spring-backend
-          image: indura08/workiez-project:springboot-v5
+          image: indura08/workiez-project:springboot-v7
           ports: 
             - containerPort: 8080
